@@ -124,11 +124,11 @@
     "mono": {
         "framework":{
             "version": "6.12.0.206",
-            "sha256": "80B0DBFA59BA9ED76DBF1393998E6A2ED2D1CCC8F5850C7A46FBE31A2AEA88D8"
+            "sha256": "80b0dbfa59ba9ed76dbf1393998e6a2ed2d1ccc8f5850c7a46fbe31a2aea88d8"
         },
         "nunit": {
             "version": "3.18.1",
-            "sha256": "4D52F7E90237E05D47B8D8F48F5907627472B2B3BEAFC9ED9D37965F53916A98"
+            "sha256": "4d52f7e90237e05d47b8d8f48f5907627472b2b3beafc9ed9d37965f53916a98"
         }
     }
 }
