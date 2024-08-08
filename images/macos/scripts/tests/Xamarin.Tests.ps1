@@ -3,7 +3,7 @@ Import-Module "$PSScriptRoot/Helpers.psm1" -DisableNameChecking
 
 $os = Get-OSVersion
 
-if ($os.IsVentura -or $os.IsSonoma) {
+if ($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $MONO_VERSIONS = @((Get-ToolsetContent).mono.framework.version)
     $XAMARIN_IOS_VERSIONS = @()
     $XAMARIN_MAC_VERSIONS = @()
@@ -90,7 +90,7 @@ Describe "Mono" {
     }
 }
 
-Describe "Xamarin.iOS" -Skip:($os.IsVentura -or $os.IsSonoma) {
+Describe "Xamarin.iOS" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $XAMARIN_IOS_VERSIONS | ForEach-Object {
         Context "$_" {
             $XAMARIN_IOS_VERSIONS_PATH = "/Library/Frameworks/Xamarin.iOS.framework/Versions"
@@ -123,7 +123,7 @@ Describe "Xamarin.iOS" -Skip:($os.IsVentura -or $os.IsSonoma) {
     }
 }
 
-Describe "Xamarin.Mac" -Skip:($os.IsVentura -or $os.IsSonoma) {
+Describe "Xamarin.Mac" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $XAMARIN_MAC_VERSIONS | ForEach-Object {
         Context "$_" {
             $XAMARIN_MAC_VERSIONS_PATH = "/Library/Frameworks/Xamarin.Mac.framework/Versions"
@@ -156,7 +156,7 @@ Describe "Xamarin.Mac" -Skip:($os.IsVentura -or $os.IsSonoma) {
     }
 }
 
-Describe "Xamarin.Android" -Skip:($os.IsVentura -or $os.IsSonoma) {
+Describe "Xamarin.Android" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $XAMARIN_ANDROID_VERSIONS | ForEach-Object {
         Context "$_" {
             $XAMARIN_ANDROID_VERSIONS_PATH = "/Library/Frameworks/Xamarin.Android.framework/Versions"
@@ -196,7 +196,7 @@ Describe "Xamarin.Android" -Skip:($os.IsVentura -or $os.IsSonoma) {
     }
 }
 
-Describe "Xamarin Bundles" -Skip:($os.IsVentura -or $os.IsSonoma) {
+Describe "Xamarin Bundles" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     BeforeAll {
         $MONO_VERSIONS_PATH = "/Library/Frameworks/Mono.framework/Versions"
         $XAMARIN_IOS_VERSIONS_PATH = "/Library/Frameworks/Xamarin.iOS.framework/Versions"
@@ -303,7 +303,7 @@ Describe "Xamarin Bundles" -Skip:($os.IsVentura -or $os.IsSonoma) {
     }
 }
 
-Describe "Nuget" -Skip:($os.IsVentura -or $os.IsSonoma) {
+Describe "Nuget" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     It "Nuget config contains nuget.org feed" {
         Get-Content $env:HOME/.config/NuGet/NuGet.Config | Out-String | Should -Match "nuget.org"
     }
