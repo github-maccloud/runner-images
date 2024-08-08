@@ -149,7 +149,7 @@ build {
 
   provisioner "file" {
     destination = "${local.image_folder}/toolset.json"
-    source      = "${path.root}/../toolsets/toolset-14.json"
+    source      = "${path.root}/../toolsets/toolset-15.json"
   }
 
   provisioner "shell" {
