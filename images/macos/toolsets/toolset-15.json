@@ -1,0 +1,134 @@
+{
+    "xcode": {
+        "default": "15.4",
+        "x64": {
+            "versions": [
+                { "link": "16_beta_4", "version": "16.0.0-Beta.4+16A5211f", "symlinks": ["16.0"], "install_runtimes": "false", "sha256": "4270cd8021b2f7f512ce91bfc4423b25bccab36cdab21834709d798c8daade72"},
+                { "link": "15.4", "version": "15.4.0+15F31d", "install_runtimes": "true", "sha256": "82d3d61804ff3f4c7c82085e91dc701037ddaa770e542848b2477e22f4e8aa7a"}
+            ]
+        },
+        "arm64":{
+            "versions": [
+                { "link": "16_beta_4", "version": "16.0.0-Beta.4+16A5211f", "symlinks": ["16.0"], "install_runtimes": "true", "sha256": "4270cd8021b2f7f512ce91bfc4423b25bccab36cdab21834709d798c8daade72"},
+                { "link": "15.4", "version": "15.4.0+15F31d", "install_runtimes": "true", "sha256": "82d3d61804ff3f4c7c82085e91dc701037ddaa770e542848b2477e22f4e8aa7a"}
+            ]
+        }
+    },
+    "java": {
+        "x64": {
+            "default": "21",
+            "versions": [ "8", "11", "17", "21"]
+        },
+        "arm64": {
+            "default": "21",
+            "versions": [ "11", "17", "21"]
+        }
+    },
+    "android": {
+        "cmdline-tools": "commandlinetools-mac-10406996_latest.zip",
+        "sdk-tools": "sdk-tools-darwin-4333796.zip",
+        "platform_min_version": "35",
+        "build_tools_min_version": "35.0.0",
+        "extras": [
+            "android;m2repository", "google;m2repository", "google;google_play_services"
+        ],
+        "addons": [],
+        "additional_tools": [
+            "cmake;3.22.1"
+        ],
+        "ndk": {
+            "default": "26",
+            "versions": [
+                "24", "25", "26"
+            ]
+        }
+    },
+    "powershellModules": [
+        { "name": "Az" },
+        { "name": "Pester" },
+        { "name": "PSScriptAnalyzer" }
+    ],
+    "brew": {
+        "common_packages": [
+            "ant",
+            "aria2",
+            "azure-cli",
+            "bazelisk",
+            "carthage",
+            "cmake",
+            "gh",
+            "gnupg",
+            "gnu-tar",
+            "kotlin",
+            "libpq",
+            "libsodium",
+            "p7zip",
+            "packer",
+            "perl",
+            "pkg-config",
+            "swiftformat",
+            "zstd",
+            "gmp",
+            "yq",
+            "unxip",
+            "xcbeautify",
+            "xcodes"
+        ],
+        "cask_packages": [
+            ""
+        ]
+    },
+    "gcc": {
+        "versions": [
+            "12",
+            "13",
+            "14"
+        ]
+    },
+    "dotnet": {
+        "arch":{
+            "x64": {
+               "versions": [
+                   "7.0",
+                   "8.0"
+                ]
+            },
+            "arm64": {
+                "versions": [
+                    "7.0",
+                    "8.0"
+                ]
+            }
+        }
+    },
+    "ruby": {
+        "default": "3.0",
+        "rubygems": [
+            "cocoapods",
+            "bundler",
+            "fastlane"
+        ]
+    },
+    "node": {
+        "default": "20"
+    },
+    "llvm": {
+        "version": "18"
+    },
+    "php": {
+        "version": "8.3"
+    },
+    "pwsh": {
+        "version": "7.4"
+    },
+    "mono": {
+        "framework":{
+            "version": "6.12.0.206",
+            "sha256": "80B0DBFA59BA9ED76DBF1393998E6A2ED2D1CCC8F5850C7A46FBE31A2AEA88D8"
+        },
+        "nunit": {
+            "version": "3.18.1",
+            "sha256": "4D52F7E90237E05D47B8D8F48F5907627472B2B3BEAFC9ED9D37965F53916A98"
+        }
+    }
+}
