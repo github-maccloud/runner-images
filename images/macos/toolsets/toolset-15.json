@@ -9,6 +9,7 @@
         },
         "arm64":{
             "versions": [
+                { "link": "16_beta_5", "version": "16.0.0-Beta.5+16A5221g", "symlinks": ["16.0"], "install_runtimes": "true", "sha256": "00b44d41fcfcacb613575871ceff5c1c07de99b7501f8c48170af002763cd517"},
                 { "link": "15.4", "version": "15.4.0+15F31d", "install_runtimes": "true", "sha256": "82d3d61804ff3f4c7c82085e91dc701037ddaa770e542848b2477e22f4e8aa7a"}
             ]
         }
