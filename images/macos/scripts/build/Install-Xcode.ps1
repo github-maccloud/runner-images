@@ -13,7 +13,7 @@ $arch = Get-Architecture
 write-host $xcodeVersions
 $defaultXcode = (Get-ToolsetContent).xcode.default
 [Array]::Reverse($xcodeVersions)
-$threadCount = "5"
+$threadCount = "1"
 
 Write-Host "Installing Xcode versions..."
 $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
