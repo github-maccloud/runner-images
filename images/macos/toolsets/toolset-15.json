@@ -1,14 +1,16 @@
 {
     "xcode": {
-        "default": "16_beta_5",
+        "default": "16.0",
         "x64": {
             "versions": [
+                { "link": "16.1_beta", "version": "16.1.0-Beta+16B5001e", "symlinks": ["16.1"], "install_runtimes": "true", "sha256": "8848aacb32bdc0abbd7e14e4b712e07c98f4b6e5a23a8d77db03ab21dcb3c777"},
                 { "link": "16_beta_5", "version": "16.0.0-Beta.5+16A5221g", "symlinks": ["16.0"], "install_runtimes": "true", "sha256": "00b44d41fcfcacb613575871ceff5c1c07de99b7501f8c48170af002763cd517"},
                 { "link": "15.4", "version": "15.4.0+15F31d", "install_runtimes": "true", "sha256": "82d3d61804ff3f4c7c82085e91dc701037ddaa770e542848b2477e22f4e8aa7a"}
             ]
         },
         "arm64":{
             "versions": [
+                { "link": "16.1_beta", "version": "16.1.0-Beta+16B5001e", "symlinks": ["16.1"], "install_runtimes": "true", "sha256": "8848aacb32bdc0abbd7e14e4b712e07c98f4b6e5a23a8d77db03ab21dcb3c777"},
                 { "link": "16_beta_5", "version": "16.0.0-Beta.5+16A5221g", "symlinks": ["16.0"], "install_runtimes": "true", "sha256": "00b44d41fcfcacb613575871ceff5c1c07de99b7501f8c48170af002763cd517"},
                 { "link": "15.4", "version": "15.4.0+15F31d", "install_runtimes": "true", "sha256": "82d3d61804ff3f4c7c82085e91dc701037ddaa770e542848b2477e22f4e8aa7a"}
             ]
@@ -25,7 +27,7 @@
         }
     },
     "android": {
-        "cmdline-tools": "commandlinetools-mac-10406996_latest.zip",
+        "cmdline-tools": "commandlinetools-mac-12172612_latest.zip",
         "sdk-tools": "sdk-tools-darwin-4333796.zip",
         "platform_min_version": "35",
         "build_tools_min_version": "35.0.0",
@@ -37,9 +39,9 @@
             "cmake;3.22.1"
         ],
         "ndk": {
-            "default": "26",
+            "default": "27",
             "versions": [
-                "24", "25", "26"
+                "24", "25", "26", "27"
             ]
         }
     },
