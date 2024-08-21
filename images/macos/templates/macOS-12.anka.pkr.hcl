@@ -139,6 +139,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     inline = [ "mkdir ~/bootstrap" ]
   }
 
@@ -152,6 +153,7 @@ build {
     source      = "${path.root}/../toolsets/toolset-12.json"
   }
   provisioner "shell" {
+    expect_disconnect = true
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = [
       "mv ${local.image_folder}/docs-gen ${local.image_folder}/software-report",
@@ -172,6 +174,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["PASSWORD=${var.vm_password}", "USERNAME=${var.vm_username}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
     scripts          = [
@@ -187,6 +190,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["IMAGE_VERSION=${var.build_id}", "IMAGE_OS=${var.image_os}", "PASSWORD=${var.vm_password}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     scripts          = [
@@ -203,6 +207,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     pause_before     = "30s"
@@ -223,6 +228,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["XCODE_INSTALL_STORAGE_URL=${var.xcode_install_storage_url}", "XCODE_INSTALL_SAS=${var.xcode_install_sas}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
     script           = "${path.root}/../scripts/build/Install-Xcode.ps1"
@@ -235,6 +241,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["API_PAT=${var.github_api_pat}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     scripts          = [
@@ -271,6 +278,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
     scripts          = [
@@ -280,16 +288,19 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     execute_command = "source $HOME/.bash_profile; ruby {{ .Path }}"
     script          = "${path.root}/../scripts/build/configure-xcode-simulators.rb"
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} pwsh -f {{ .Path }}"
     script          = "${path.root}/../scripts/build/Update-XcodeSimulators.ps1"
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     inline           = [
@@ -305,6 +316,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect = true
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     scripts         = [
       "${path.root}/../scripts/build/configure-hostname.sh",
