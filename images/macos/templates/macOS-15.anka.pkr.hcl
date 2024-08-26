@@ -237,7 +237,9 @@ build {
     scripts          = [
       "${path.root}/../scripts/build/install-actions-cache.sh",
       "${path.root}/../scripts/build/install-llvm.sh",
+      "${path.root}/../scripts/build/install-swiftlint.sh",
       "${path.root}/../scripts/build/install-openjdk.sh",
+      "${path.root}/../scripts/build/install-php.sh",
       "${path.root}/../scripts/build/install-aws-tools.sh",
       "${path.root}/../scripts/build/install-rust.sh",
       "${path.root}/../scripts/build/install-gcc.sh",
@@ -245,8 +247,20 @@ build {
       "${path.root}/../scripts/build/install-android-sdk.sh",
       "${path.root}/../scripts/build/install-safari.sh",
       "${path.root}/../scripts/build/install-chrome.sh",
+      "${path.root}/../scripts/build/install-edge.sh",
+      "${path.root}/../scripts/build/install-firefox.sh",
+      "${path.root}/../scripts/build/install-pypy.sh",
       "${path.root}/../scripts/build/install-bicep.sh",
       "${path.root}/../scripts/build/install-codeql-bundle.sh"
+    ]
+  }
+
+  provisioner "shell" {
+    environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
+    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
+    scripts          = [
+      "${path.root}/../scripts/build/Install-Toolset.ps1",
+      "${path.root}/../scripts/build/Configure-Toolset.ps1"
     ]
   }
 
@@ -277,6 +291,9 @@ build {
 
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    scripts         = ["${path.root}/../scripts/build/configure-hostname.sh"]
+    scripts         = [
+    "${path.root}/../scripts/build/configure-hostname.sh",
+    "${path.root}/../scripts/build/configure-system.sh"
+    ]
   }
 }
