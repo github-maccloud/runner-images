@@ -254,6 +254,15 @@ build {
 
   provisioner "shell" {
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
+    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
+    scripts          = [
+      "${path.root}/../scripts/build/Install-Toolset.ps1",
+      "${path.root}/../scripts/build/Configure-Toolset.ps1"
+    ]
+  }
+
+  provisioner "shell" {
+    environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
     script          = "${path.root}/../scripts/build/Configure-Xcode-Simulators.ps1"
   }
