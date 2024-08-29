@@ -79,7 +79,7 @@ function Get-GeckodriverVersion {
 
 function Get-SeleniumVersion {
     $os = Get-OSVersion
-    if ($os.IsVenturaArm64 -or $os.IsSonomaArm64) {
+    if ($os.IsVenturaArm64 -or $os.IsSonomaArm64 -or $os.IsSequoiaArm64) {
         $cellarPath = "/opt/homebrew/Cellar"
     } else {
         $cellarPath = "/usr/local/Cellar"
