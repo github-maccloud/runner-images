@@ -27,6 +27,7 @@ Describe "Xcode" {
     Context "Default" {
         $defaultXcodeTestCase = @{ DefaultXcode = $defaultXcode }
         It "Default Xcode is <DefaultXcode>" -TestCases $defaultXcodeTestCase {
+            (Get-CommandResult "xcodebuild -version").Output
             "xcodebuild -version" | Should -ReturnZeroExitCode
             (Get-CommandResult "xcodebuild -version").Output | Should -BeLike "Xcode ${DefaultXcode}*"
         }
