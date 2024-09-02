@@ -200,15 +200,5 @@
     },
     "pwsh": {
         "version": "7.4"
-    },
-    "mono": {
-        "framework":{
-            "version": "6.12.0.206",
-            "sha256": "80b0dbfa59ba9ed76dbf1393998e6a2ed2d1ccc8f5850c7a46fbe31a2aea88d8"
-        },
-        "nunit": {
-            "version": "3.18.1",
-            "sha256": "4d52f7e90237e05d47b8d8f48f5907627472b2b3beafc9ed9d37965f53916a98"
-        }
     }
 }

@@ -111,7 +111,6 @@ build {
   provisioner "file" {
     destination = "${local.image_folder}/"
     sources     = [
-      "${path.root}/../assets/xamarin-selector",
       "${path.root}/../scripts/tests",
       "${path.root}/../scripts/docs-gen",
       "${path.root}/../scripts/helpers"
@@ -156,11 +155,9 @@ build {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
     inline          = [
       "mv ${local.image_folder}/docs-gen ${local.image_folder}/software-report",
-      "mv ${local.image_folder}/xamarin-selector ${local.image_folder}/assets",
       "mkdir ~/utils",
       "mv ${local.image_folder}/helpers/invoke-tests.sh ~/utils",
-      "mv ${local.image_folder}/helpers/utils.sh ~/utils",
-      "mv ${local.image_folder}/helpers/xamarin-utils.sh ~/utils"
+      "mv ${local.image_folder}/helpers/utils.sh ~/utils"
     ]
   }
 
@@ -205,7 +202,6 @@ build {
     pause_before     = "30s"
     scripts          = [
       "${path.root}/../scripts/build/install-powershell.sh",
-      "${path.root}/../scripts/build/install-mono.sh",
       "${path.root}/../scripts/build/install-dotnet.sh",
       "${path.root}/../scripts/build/install-python.sh",
       "${path.root}/../scripts/build/install-azcopy.sh",

@@ -45,7 +45,9 @@ $languageAndRuntime.AddToolVersion("Kotlin", $(Get-KotlinVersion))
 if ((-not $os.IsVentura) -and (-not $os.IsSonoma) -and (-not $os.IsSequoia)) {
     $languageAndRuntime.AddToolVersion("Go", $(Get-GoVersion))
 }
-$languageAndRuntime.AddToolVersion("Mono", $(Get-MonoVersion))
+if ((-not $os.IsSequoia)) {
+    $languageAndRuntime.AddToolVersion("Mono", $(Get-MonoVersion))
+}
 $languageAndRuntime.AddToolVersion("Node.js", $(Get-NodeVersion))
 if ((-not $os.IsVentura) -and (-not $os.IsSonoma) -and (-not $os.IsSequoia)) {
     $languageAndRuntime.AddToolVersion("MSBuild", $(Get-MSBuildVersion))

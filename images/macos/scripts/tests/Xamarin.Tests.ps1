@@ -3,7 +3,7 @@ Import-Module "$PSScriptRoot/Helpers.psm1" -DisableNameChecking
 
 $os = Get-OSVersion
 
-if ($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
+if ($os.IsVentura -or $os.IsSonoma) {
     $MONO_VERSIONS = @((Get-ToolsetContent).mono.framework.version)
     $XAMARIN_IOS_VERSIONS = @()
     $XAMARIN_MAC_VERSIONS = @()
@@ -13,6 +13,8 @@ if ($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $XAMARIN_IOS_VERSIONS = (Get-ToolsetContent).xamarin.ios_versions
     $XAMARIN_MAC_VERSIONS = (Get-ToolsetContent).xamarin.mac_versions
     $XAMARIN_ANDROID_VERSIONS = (Get-ToolsetContent).xamarin.android_versions
+} elseif ($os.IsSequoia) {
+    Write-Host "Skipping all the Mono and Xamarin tests as deprecated"
 }
 
 BeforeAll {
@@ -26,7 +28,7 @@ BeforeAll {
     }
 }
 
-Describe "Mono" {
+Describe "Mono" -Skip:($os.IsSequoia) {
     $MONO_VERSIONS | ForEach-Object {
         Context "$_" {
             $MONO_VERSIONS_PATH = "/Library/Frameworks/Mono.framework/Versions"
