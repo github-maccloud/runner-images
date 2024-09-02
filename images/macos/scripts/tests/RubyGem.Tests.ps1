@@ -20,12 +20,6 @@ Describe "Bundler" {
     }
 }
 
-Describe "Nomad shenzhen CLI" -Skip:($os.IsMonterey -or $os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
-    It "Nomad shenzhen CLI" {
-        "ipa --version" | Should -ReturnZeroExitCode
-    }
-}
-
 Describe "Fastlane" {
     It "Fastlane" {
         "fastlane --version" | Should -ReturnZeroExitCode
