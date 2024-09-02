@@ -84,7 +84,9 @@ if ((-not $os.IsVentura) -and (-not $os.IsSonoma) -and (-not $os.IsSequoia)) {
     $packageManagement.AddToolVersion("Miniconda", $(Get-CondaVersion))
 }
 $packageManagement.AddToolVersion("NPM", $(Get-NPMVersion))
-$packageManagement.AddToolVersion("NuGet", $(Get-NuGetVersion))
+if ((-not $os.IsSequoia)) {
+    $packageManagement.AddToolVersion("NuGet", $(Get-NuGetVersion))
+}
 if ((-not $os.IsVentura) -and (-not $os.IsSonoma) -and (-not $os.IsSequoia)) {
     $packageManagement.AddToolVersion("Pip", $(Get-PipVersion -Version 2))
 }
