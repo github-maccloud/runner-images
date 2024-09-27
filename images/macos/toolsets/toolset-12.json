@@ -195,7 +195,6 @@
             "gnu-tar",
             "libpq",
             "p7zip",
-            "packer",
             "perl",
             "pkg-config",
             "subversion",
@@ -213,6 +212,7 @@
             "unxip",
             "xcbeautify",
             "xcodes"
+            
         ],
         "cask_packages": [
             "julia",
