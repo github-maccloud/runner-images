@@ -161,4 +161,8 @@ Describe "Compiled" -Skip:(-not $os.IsMonterey) {
     It "sbt" {
         "sbt -version" | Should -ReturnZeroExitCode
     }
+
+    It "packer" {
+        "packer -version" | Should -ReturnZeroExitCode
+    }
 }
