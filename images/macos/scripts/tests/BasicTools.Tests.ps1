@@ -50,7 +50,7 @@ Describe "zstd" {
     }
 }
 
-Describe "Packer" {
+Describe "Packer" -Skip:($os.IsMonterey) {
     It "Packer" {
         "packer --version" | Should -ReturnZeroExitCode
     }
