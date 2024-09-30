@@ -92,18 +92,34 @@ function Build-XcodeTable {
         Descending = $true
     }
 
+    # Extract the version info and sort
     $xcodeList = $xcodeInfo.Values | ForEach-Object { $_.VersionInfo } | Sort-Object $sortRules
+
+    # Debug print the $xcodeList to ensure it's what you expect
+    Write-Host "Xcode List: $($xcodeList | Out-String)"
+
+    # Process and return the output list
     return $xcodeList | ForEach-Object {
+        # Add debug print for each element
+        Write-Host "Processing version: $($_.Version)"
+
+        # Determine if the version is default or beta
         $defaultPostfix = If ($_.IsDefault) { " (default)" } else { "" }
         $betaPostfix = If ($_.IsStable) { "" } else { " (beta)" }
-        return [PSCustomObject] @{
-            "Version" = $_.Version.ToString() + $betaPostfix + $defaultPostfix
-            "Build" = $_.Build
-            "Path" = $_.Path
+
+        # Generate symlink paths
+        $symlink = Get-XcodeRootPath -Version $_.Version
+        $symlink2 = Get-XcodeRootPath -Version $_.SymlinkVersion
+
+        # Create the custom object
+        [PSCustomObject] @{
+            "Version"      = $_.Version.ToString() + $betaPostfix + $defaultPostfix
+            "Build"        = $_.Build
+            "Path"         = $_.Path
+            "SymlinkPath"  = if ($symlink2 -eq $null) { "Error" } else { $symlink2 }
         }
     }
 }
-
 function Build-XcodeDevicesList {
     param (
         [Parameter(Mandatory)][object] $XcodeInfo,
