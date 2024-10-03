@@ -92,33 +92,41 @@ function Build-XcodeTable {
         Descending = $true
     }
 
-    # Extract the version info and sort
     $xcodeList = $xcodeInfo.Values | ForEach-Object { $_.VersionInfo } | Sort-Object $sortRules
 
-    # Debug print the $xcodeList to ensure it's what you expect
-    Write-Host "Xcode List: $($xcodeList | Out-String)"
+# Debug log: Print the sorted list of Xcode versions
+Write-Host "Xcode List: $($xcodeList | Out-String)"
 
-    # Process and return the output list
-    return $xcodeList | ForEach-Object {
-        # Add debug print for each element
-        Write-Host "Processing version: $($_.Version)"
+# Process the list and return the output
+return $xcodeList | ForEach-Object {
+    # Debug log: Print current Xcode version being processed
+    Write-Host "Processing Xcode version: $($_.Version)"
+    
+    $defaultPostfix = if ($_.IsDefault) { " (default)" } else { "" }
+    $betaPostfix = if ($_.IsStable) { "" } else { " (beta)" }
 
-        # Determine if the version is default or beta
-        $defaultPostfix = If ($_.IsDefault) { " (default)" } else { "" }
-        $betaPostfix = If ($_.IsStable) { "" } else { " (beta)" }
+    # Avoid calling Get-XcodeRootPath multiple times by storing the result in variables
+    $symlink1 = Get-XcodeRootPath -Version $_
+    $symlink2 = Get-XcodeRootPath -Version $_.Version
 
-        # Generate symlink paths
-        $symlink = Get-XcodeRootPath -Version $_.Version
-        $symlink2 = Get-XcodeRootPath -Version $_.SymlinkVersion
+    # Debug log: Print the values of symlink1 and symlink2
+    Write-Host "Symlink1 for $($_.Version): $symlink1"
+    Write-Host "Symlink2 for $($_.Version): $symlink2"
 
-        # Create the custom object
-        [PSCustomObject] @{
-            "Version"      = $_.Version.ToString() + $betaPostfix + $defaultPostfix
-            "Build"        = $_.Build
-            "Path"         = $_.Path
-            "SymlinkPath"  = if ($symlink2 -eq $null) { "Error" } else { $symlink2 }
-        }
+    # Create the custom object with debug logs
+    $customObject = [PSCustomObject] @{
+        "Version"   = $_.Version.ToString() + $betaPostfix + $defaultPostfix
+        "Build"     = $_.Build
+        "Path"      = $_.Path
+        "Symlink"   = if ($symlink1 -eq $null) { "Error" } else { $symlink1 }
+        "Symlink2"  = if ($symlink2 -eq $null) { "Error" } else { $symlink2 }
     }
+
+    # Debug log: Print the custom object being returned
+    Write-Host "Custom object for $($_.Version): $($customObject | Out-String)"
+
+    return $customObject
+}
 }
 function Build-XcodeDevicesList {
     param (
