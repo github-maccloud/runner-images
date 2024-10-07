@@ -254,6 +254,7 @@ build {
       "${path.root}/../scripts/build/install-firefox.sh",
       "${path.root}/../scripts/build/install-pypy.sh",
       "${path.root}/../scripts/build/install-bicep.sh",
+      "${path.root}/../scripts/build/install-packer.sh",
       "${path.root}/../scripts/build/install-codeql-bundle.sh"
     ]
   }
