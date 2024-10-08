@@ -117,6 +117,12 @@ Describe "Bicep" {
     }
 }
 
+Describe "Packer" {
+    It "Packer" {
+        "packer --version" | Should -ReturnZeroExitCode
+    }
+}
+
 Describe "Go" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     It "Go" {
         "go version" | Should -ReturnZeroExitCode
