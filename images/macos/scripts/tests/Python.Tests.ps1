@@ -27,6 +27,12 @@ Describe "Python3" {
     }
 
     It "Pip 3 and Python 3 came from the same brew formula" {
+        $pip3Which = Invoke-Expression "which pip3"
+        Write-Host "`nwhich pip3: $pip3Which"
+
+        $python3Which = Invoke-Expression "which python3"
+        Write-Host "`nwhich python3: $python3Which"
+        
         $pip3Path = Split-Path (readlink (which pip3))
         $python3Path = Split-Path (readlink (which python3))
         $pip3Path | Should -BeExactly $python3Path
