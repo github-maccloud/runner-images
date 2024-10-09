@@ -33,8 +33,8 @@ Describe "Python3" {
         $python3Which = Invoke-Expression "which python3"
         Write-Host "`nwhich python3: $python3Which"
         
-        $pip3Path = Split-Path (readlink (which pip3))
-        $python3Path = Split-Path (readlink (which python3))
+        $pip3Path = Split-Path (& bash -c "readlink $pip3Which")
+        $python3Path = Split-Path (& bash -c "readlink $python3Which")
         $pip3Path | Should -BeExactly $python3Path
     }
 
