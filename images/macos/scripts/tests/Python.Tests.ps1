@@ -9,6 +9,8 @@ Describe "Python3" {
     }
 
     Write-Host "PATH=$($env:PATH)"
+    $brewPrefix = & brew --prefix
+    Write-Host "Homebrew is installed at: $brewPrefix"
     
     if ($os.IsVenturaArm64 -or $os.IsSonomaArm64 -or $os.IsSequoiaArm64) {
         It "Python 3 is installed under /opt/homebrew/bin/" {
