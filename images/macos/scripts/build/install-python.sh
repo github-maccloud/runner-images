@@ -54,4 +54,6 @@ echo "export PIPX_BIN_DIR=${PIPX_BIN_DIR}" >> ${HOME}/.bashrc
 echo "export PIPX_HOME=${PIPX_HOME}" >> ${HOME}/.bashrc
 echo 'export PATH="$PIPX_BIN_DIR:$PATH"' >> ${HOME}/.bashrc
 
+echo 'export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"' >> ${HOME}/.bashrc
+
 invoke_tests "Python"
