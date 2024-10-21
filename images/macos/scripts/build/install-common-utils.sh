@@ -112,6 +112,9 @@ if is_Monterey || is_SonomaX64 || is_VenturaX64; then
 fi
 
 # Install Azure DevOps extension for Azure Command Line Interface
+# Temporary workaround due to the issue: https://github.com/Azure/azure-cli/issues/30127
+pip_path="$(az --version | grep "Python location" | awk -F"'" '{print $2}' | sed 's|python|pip|')"
+"$pip_path" install setuptools
 az extension add -n azure-devops
 
 # Invoke tests for all basic tools
