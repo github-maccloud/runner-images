@@ -35,7 +35,7 @@ edge_driver_archive_path=$(download_with_retry "$edge_driver_url")
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/test/continuous-test-selenium?view=azure-devops#decide-how-you-will-deploy-and-test-your-app
 
 EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
-mkdir -p $EDGE_DRIVER_DIR
+sudo mkdir -p $EDGE_DRIVER_DIR
 unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
 ln -s $EDGE_DRIVER_DIR/msedgedriver /usr/local/bin/msedgedriver
 
