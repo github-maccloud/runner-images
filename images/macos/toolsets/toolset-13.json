@@ -78,7 +78,7 @@
             "zstd",
             "gmp",
             "yq",
-            "unxip",
+            "unxip@3.0",
             "xcbeautify",
             "xcodes"
         ],
