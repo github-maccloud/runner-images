@@ -78,10 +78,24 @@
             "zstd",
             "gmp",
             "yq",
-            "unxip@3.0",
             "xcbeautify",
             "xcodes"
         ],
+        "unxip_installation": {
+        "instructions": [
+            "Clone the repository:",
+            "git clone https://github.com/saagarjha/unxip.git",
+            "Navigate to the repository directory:",
+            "cd unxip",
+            "Fetch the tags:",
+            "git fetch --tags",
+            "Checkout the specific version tag:",
+            "git checkout tags/3.0",
+            "Build and install unxip:",
+            "make",
+            "sudo make install"
+        ]
+    },
         "cask_packages": [
             "parallels"
         ]
