@@ -9,28 +9,57 @@ source ~/utils/utils.sh
 # Monterey needs future review:
 # aliyun-cli, gnupg, helm have issues with building from the source code.
 # Added gmp for now, because toolcache ruby needs its libs. Remove it when php starts to build from source code.
-common_packages=$(get_toolset_value '.brew.common_packages[]')
+# common_packages=$(get_toolset_value '.brew.common_packages[]'| jq -r '.[]')
+# for package in $common_packages; do
+#     echo "Installing $package..."
+#     if is_Monterey && [[ $package == "xcbeautify" ]]; then
+#         # Pin the version on Monterey as 2.0.x requires Xcode >=15.0 which is not available on OS12
+#         xcbeautify_path=$(download_with_retry "https://raw.githubusercontent.com/Homebrew/homebrew-core/d3653e83f9c029a3fddb828ac804b07ac32f7b3b/Formula/x/xcbeautify.rb")
+#         brew install "$xcbeautify_path"
+
+#     elif
+#         if [[ $package == "packer" ]]; then
+#             # Packer has been deprecated in Homebrew. Use tap to install Packer.
+#             brew install hashicorp/tap/packer
+#         else
+#             if [[ $package == "tcl-tk@8" ]]; then
+#                 brew_smart_install "$package"
+#                 # Fix for https://github.com/actions/runner-images/issues/11074
+#                 ln -sf $(brew --prefix tcl-tk@8) /usr/local/opt/tcl-tk
+#             else
+#                 brew_smart_install "$package"
+#             fi
+#         fi
+#     fi
+# done
+
+common_packages=$(get_toolset_value '.brew.common_packages[]' | jq -r '.[]')
+
 for package in $common_packages; do
     echo "Installing $package..."
-    if is_Monterey && [[ $package == "xcbeautify" ]]; then
+
+    # Check if macOS is Monterey and if package is xcbeautify
+    if is_Monterey && [[ "$package" == "xcbeautify" ]]; then
         # Pin the version on Monterey as 2.0.x requires Xcode >=15.0 which is not available on OS12
         xcbeautify_path=$(download_with_retry "https://raw.githubusercontent.com/Homebrew/homebrew-core/d3653e83f9c029a3fddb828ac804b07ac32f7b3b/Formula/x/xcbeautify.rb")
         brew install "$xcbeautify_path"
+    
+    elif [[ "$package" == "packer" ]]; then
+        # Packer has been deprecated in Homebrew. Use tap to install Packer.
+        brew install hashicorp/tap/packer
+    
+    elif [[ "$package" == "tcl-tk@8" ]]; then
+        # Install tcl-tk@8 and fix the runner issue
+        brew_smart_install "$package"
+        # Fix for https://github.com/actions/runner-images/issues/11074
+        ln -sf "$(brew --prefix tcl-tk@8)" /usr/local/opt/tcl-tk
+    
     else
-        if [[ $package == "packer" ]]; then
-            # Packer has been deprecated in Homebrew. Use tap to install Packer.
-            brew install hashicorp/tap/packer
-        else
-            if [[ $package == "tcl-tk@8" ]]; then
-                brew_smart_install "$package"
-                # Fix for https://github.com/actions/runner-images/issues/11074
-                ln -sf $(brew --prefix tcl-tk@8) /usr/local/opt/tcl-tk
-            else
-                brew_smart_install "$package"
-            fi
-        fi
+        # Install other packages normally
+        brew_smart_install "$package"
     fi
 done
+
 
 cask_packages=$(get_toolset_value '.brew.cask_packages[]')
 for package in $cask_packages; do
