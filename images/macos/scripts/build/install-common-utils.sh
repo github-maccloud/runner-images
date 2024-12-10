@@ -33,7 +33,7 @@ source ~/utils/utils.sh
 #     fi
 # done
 
-common_packages=$(get_toolset_value '.brew.common_packages[]' | jq -r '.[]')
+common_packages=$(get_toolset_value '.brew.common_packages[]')
 
 for package in $common_packages; do
     echo "Installing $package..."
