@@ -63,10 +63,8 @@ Describe "Perl" {
 }
 
 Describe "Tcl/Tk" {
-    It "libtcl should be installed" {
+    It "libtcl" {
         "file /usr/local/lib/libtcl8.6.dylib" | Should -ReturnZeroExitCode
-    }
-    It "libtk should be installed" {
         "file /usr/local/lib/libtk8.6.dylib" | Should -ReturnZeroExitCode
     }
 }
