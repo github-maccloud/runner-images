@@ -24,7 +24,6 @@ for package in $common_packages; do
              if [[ $package == "tcl-tk@8" ]]; then
                 brew_smart_install "$package"
                 # Fix for https://github.com/actions/runner-images/issues/11074
-                # ln -sf $(brew --prefix tcl-tk@8) /usr/local/opt/tcl-tk
                 ln -sf $(brew --prefix tcl-tk@8)/lib/libtcl8.6.dylib /usr/local/lib/libtcl8.6.dylib
                 ln -sf $(brew --prefix tcl-tk@8)/lib/libtk8.6.dylib /usr/local/lib/libtk8.6.dylib
             else
