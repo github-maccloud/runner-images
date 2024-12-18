@@ -15,6 +15,8 @@ metadata_json_path=$(download_with_retry "https://raw.githubusercontent.com/Powe
 pwshVersionToolset=$(get_toolset_value '.pwsh.version')
 pwshVersions=$(jq -r '.LTSReleaseTag[]' $metadata_json_path)
 
+echo "1a"
+
 for version in ${pwshVersions[@]}; do
     if [[ "$version" =~ "$pwshVersionToolset" ]]; then
         download_url=$(resolve_github_release_asset_url "PowerShell/PowerShell" "contains(\"osx-$arch.pkg\")" "$version" "$API_PAT")
