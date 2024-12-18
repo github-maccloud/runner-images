@@ -9,6 +9,8 @@ source ~/utils/utils.sh
 echo Installing PowerShell...
 arch=$(get_arch)
 
+echo "1"
+
 metadata_json_path=$(download_with_retry "https://raw.githubusercontent.com/PowerShell/PowerShell/master/tools/metadata.json")
 pwshVersionToolset=$(get_toolset_value '.pwsh.version')
 pwshVersions=$(jq -r '.LTSReleaseTag[]' $metadata_json_path)
@@ -20,6 +22,8 @@ for version in ${pwshVersions[@]}; do
     fi
 done
 
+echo "2"
+
 pkg_path=$(download_with_retry $download_url)
 
 # Work around the issue on macOS Big Sur 11.5 or higher for possible error message ("can't be opened because Apple cannot check it for malicious software") when installing the package
@@ -27,6 +31,7 @@ sudo xattr -rd com.apple.quarantine $pkg_path
 
 sudo installer -pkg $pkg_path -target /
 
+echo "3"
 # Install PowerShell modules
 psModules=$(get_toolset_value '.powershellModules[].name')
 for module in ${psModules[@]}; do
@@ -53,6 +58,7 @@ for module in ${psModules[@]}; do
     fi
 done
 
+echo "4"
 # Fix permission root => runner after installing powershell for arm64 arch
 if [[ $arch == "arm64" ]]; then
     sudo chown -R $USER ~/.local ~/.cache ~/.config
