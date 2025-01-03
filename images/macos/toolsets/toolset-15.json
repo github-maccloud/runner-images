@@ -51,7 +51,7 @@
         {
             "name": "Az",
             "versions": [
-                "12.4.0"
+                "13.0.0"
             ]
         },
         { "name": "Pester" },
