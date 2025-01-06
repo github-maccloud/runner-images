@@ -27,7 +27,7 @@ sudo defaults write /Library/Preferences/com.apple.keyboardtype "keyboardtype" -
 # fi
 # defaults write com.apple.VoiceOver4/default SCREnableAppleScript -bool YES
 
-## new line added to script
+## new line added to scripts
 # Check if SIP is disabled
 if csrutil status | grep -Eq "System Integrity Protection status: (disabled|unknown)"; then
     # Enable AppleScript for VoiceOver in the accessibility database
