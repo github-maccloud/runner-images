@@ -36,9 +36,20 @@ foreach ($tool in $toolcache) {
         Write-Host "Set $toolName $toolVersion environment variable..."
         $toolPath = Get-ToolsetToolFullPath -ToolName $toolName -ToolVersion $toolVersion -ToolArchitecture $arch
         $envName = $toolEnvironment -f $toolVersion.split(".")
+        
+        # Unset GOROOT to avoid conflicts
+        $unsetGOROOT = "unset GOROOT"
+        Add-Content -Path "${env:HOME}/.bashrc" -Value $unsetGOROOT
 
-        # Add environment variable name=value
-        $envVar = "export {0}={1}" -f $envName, $toolPath
-        Add-Content -Path "${env:HOME}/.bashrc" -Value $envVar
+        # Optional: Set a new GOROOT if needed
+        if ($envName -eq "GOROOT") {
+          $envVar = "export {0}={1}" -f $envName, $toolPath
+          Add-Content -Path "${env:HOME}/.bashrc" -Value $envVar
+        } else {
+          # Add environment variable name=value
+          $envVar = "export {0}={1}" -f $envName, $toolPath
+          Add-Content -Path "${env:HOME}/.bashrc" -Value $envVar
+ }
+        
     }
 }
