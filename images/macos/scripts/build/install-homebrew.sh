@@ -43,4 +43,4 @@ brew_smart_install "wget"
 brew tap Homebrew/bundle
 
 echo "Extracting git version 2.47.1..."
-brew extract --version=2.47.1 git
+brew extract --version=2.47.1 git homebrew/core
