@@ -6,8 +6,18 @@
 
 source ~/utils/utils.sh
 
-echo "Installing Git..."
-brew_smart_install "git"
+#echo "Installing Git..."
+#brew_smart_install "git"
+
+echo "Installing Git 2.47.1..."
+# Uninstall the current version of Git (if installed)
+brew uninstall git || true
+
+# Install Git 2.47.1 from a specific URL
+brew install https://github.com/Homebrew/homebrew-core/blob/abf1d85a93a033b56bc050c9330f6656d35b450f/Formula/git.rb
+
+# Verify that the correct version of Git is installed
+git --version
 
 git config --global --add safe.directory "*"
 
