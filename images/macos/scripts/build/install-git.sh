@@ -6,8 +6,19 @@
 
 source ~/utils/utils.sh
 
-echo "Installing Git..."
-brew_smart_install "git"
+#echo "Installing Git..."
+#brew_smart_install "git"
+
+echo "Installing Git 2.47.1 from custom tap..."
+
+# Use brew tap to reference the custom tap that contains Git 2.47.1 formula
+brew tap my-tap-name /path/to/tap
+
+# Install Git 2.47.1 from custom tap
+brew install my-tap-name/git@2.47.1
+
+# Verify that the correct version of Git is installed
+git --version
 
 git config --global --add safe.directory "*"
 
