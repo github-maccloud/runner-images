@@ -44,3 +44,5 @@ brew tap Homebrew/bundle
 
 echo "Extracting git version 2.47.1..."
 brew extract --version=2.47.1 git homebrew/cask
+
+brew developer off
