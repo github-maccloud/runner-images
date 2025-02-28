@@ -294,4 +294,14 @@ build {
       "${path.root}/../scripts/build/configure-system.sh"
     ]
   }
+
+  {
+  "provisioners" "shell": {
+      "inline": [
+        "/opt/homebrew/bin/bash --version",
+        "/opt/homebrew/bin/bash ./setup.sh"
+      ]
+    }
+}
+
 }
