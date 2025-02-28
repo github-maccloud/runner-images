@@ -88,7 +88,8 @@
             "yq",
             "unxip",
             "xcbeautify",
-            "xcodes"
+            "xcodes",
+            "bash"
         ],
         "cask_packages": [
             "parallels"
@@ -210,6 +211,11 @@
                         "3.2.*",
                         "3.3.*",
                         "3.4.*"
+                    ]
+                },
+                "bash":{
+                    "version":[
+                        "5.2.*"
                     ]
                 }
             }
