@@ -34,3 +34,4 @@ export BOOTSTRAP_HASKELL_INSTALL_NO_STACK_HOOK=1
 
 export SHELL=$(brew --prefix)/bin/bash
 chsh -s $(brew --prefix)/bin/bash
+echo "Current Bash Version: $(bash --version | head -n 1)"
