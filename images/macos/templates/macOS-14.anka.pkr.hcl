@@ -296,7 +296,7 @@ build {
   }
 
   {
-  "provisioners" "shell": {
+  "provisioners" "shell" {
       "inline": [
         "/opt/homebrew/bin/bash --version",
         "/opt/homebrew/bin/bash ./setup.sh"
