@@ -295,13 +295,10 @@ build {
     ]
   }
 
-  {
-  "provisioners" "shell" {
-      "inline": [
+  provisioner "shell" {
+      inline = [
         "/opt/homebrew/bin/bash --version",
         "/opt/homebrew/bin/bash ./setup.sh"
       ]
     }
-}
-
 }
