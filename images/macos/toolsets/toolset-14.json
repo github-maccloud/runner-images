@@ -95,11 +95,6 @@
             "parallels"
         ]
     },
-    "bash":{
-        "version":[
-            "5.2.*"
-         ]
-    },
     "gcc": {
         "versions": [
             "12",
