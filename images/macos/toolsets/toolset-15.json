@@ -28,8 +28,9 @@
                     "install_runtimes":
                     [
                         "iOS -buildVersion 22A3351", "iOS -buildVersion 22B81", "iOS -buildVersion 22C150", "iOS -buildVersion 22D8075", "iOS -buildVersion 22E5216h",
-                        "watchOS -buildVersion 22R349", "watchOS -buildVersion 22R581", "watchOS -buildVersion 22S99", "watchOS -buildVersion 22T5212l",
-                        "tvOS"
+                        "watchOS",
+                        "tvOS",
+                        "visionOS -buildVersion 22N318", "visionOS -buildVersion 22N580",  "visionOS -buildVersion 22N840", "visionOS -buildVersion 22O5199n"
                     ],
                     "sha256": "f4bb80c2e93d3561ecbabc82d1a92c830d831c96afc48944baa8116e3fd0013d"
                 },
