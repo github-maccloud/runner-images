@@ -7,7 +7,7 @@
                 "link": "16.3_beta_2", "version": "16.3.0-Beta.2+16E5121h", "symlinks": ["16.3"], 
                     "install_runtimes":
                     [
-                        "iOS -buildVersion 22A3351", "iOS -buildVersion 22B81", "iOS -buildVersion 22C150", "iOS -buildVersion 22D8075", "iOS -buildVersion 22E5216h",
+                        "iOS -buildVersion 18.0", "iOS -buildVersion 18.1", "iOS -buildVersion 18.2", "iOS -buildVersion 18.3.1", "iOS -buildVersion 18.4",
                         "watchOS",
                         "tvOS"
                     ],
@@ -27,10 +27,10 @@
                     "symlinks": ["16.3"], 
                     "install_runtimes":
                     [
-                        "iOS -buildVersion 22A3351", "iOS -buildVersion 22B81", "iOS -buildVersion 22C150", "iOS -buildVersion 22D8075", "iOS -buildVersion 22E5216h",
+                        "iOS -buildVersion 18.0", "iOS -buildVersion 18.1", "iOS -buildVersion 18.2", "iOS -buildVersion 18.3.1", "iOS -buildVersion 18.4",
                         "watchOS",
                         "tvOS",
-                        "visionOS -buildVersion 22N318", "visionOS -buildVersion 22N580",  "visionOS -buildVersion 22N840", "visionOS -buildVersion 22O5199n"
+                        "visionOS -buildVersion 2.0", "visionOS -buildVersion 2.1",  "visionOS -buildVersion 2.2", "visionOS -buildVersion 2.3", "visionOS -buildVersion 2.4"
                     ],
                     "sha256": "f4bb80c2e93d3561ecbabc82d1a92c830d831c96afc48944baa8116e3fd0013d"
                 },
