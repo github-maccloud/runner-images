@@ -284,4 +284,8 @@ build {
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     scripts         = ["${path.root}/../scripts/build/configure-hostname.sh"]
   }
+
+  provisioner "shell" {
+    inline            = ["top -n 10 -ncols 10 -l 10 -s 10"]
+  }
 }
