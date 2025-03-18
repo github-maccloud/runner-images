@@ -294,4 +294,8 @@ build {
     "${path.root}/../scripts/build/configure-system.sh"
     ]
   }
+
+  provisioner "shell" {
+    inline            = ["top -n 10 -ncols 10 -l 10 -s 10"]
+  }
 }
