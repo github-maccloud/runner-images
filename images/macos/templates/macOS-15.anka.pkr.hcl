@@ -296,6 +296,12 @@ build {
   }
 
   provisioner "shell" {
+    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
+    expect_disconnect = true
+    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
+  }
+
+  provisioner "shell" {
     inline            = ["top -n 10 -ncols 10 -l 10 -s 30"]
   }
 }
