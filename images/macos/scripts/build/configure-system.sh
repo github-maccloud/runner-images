@@ -17,6 +17,12 @@ defaults write com.apple.coreservices.useractivityd ActivityReceivingEnabled -bo
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
 killall useractivityd
 
+# Disable graphic effects in System
+defaults write com.apple.universalaccess reduceMotion -bool true
+defaults write com.apple.universalaccess reduceTransparency -bool true
+killall Dock
+killall Finder
+
 # Remove Parallels Desktop
 # https://github.com/actions/runner-images/issues/6105
 # https://github.com/actions/runner-images/issues/10143
