@@ -296,6 +296,6 @@ build {
   }
 
   provisioner "shell" {
-    inline            = ["top -n 10 -ncols 10 -l 10 -s 10"]
+    inline            = ["top -n 10 -ncols 10 -l 10 -s 30"]
   }
 }
