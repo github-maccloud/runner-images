@@ -27,7 +27,7 @@ killall Finder
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
 # Disable notification center
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 killall NotificationCenter
 
 # Disable Time Machine and it's daemon
