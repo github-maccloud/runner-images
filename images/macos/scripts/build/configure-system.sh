@@ -27,7 +27,6 @@ sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 
 # Disable Time Machine and it's daemon
-sudo tmutil deletelocalsnapshots
 sudo tmutil disable
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.backupd.plist
 
