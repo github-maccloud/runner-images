@@ -12,6 +12,11 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/S
 # Close all finder windows because they can interfere with UI tests
 close_finder_window
 
+# Disable Handoff and Continuity and restart useractivityd
+defaults write com.apple.coreservices.useractivityd ActivityReceivingEnabled -bool false
+defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
+killall useractivityd
+
 # Remove Parallels Desktop
 # https://github.com/actions/runner-images/issues/6105
 # https://github.com/actions/runner-images/issues/10143
@@ -35,7 +40,7 @@ yarn cache clean
 # Clean up temporary directories
 sudo rm -rf ~/utils /tmp/*
 
-if is_Ventura || is_Sonoma; then
+if is_Ventura; then
     # Erase all indexes and wait until the rebuilding process ends,
     # for now there is no way to get status of indexing process, it takes around 3 minutes to accomplish
     sudo mdutil -E /
