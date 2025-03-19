@@ -24,10 +24,11 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
 # Disable notification center agent
-sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 
 # Disable Time Machine and it's daemon
-sudo tmutil disablelocal
+sudo tmutil deletelocalsnapshots
+sudo tmutil disable
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.backupd.plist
 
 # Remove Parallels Desktop
