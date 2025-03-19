@@ -30,6 +30,10 @@ sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 killall NotificationCenter
 
+# Disable Time Machine and it's daemon
+sudo tmutil disablelocal
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.backupd.plist
+
 # Remove Parallels Desktop
 # https://github.com/actions/runner-images/issues/6105
 # https://github.com/actions/runner-images/issues/10143
