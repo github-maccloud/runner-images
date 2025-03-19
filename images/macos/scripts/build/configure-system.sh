@@ -12,7 +12,7 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/S
 # Close all finder windows because they can interfere with UI tests
 close_finder_window
 
-# Disable Handoff and Continuity and restart useractivityd
+# Disable Handoff and Continuity
 defaults write com.apple.coreservices.useractivityd ActivityReceivingEnabled -bool false
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
 
@@ -20,10 +20,10 @@ defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -
 defaults write com.apple.universalaccess reduceMotion -bool true
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
-# Disable analytics (requires SIP to be disabled)
+# Disable analytics daemon (requires SIP to be disabled)
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
-# Disable notification center
+# Disable notification center agent
 sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 
 # Disable Time Machine and it's daemon
