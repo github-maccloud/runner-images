@@ -6,6 +6,9 @@
 
 source ~/utils/utils.sh
 
+# Set solid color wallpaper
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
+
 # Close all finder windows because they can interfere with UI tests
 close_finder_window
 
