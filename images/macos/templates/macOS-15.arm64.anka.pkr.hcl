@@ -282,7 +282,10 @@ build {
 
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    scripts         = ["${path.root}/../scripts/build/configure-hostname.sh"]
+    scripts         = [
+      "${path.root}/../scripts/build/configure-hostname.sh",
+      "${path.root}/../scripts/build/configure-system.sh"
+    ]
   }
 
   provisioner "shell" {
