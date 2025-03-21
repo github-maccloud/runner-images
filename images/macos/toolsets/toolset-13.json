@@ -72,7 +72,6 @@
             "gh",
             "gnupg",
             "gnu-tar",
-            "kotlin",
             "libpq",
             "p7zip",
             "packer",
@@ -251,5 +250,8 @@
     },
     "pwsh": {
         "version": "7.4"
+    },
+    "kotlin": {
+        "version": "2.1.10"
     }
-}
+}    
