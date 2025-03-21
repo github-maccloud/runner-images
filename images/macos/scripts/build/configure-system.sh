@@ -30,6 +30,9 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.
 sudo tmutil disable
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.backupd.plist
 
+# Disable Apple Push Notification Service daemon
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.apsd.plist
+
 # Remove Parallels Desktop
 # https://github.com/actions/runner-images/issues/6105
 # https://github.com/actions/runner-images/issues/10143
