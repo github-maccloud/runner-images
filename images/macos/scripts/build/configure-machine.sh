@@ -19,20 +19,32 @@ defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
 # Disable Keyboard Setup Assistant window
 sudo defaults write /Library/Preferences/com.apple.keyboardtype "keyboardtype" -dict-add "3-7582-0" -int 40
 
-# Update VoiceOver Utility to allow VoiceOver to be controlled with AppleScript
-# by creating a special Accessibility DB file (SIP must be disabled) and
-# updating the user defaults system to reflect this change.
-if csrutil status | grep -Eq  "System Integrity Protection status: (disabled|unknown)"; then
+# Detect macOS version
+DARWIN_VERSION=$(uname -r | cut -d '.' -f1)
+
+# Check if SIP is disabled
+if csrutil status | grep -Eq "System Integrity Protection status: (disabled|unknown)"; then
     sudo bash -c 'echo -n "a" > /private/var/db/Accessibility/.VoiceOverAppleScriptEnabled'
+    
+    # macOS 15 (Darwin 24) requires updating the new plist location
+    if [ "$DARWIN_VERSION" -eq 24 ]; then
+        PLIST_PATH="$HOME/Library/Group Containers/group.com.apple.VoiceOver/Library/Preferences/com.apple.VoiceOver4/default.plist"
+
+        if [ -f "$PLIST_PATH" ]; then
+            sudo plutil -replace SCREnableAppleScript -bool true "$PLIST_PATH"
+            echo "✅ VoiceOver AppleScript control enabled for macOS 15."
+        else
+            echo "⚠️ Warning: Plist file not found at $PLIST_PATH"
+        fi
+    else
+        # Use old method for macOS versions before 15
+        defaults write com.apple.VoiceOver4/default SCREnableAppleScript -bool YES
+    fi
+else
+    echo "❌ SIP is enabled. Please disable SIP before running this script."
 fi
-defaults write com.apple.VoiceOver4/default SCREnableAppleScript -bool YES
 
 # https://developer.apple.com/support/expiration/
-# Enterprise iOS Distribution Certificates generated between February 7 and September 1st, 2020 will expire on February 7, 2023.
-# Rotate the certificate before expiration to ensure your apps are installed and signed with an active certificate.
-# Confirm that the correct intermediate certificate is installed by verifying the expiration date is set to 2030.
-# sudo security delete-certificate -Z FF6797793A3CD798DC5B2ABEF56F73EDC9F83A64 /Library/Keychains/System.keychain
-
 swiftc -suppress-warnings "${HOME}/image-generation/add-certificate.swift"
 
 certs=(
@@ -94,7 +106,7 @@ fi
 sudo chmod 440 /etc/sudoers.d/*
 
 # Add NOPASSWD for the current user to sudoers
-sudo sed -i '' 's/%admin		ALL = (ALL) ALL/%admin		ALL = (ALL) NOPASSWD: ALL/g' /etc/sudoers
+sudo sed -i '' 's/%admin\t\tALL = (ALL) ALL/%admin\t\tALL = (ALL) NOPASSWD: ALL/g' /etc/sudoers
 
 # Create symlink for tests running
 if [[ ! -d "/usr/local/bin" ]];then
