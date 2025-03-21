@@ -8,7 +8,7 @@
 echo "Installing Kotlin 2.1.10"
 
 # Specify the commit hash where Kotlin 2.1.10 was available in Homebrew
-COMMIT=c2b847b06027360af1dc6aea96d6a955abd41a84
+COMMIT=442af88a2925f8c0e079eaf4fa62261133d2d7c4
 FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/$COMMIT/Formula/k/kotlin.rb"
 FORMULA_PATH="$(brew --repository)/Library/Taps/homebrew/homebrew-core/Formula/k/kotlin.rb"
 
