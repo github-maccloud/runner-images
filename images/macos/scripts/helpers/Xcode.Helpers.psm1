@@ -92,7 +92,7 @@ function Get-XcodeSimulatorsInfo {
     return $jsonSimulatorsInfo
 }
 
-function Get-XcodeDevicesList {
+function Get-XcodeDeviceNamesList {
     $result = @()
 
     $runtimes = Get-XcodeSimulatorsInfo -Filter "devices"
@@ -106,6 +106,24 @@ function Get-XcodeDevicesList {
         } | ForEach-Object {
             $deviceName = $_.name
             $result += "$runtimeName $deviceName"
+        }
+    }
+
+    return $result
+}
+
+function Get-XcodeDeviceUDIDMap {
+    $result = @{}
+
+    $runtimes = Get-XcodeSimulatorsInfo -Filter "devices"
+    $runtimes.PSObject.Properties | ForEach-Object {
+        $devices = $_.Value
+        $devices | Where-Object {
+            $_.isAvailable -eq $true
+        } | ForEach-Object {
+            $deviceName = $_.name
+            $deviceUdid = $_.udid
+            $result[$deviceUdid] = $deviceName
         }
     }
 

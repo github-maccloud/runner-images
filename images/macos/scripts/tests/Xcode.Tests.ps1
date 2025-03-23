@@ -109,7 +109,7 @@ Describe "Xcode simulators" {
             $testCase = @{ XcodeVersion = $_ }
             It "No duplicates in devices" -TestCases $testCase {
                 Switch-Xcode -Version $XcodeVersion
-                [array]$devicesList = @(Get-XcodeDevicesList | Where-Object { $_ })
+                [array]$devicesList = @(Get-XcodeDeviceNamesList | Where-Object { $_ })
                 Write-Host "Devices for $XcodeVersion"
                 Write-Host ($devicesList -join "`n")
                 Confirm-ArrayWithoutDuplicates $devicesList -Because "Found duplicate device simulators"
