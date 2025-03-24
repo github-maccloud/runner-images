@@ -18,10 +18,9 @@ function Get-SimulatorStatus {
         [string] $UDID
     )
     # Get all available devices
-    [string]$rawDevicesInfo = Invoke-Expression "xcrun simctl list devices --json"
-    $jsonDevicesInfo = ($rawDevicesInfo | ConvertFrom-Json).devices
+    $runtimes = Get-XcodeSimulatorsInfo -Filter "devices"
     # Check if the device with UUID is in the list to find out its state
-    foreach ($runtime in $jsonDevicesInfo.PSObject.Properties) {
+    foreach ($runtime in $runtimes.PSObject.Properties) {
         foreach ($device in $runtime.Value) {
             if ($device.udid -eq $UDID) {
                 return $device.state
@@ -31,6 +30,7 @@ function Get-SimulatorStatus {
     # If the device is not found, return "Not Found" without throwing an error
     return "Not Found"
 }
+
 function Invoke-SimulatorState {
     param (
         [Parameter(Mandatory)]
@@ -45,13 +45,13 @@ function Invoke-SimulatorState {
         "Booted" {
             while ((Get-SimulatorStatus -UDID $UDID) -ne "Booted") {
                 Invoke-Expression "xcrun simctl boot $UDID" | Out-Null
-                Start-Sleep -Seconds 10
+                Start-Sleep -Seconds 5
             }
         }
         "Shutdown" {
             while ((Get-SimulatorStatus -UDID $UDID) -ne "Shutdown") {
                 Invoke-Expression "xcrun simctl shutdown $UDID" | Out-Null
-                Start-Sleep -Seconds 10
+                Start-Sleep -Seconds 5
             }
         }
     }
@@ -61,17 +61,19 @@ function Initialize-Simulators {
     param(
         [string[]] $AllowedDevices = @("iPhone", "iPad", "Apple Vision")
     )
+
     $regex = "(?i)($($AllowedDevices -join '|'))"
     $deviceMap = Get-XcodeDeviceUDIDMap
 
     foreach ($udid in $deviceMap.Keys) {
-        if ($deviceMap[$udid].Value -match $regex) {
-            Write-Host "Warming up simulator: $($deviceMap[$udid].Value) [$($udid)]"
+        if ($deviceMap[$udid] -match $regex) {
+            Write-Host "Warming up simulator: $($deviceMap[$udid]) [$($udid)]"
             if ($(Get-SimulatorStatus -UDID $udid) -eq "Not Found") {
                 throw "Simulator with UDID $udid not found."
             }
             Invoke-SimulatorState -UDID $udid -TargetState "Booted"
-            Invoke-Expression "xcrun simctl io $udid enumerate --poll" | Out-Null
+            # Wait for the simulator to be fully booted
+            Start-Sleep -Seconds 60
             Invoke-SimulatorState -UDID $udid -TargetState "Shutdown"
         }
     }
