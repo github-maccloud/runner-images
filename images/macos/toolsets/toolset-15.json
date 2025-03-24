@@ -1,6 +1,6 @@
 {
     "xcode": {
-        "default": "16.3",
+        "default": "16.3_beta_3",
         "x64": {
             "versions": [
                 {
