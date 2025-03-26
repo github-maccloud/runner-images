@@ -36,7 +36,7 @@ echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
 if [[ "$(uname -m)" == "arm64" ]]; then
     echo "Installing Microsoft Edge WebDriver for ARM64..."
     
-    edge_driver_url_arm64="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_mac64_arm.zip"
+    edge_driver_url_arm64="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_mac64.zip"
     edge_driver_archive_path_arm64=$(download_with_retry "$edge_driver_url_arm64")
 
     EDGE_DRIVER_DIR_ARM="/usr/local/share/edge_driver_arm"
