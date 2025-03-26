@@ -1,62 +1,71 @@
-#!/bin/bash
+#!/bin/bash -e -o pipefail
+################################################################################
+##  File:  install-edge.sh
+##  Desc:  Install edge browser
+################################################################################
 
-set -e
+source ~/utils/utils.sh
 
-# Define variables
-EDGE_DRIVER_URL_BASE="https://msedgedriver.azureedge.net"
-INSTALL_DIR="/usr/local/share/edge_driver"
-TEMP_DIR="/tmp/edge_driver"
+echo "Installing Microsoft Edge..."
+brew install --cask microsoft-edge
 
-# Determine the system architecture
-ARCH=$(uname -m)
+EDGE_INSTALLATION_PATH="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+edge_version=$("$EDGE_INSTALLATION_PATH" --version | cut -d' ' -f 3)
+edge_version_major=$(echo $edge_version | cut -d'.' -f 1)
 
-if [[ "$ARCH" == "arm64" ]]; then
-    DRIVER_ARCH="arm64"
-elif [[ "$ARCH" == "x86_64" ]]; then
-    DRIVER_ARCH="x64"
-else
-    echo "Unsupported architecture: $ARCH"
-    exit 1
+echo "Version of Microsoft Edge: ${edge_version}"
+
+echo "Installing Microsoft Edge WebDriver for Intel..."
+
+edge_driver_version_file_path=$(download_with_retry "https://msedgedriver.azureedge.net/LATEST_RELEASE_${edge_version_major}_MACOS")
+edge_driver_latest_version=$(iconv -f utf-16 -t utf-8 "$edge_driver_version_file_path" | tr -d '\r')
+edge_driver_url="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_mac64.zip"
+
+echo "Compatible version of WebDriver for Intel: ${edge_driver_latest_version}"
+
+edge_driver_archive_path=$(download_with_retry "$edge_driver_url")
+
+EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
+mkdir -p $EDGE_DRIVER_DIR
+unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
+ln -s $EDGE_DRIVER_DIR/msedgedriver /usr/local/bin/msedgedriver
+
+echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
+
+if [[ "$(uname -m)" == "arm64" ]]; then
+    echo "Installing Microsoft Edge WebDriver for ARM64..."
+    
+    edge_driver_url_arm64="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_mac64_arm.zip"
+    edge_driver_archive_path_arm64=$(download_with_retry "$edge_driver_url_arm64")
+
+    EDGE_DRIVER_DIR_ARM="/usr/local/share/edge_driver_arm"
+    mkdir -p $EDGE_DRIVER_DIR_ARM
+    unzip -qq $edge_driver_archive_path_arm64 -d $EDGE_DRIVER_DIR_ARM
+    ln -s $EDGE_DRIVER_DIR_ARM/msedgedriver /usr/local/bin/msedgedriver_arm
+
+    echo "export EDGEWEBDRIVER_ARM=${EDGE_DRIVER_DIR_ARM}" >> ${HOME}/.bashrc
 fi
 
-echo "Detected architecture: $ARCH ($DRIVER_ARCH)"
+# Configure Edge Updater to prevent auto update
+sudo mkdir "/Library/Managed Preferences"
 
-# Fetch the latest version
-echo "Fetching the latest Edge Driver version..."
-LATEST_VERSION=$(curl -s "https://msedgedriver.azureedge.net/LATEST_RELEASE")
-if [[ -z "$LATEST_VERSION" ]]; then
-    echo "Failed to fetch the latest version. Check your internet connection."
-    exit 1
-fi
+cat <<EOF | sudo tee "/Library/Managed Preferences/com.microsoft.EdgeUpdater.plist" > /dev/null
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>updatePolicies</key>
+    <dict>
+        <key>global</key>
+        <dict>
+            <key>UpdateDefault</key>
+            <integer>3</integer>
+        </dict>
+    </dict>
+</dict>
+</plist>
+EOF
 
-echo "Latest Edge Driver version: $LATEST_VERSION"
+sudo chown root:wheel "/Library/Managed Preferences/com.microsoft.EdgeUpdater.plist"
 
-# Construct the download URL
-EDGE_DRIVER_URL="$EDGE_DRIVER_URL_BASE/$LATEST_VERSION/edgedriver_$DRIVER_ARCH.zip"
-
-# Create necessary directories
-mkdir -p "$TEMP_DIR"
-mkdir -p "$INSTALL_DIR"
-
-# Download Edge Driver
-echo "Downloading Microsoft Edge Driver from $EDGE_DRIVER_URL..."
-curl -L -o "$TEMP_DIR/edgedriver.zip" "$EDGE_DRIVER_URL"
-
-# Extract the driver
-echo "Extracting Microsoft Edge Driver..."
-unzip -o "$TEMP_DIR/edgedriver.zip" -d "$INSTALL_DIR"
-
-# Cleanup temporary files
-rm -rf "$TEMP_DIR"
-
-# Add the driver to PATH
-if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
-    echo "Adding $INSTALL_DIR to PATH..."
-    echo "export PATH=\$PATH:$INSTALL_DIR" >> ~/.bash_profile
-    source ~/.bash_profile
-fi
-
-# Verify installation
-echo "Microsoft Edge Driver installed at $INSTALL_DIR"
-echo "Driver version:"
-"$INSTALL_DIR/msedgedriver" --version
+invoke_tests "Browsers" "Edge"
