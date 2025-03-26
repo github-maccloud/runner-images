@@ -314,3 +314,15 @@ function Get-ImageMagickVersion {
     $magickVersion = $Matches.Version
     return $magickVersion
 }
+
+function Get-MongoshVersion {
+    return $(mongosh --version)
+}
+
+function Get-WSL2Version {
+    return $((Get-AppxPackage -Name "MicrosoftCorporationII.WindowsSubsystemForLinux").version)
+}
+
+function Get-NinjaVersion {
+    return $(ninja --version)
+}
