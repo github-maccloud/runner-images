@@ -26,7 +26,8 @@ echo "Compatible version of WebDriver for Intel: ${edge_driver_latest_version}"
 edge_driver_archive_path=$(download_with_retry "$edge_driver_url")
 
 EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
-mkdir -p $EDGE_DRIVER_DIR
+sudo mkdir -p $EDGE_DRIVER_DIR
+sudo chown -R $USER $EDGE_DRIVER_DIR
 unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
 ln -s $EDGE_DRIVER_DIR/msedgedriver /usr/local/bin/msedgedriver
 
@@ -39,7 +40,8 @@ if [[ "$(uname -m)" == "arm64" ]]; then
     edge_driver_archive_path_arm64=$(download_with_retry "$edge_driver_url_arm64")
 
     EDGE_DRIVER_DIR_ARM="/usr/local/share/edge_driver_arm"
-    mkdir -p $EDGE_DRIVER_DIR_ARM
+    sudo mkdir -p $EDGE_DRIVER_DIR_ARM
+    sudo chown -R $USER $EDGE_DRIVER_DIR_ARM
     unzip -qq $edge_driver_archive_path_arm64 -d $EDGE_DRIVER_DIR_ARM
     ln -s $EDGE_DRIVER_DIR_ARM/msedgedriver /usr/local/bin/msedgedriver_arm
 
@@ -47,7 +49,7 @@ if [[ "$(uname -m)" == "arm64" ]]; then
 fi
 
 # Configure Edge Updater to prevent auto update
-sudo mkdir "/Library/Managed Preferences"
+sudo mkdir -p "/Library/Managed Preferences"
 
 cat <<EOF | sudo tee "/Library/Managed Preferences/com.microsoft.EdgeUpdater.plist" > /dev/null
 <?xml version="1.0" encoding="UTF-8"?>
