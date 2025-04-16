@@ -32,6 +32,10 @@ systemValuesArray=(
     "'kTCCServiceSystemPolicyAllFiles','com.microsoft.wdav.epsext',0,2,4,1,NULL,NULL,NULL,'UNUSED',NULL,0,1643970979"
     "'kTCCServiceSystemPolicyNetworkVolumes','/bin/bash',1,2,0,1,NULL,NULL,NULL,'UNUSED',NULL,0,1583997993"
     "'kTCCServiceSystemPolicyNetworkVolumes','com.apple.Terminal',0,2,4,1,X'fade0c000000003000000001000000060000000200000012636f6d2e6170706c652e5465726d696e616c000000000003',NULL,0,'UNUSED',NULL,0,1678990068"
+    # Sequoia has a new mandatory TCC service for Developer Tools aka Automation on Privacy & Security settings tab
+    # Expected to fix https://github.com/actions/runner-images/issues/11257
+    "'kTCCServiceDeveloperTool','/bin/bash',1,2,0,1,NULL,NULL,NULL,'UNUSED',NULL,0,1583997993"
+    "'kTCCServiceDeveloperTool','com.apple.Terminal',0,2,4,1,X'fade0c000000003000000001000000060000000200000012636f6d2e6170706c652e5465726d696e616c000000000003',NULL,0,'UNUSED',NULL,0,1678990068"
 )
 for values in "${systemValuesArray[@]}"; do
     if is_Sonoma || is_Sequoia; then
