@@ -32,13 +32,15 @@ echo "Compatible version of WebDriver: ${edge_driver_latest_version}"
 edge_driver_archive_path=$(download_with_retry "$edge_driver_url")
 
 EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
-sudo mkdir -p $EDGE_DRIVER_DIR
-sudo unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
+sudo mkdir -p "$EDGE_DRIVER_DIR"
+sudo unzip -qq "$edge_driver_archive_path" -d "$EDGE_DRIVER_DIR"
+sudo mv "$EDGE_DRIVER_DIR"/edgedriver_*/* "$EDGE_DRIVER_DIR"
+sudo rm -rf "$EDGE_DRIVER_DIR"/edgedriver_*
 
 if [[ -f "${EDGE_DRIVER_DIR}/msedgedriver" ]]; then
     sudo chmod +x "${EDGE_DRIVER_DIR}/msedgedriver"
     sudo ln -sf "${EDGE_DRIVER_DIR}/msedgedriver" /usr/local/bin/msedgedriver
-    echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
+    echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> "${HOME}/.bashrc"
 else
     echo "Error: msedgedriver not found after unzip."
     exit 1
