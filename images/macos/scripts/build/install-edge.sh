@@ -1,7 +1,7 @@
 #!/bin/bash -e -o pipefail
 ################################################################################
 ##  File:  install-edge.sh
-##  Desc:  Install edge browser and WebDriver for Intel and ARM64
+##  Desc:  Install edge browser and corresponding WebDriver
 ################################################################################
 
 source ~/utils/utils.sh
@@ -14,37 +14,31 @@ edge_version=$("$EDGE_INSTALLATION_PATH" --version | cut -d' ' -f 3)
 edge_version_major=$(echo $edge_version | cut -d'.' -f 1)
 
 echo "Version of Microsoft Edge: ${edge_version}"
-
 echo "Installing Microsoft Edge WebDriver..."
 
 edge_driver_version_file_path=$(download_with_retry "https://msedgedriver.azureedge.net/LATEST_RELEASE_${edge_version_major}_MACOS")
 edge_driver_latest_version=$(iconv -f utf-16 -t utf-8 "$edge_driver_version_file_path" | tr -d '\r')
 
-arch_name="$(uname -m)"
-if [[ "$arch_name" == "arm64" ]]; then
+# Determine architecture
+architecture="$(uname -m)"
+if [[ "$architecture" == "arm64" ]]; then
     edge_driver_url="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_arm64.zip"
 else
     edge_driver_url="https://msedgedriver.azureedge.net/${edge_driver_latest_version}/edgedriver_mac64.zip"
 fi
 
 echo "Compatible version of WebDriver: ${edge_driver_latest_version}"
+echo "Downloading from: $edge_driver_url"
 
 edge_driver_archive_path=$(download_with_retry "$edge_driver_url")
 
 EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
-sudo mkdir -p "$EDGE_DRIVER_DIR"
-sudo unzip -qq "$edge_driver_archive_path" -d "$EDGE_DRIVER_DIR"
-sudo mv "$EDGE_DRIVER_DIR"/edgedriver_*/* "$EDGE_DRIVER_DIR"
-sudo rm -rf "$EDGE_DRIVER_DIR"/edgedriver_*
+sudo mkdir -p $EDGE_DRIVER_DIR
+sudo unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
+sudo chmod +x $EDGE_DRIVER_DIR/msedgedriver
+sudo ln -sf $EDGE_DRIVER_DIR/msedgedriver /usr/local/bin/msedgedriver
 
-if [[ -f "${EDGE_DRIVER_DIR}/msedgedriver" ]]; then
-    sudo chmod +x "${EDGE_DRIVER_DIR}/msedgedriver"
-    sudo ln -sf "${EDGE_DRIVER_DIR}/msedgedriver" /usr/local/bin/msedgedriver
-    echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> "${HOME}/.bashrc"
-else
-    echo "Error: msedgedriver not found after unzip."
-    exit 1
-fi
+echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
 
 # Configure Edge Updater to prevent auto update
 sudo mkdir -p "/Library/Managed Preferences"
