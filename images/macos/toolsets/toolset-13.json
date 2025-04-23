@@ -88,7 +88,9 @@
             "xcodes"
         ],
         "cask_packages": [
+            "virtualbox",
             "parallels"
+
         ]
     },
     "gcc": {

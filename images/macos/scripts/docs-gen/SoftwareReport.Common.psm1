@@ -292,6 +292,11 @@ function Get-BsdtarVersion {
     return "$bsdtar - available by 'tar' alias"
 }
 
+function Get-VirtualBoxVersion {
+    $virtualBox = Run-Command "vboxmanage -v"
+    return $virtualBox
+}
+
 function Get-ParallelVersion {
     $parallelVersion = Run-Command "parallel --version" | Select-String "GNU parallel" | Select-Object -First 1
     return ($parallelVersion -replace "^GNU parallel").Trim()
