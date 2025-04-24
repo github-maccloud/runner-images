@@ -6,6 +6,9 @@
 
 source ~/utils/utils.sh
 
+#Testing ulimits functionality
+sudo ulimit -u 1200
+
 echo "Enabling developer mode..."
 sudo /usr/sbin/DevToolsSecurity --enable
 
