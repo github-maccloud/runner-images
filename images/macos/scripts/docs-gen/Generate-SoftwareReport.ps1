@@ -99,7 +99,7 @@ $utilities.AddToolVersion("yq", $(Get-YqVersion))
 $utilities.AddToolVersion("zstd", $(Get-ZstdVersion))
 $utilities.AddToolVersion("Ninja", $(Get-NinjaVersion))
 
-if ($os.IsMonterey) {
+if ($os.IsVentura -or $os.IsSonoma -or $os.IsSequoia) {
     $utilities.AddToolVersion("VirtualBox", $(Get-VirtualBoxVersion))
 }
 
