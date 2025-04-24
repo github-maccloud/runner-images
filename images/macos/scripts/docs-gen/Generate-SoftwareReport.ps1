@@ -99,6 +99,10 @@ $utilities.AddToolVersion("yq", $(Get-YqVersion))
 $utilities.AddToolVersion("zstd", $(Get-ZstdVersion))
 $utilities.AddToolVersion("Ninja", $(Get-NinjaVersion))
 
+if ($os.IsMonterey) {
+    $utilities.AddToolVersion("VirtualBox", $(Get-VirtualBoxVersion))
+}
+
 # Tools
 $tools = $installedSoftware.AddHeader("Tools")
 $tools.AddToolVersion("AWS CLI", $(Get-AWSCLIVersion))
