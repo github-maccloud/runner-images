@@ -1,11 +1,12 @@
 | Announcements |
 |-|
+| [[Windows, Ubuntu] Python 3.8.x will be removed from 2025-06-06](https://github.com/actions/runner-images/issues/12034) |
 | [[Ubuntu] Breaking change : Docker Engine Version 26.* will be updated to Docker Engine Version 28* from 2025-05-09](https://github.com/actions/runner-images/issues/11766) |
 ***
 # Ubuntu 22.04
 - OS Version: 22.04.5 LTS
-- Kernel Version: 6.8.0-1026-azure
-- Image Version: 20250415.1.0
+- Kernel Version: 6.8.0-1027-azure
+- Image Version: 20250427.1.0
 - Systemd version: 249.11-0ubuntu3.15
 
 ## Installed Software
@@ -31,7 +32,7 @@
 ### Package Management
 - cpan 1.64
 - Helm 3.17.3
-- Homebrew 4.4.31
+- Homebrew 4.4.32
 - Miniconda 25.1.1
 - Npm 10.8.2
 - NuGet 6.6.1.2
@@ -39,7 +40,7 @@
 - Pip3 22.0.2
 - Pipx 1.7.1
 - RubyGems 3.3.5
-- Vcpkg (build from commit d5182f703b)
+- Vcpkg (build from commit 96d5fb3de1)
 - Yarn 1.22.22
 
 #### Environment variables
@@ -58,24 +59,24 @@ to accomplish this.
 
 ### Project Management
 - Ant 1.10.12
-- Gradle 8.13
+- Gradle 8.14
 - Lerna 8.2.2
 - Maven 3.9.9
 - Sbt 1.10.11
 
 ### Tools
-- Ansible 2.17.10
+- Ansible 2.17.11
 - apt-fast 1.10.0
 - AzCopy 10.28.1 - available by `azcopy` and `azcopy10` aliases
-- Bazel 8.2.0
+- Bazel 8.2.1
 - Bazelisk 1.26.0
 - Bicep 0.34.44
 - Buildah 1.23.1
 - CMake 3.31.6
-- CodeQL Action Bundle 2.21.0
+- CodeQL Action Bundle 2.21.1
 - Docker Amazon ECR Credential Helper 0.9.1
 - Docker Compose v2 2.27.1
-- Docker-Buildx 0.22.0
+- Docker-Buildx 0.23.0
 - Docker Client 26.1.3
 - Docker Server 26.1.3
 - Fastlane 2.227.1
@@ -83,10 +84,10 @@ to accomplish this.
 - Git LFS 3.6.1
 - Git-ftp 1.6.0
 - Haveged 1.9.14
-- Heroku 10.6.0
+- Heroku 10.6.1
 - jq 1.6
 - Kind 0.27.0
-- Kubectl 1.32.3
+- Kubectl 1.33.0
 - Kustomize 5.6.0
 - Leiningen 2.11.2
 - MediaInfo 21.09
@@ -94,12 +95,12 @@ to accomplish this.
 - Minikube 1.34.0
 - n 10.1.0
 - Newman 6.2.1
-- nvm 0.40.2
+- nvm 0.40.3
 - OpenSSL 3.0.2-0ubuntu1.19
 - Packer 1.12.0
 - Parcel 2.14.4
 - Podman 3.4.4
-- Pulumi 3.162.0
+- Pulumi 3.165.0
 - R 4.5.0
 - Skopeo 1.4.1
 - Sphinx Open Source Search Server 2.2.11
@@ -111,26 +112,26 @@ to accomplish this.
 - Ninja 1.12.1
 
 ### CLI Tools
-- Alibaba Cloud CLI 3.0.270
-- AWS CLI 2.26.2
+- Alibaba Cloud CLI 3.0.271
+- AWS CLI 2.27.2
 - AWS CLI Session Manager Plugin 1.2.707.0
 - AWS SAM CLI 1.137.1
 - Azure CLI 2.71.0
 - Azure CLI (azure-devops) 1.0.1
-- GitHub CLI 2.70.0
-- Google Cloud CLI 517.0.0
-- Netlify CLI 20.0.0
-- OpenShift CLI 4.18.8
+- GitHub CLI 2.71.2
+- Google Cloud CLI 519.0.0
+- Netlify CLI 20.1.1
+- OpenShift CLI 4.18.10
 - ORAS CLI 1.2.2
-- Vercel CLI 41.6.0
+- Vercel CLI 41.6.2
 
 ### Java
 | Version             | Environment Variable |
 | ------------------- | -------------------- |
-| 8.0.442+6           | JAVA_HOME_8_X64      |
-| 11.0.26+4 (default) | JAVA_HOME_11_X64     |
-| 17.0.14+7           | JAVA_HOME_17_X64     |
-| 21.0.6+7            | JAVA_HOME_21_X64     |
+| 8.0.452+9           | JAVA_HOME_8_X64      |
+| 11.0.27+6 (default) | JAVA_HOME_11_X64     |
+| 17.0.15+6           | JAVA_HOME_17_X64     |
+| 21.0.7+6            | JAVA_HOME_21_X64     |
 
 ### PHP Tools
 - PHP: 8.1.2
@@ -161,11 +162,11 @@ Both Xdebug and PCOV extensions are installed, but only Xdebug is enabled.
 - Rustfmt 1.8.0
 
 ### Browsers and Drivers
-- Google Chrome 135.0.7049.84
-- ChromeDriver 135.0.7049.84
+- Google Chrome 135.0.7049.114
+- ChromeDriver 135.0.7049.114
 - Chromium 135.0.7049.0
-- Microsoft Edge 135.0.3179.73
-- Microsoft Edge WebDriver 135.0.3179.73
+- Microsoft Edge 135.0.3179.98
+- Microsoft Edge WebDriver 135.0.3179.98
 - Selenium server 4.31.0
 - Mozilla Firefox 136.0.4
 - Geckodriver 0.36.0
@@ -204,7 +205,7 @@ Use the following command as a part of your job to start the service: 'sudo syst
 
 #### MS SQL
 - sqlcmd 17.10.0001.1
-- SqlPackage 162.5.57.1
+- SqlPackage 170.0.94.3
 
 ### Cached Tools
 
@@ -215,8 +216,8 @@ Use the following command as a part of your job to start the service: 'sudo syst
 
 #### Node.js
 - 18.20.8
-- 20.19.0
-- 22.14.0
+- 20.19.1
+- 22.15.0
 
 #### Python
 - 3.8.18
@@ -243,7 +244,7 @@ Use the following command as a part of your job to start the service: 'sudo syst
 #### PowerShell Modules
 - Az: 12.1.0
 - MarkdownPS: 1.10
-- Microsoft.Graph: 2.26.1
+- Microsoft.Graph: 2.27.0
 - Pester: 5.7.1
 - PSScriptAnalyzer: 1.24.0
 
@@ -259,7 +260,7 @@ Use the following command as a part of your job to start the service: 'sudo syst
 | Android Command Line Tools | 9.0                                                                                                                                                                                                                                                                                                                                                           |
 | Android SDK Build-tools    | 36.0.0<br>35.0.0 35.0.1<br>34.0.0<br>33.0.0 33.0.1 33.0.2 33.0.3<br>32.0.0<br>31.0.0                                                                                                                                                                                                                                                                          |
 | Android SDK Platform-Tools | 35.0.2                                                                                                                                                                                                                                                                                                                                                        |
-| Android SDK Platforms      | android-36 (rev 1)<br>android-35-ext15 (rev 1)<br>android-35-ext14 (rev 1)<br>android-35 (rev 2)<br>android-34-ext8 (rev 1)<br>android-34-ext12 (rev 1)<br>android-34-ext11 (rev 1)<br>android-34-ext10 (rev 1)<br>android-34 (rev 3)<br>android-33-ext5 (rev 1)<br>android-33-ext4 (rev 1)<br>android-33 (rev 3)<br>android-32 (rev 1)<br>android-31 (rev 1) |
+| Android SDK Platforms      | android-36 (rev 2)<br>android-35-ext15 (rev 1)<br>android-35-ext14 (rev 1)<br>android-35 (rev 2)<br>android-34-ext8 (rev 1)<br>android-34-ext12 (rev 1)<br>android-34-ext11 (rev 1)<br>android-34-ext10 (rev 1)<br>android-34 (rev 3)<br>android-33-ext5 (rev 1)<br>android-33-ext4 (rev 1)<br>android-33 (rev 3)<br>android-32 (rev 1)<br>android-31 (rev 1) |
 | Android Support Repository | 47.0.0                                                                                                                                                                                                                                                                                                                                                        |
 | CMake                      | 3.18.1<br>3.22.1<br>3.31.5                                                                                                                                                                                                                                                                                                                                    |
 | Google Play services       | 49                                                                                                                                                                                                                                                                                                                                                            |
@@ -285,13 +286,13 @@ Use the following command as a part of your job to start the service: 'sudo syst
 | alpine:3.19          | sha256:e5d0aea7f7d2954678a9a6269ca2d06e06591881161961ea59e974dff3f12377  | 2025-02-14 |
 | debian:10            | sha256:58ce6f1271ae1c8a2006ff7d3e54e9874d839f573d8009c20154ad0f2fb0a225  | 2024-06-13 |
 | debian:11            | sha256:aa5332dbbec7ff8cdf7dfb8b467c6ac2d55419104af1e49b6f1c22b996da391b  | 2025-04-07 |
-| moby/buildkit:latest | sha256:c457984bd29f04d6acc90c8d9e717afe3922ae14665f3187e0096976fe37b1c8  | 2025-03-24 |
+| moby/buildkit:latest | sha256:fc06fa7d79ada15bbcbf8fce2b8f937dc6b7841ce76ba0bf2f071ec29e8f5ff6  | 2025-04-15 |
 | node:18              | sha256:df9fa4e0e39c9b97e30240b5bb1d99bdb861573a82002b2c52ac7d6b8d6d773e  | 2025-03-27 |
 | node:18-alpine       | sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e  | 2025-03-27 |
-| node:20              | sha256:a5fb035ac1dff34a4ecaea85f90f7321185695d3fd22c12ba12f4535a4647cc5  | 2025-03-13 |
-| node:20-alpine       | sha256:8bda036ddd59ea51a23bc1a1035d3b5c614e72c01366d989f4120e8adca196d4  | 2025-03-13 |
-| node:22              | sha256:e5ddf893cc6aeab0e5126e4edae35aa43893e2836d1d246140167ccc2616f5d7  | 2025-02-13 |
-| node:22-alpine       | sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944  | 2025-02-13 |
+| node:20              | sha256:2b925d94e306faa9f9eca22852d2f0f79bc9192ce778e1cd435928e6a44f9164  | 2025-04-22 |
+| node:20-alpine       | sha256:c628bdc7ebc7f95b1b23249a445eb415ce68ae9def8b68364b35ee15e3065b0f  | 2025-04-22 |
+| node:22              | sha256:473b4362b26d05e157f8470a1f0686cab6a62d1bd2e59774079ddf6fecd8e37e  | 2025-04-23 |
+| node:22-alpine       | sha256:ad1aedbcc1b0575074a91ac146d6956476c1f9985994810e4ee02efd932a68fd  | 2025-04-23 |
 | ubuntu:20.04         | sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214  | 2025-04-08 |
 | ubuntu:22.04         | sha256:d80997daaa3811b175119350d84305e1ec9129e1799bba0bd1e3120da3ff52c3  | 2025-04-07 |
 
@@ -354,7 +355,7 @@ Use the following command as a part of your job to start the service: 'sudo syst
 | mercurial              | 6.1.1-1ubuntu1                      |
 | net-tools              | 1.60+git20181103.0eebece-1ubuntu5   |
 | netcat                 | 1.218-4ubuntu1                      |
-| openssh-client         | 1:8.9p1-3ubuntu0.11                 |
+| openssh-client         | 1:8.9p1-3ubuntu0.13                 |
 | p7zip-full             | 16.02+dfsg-8                        |
 | p7zip-rar              | 16.02-3build1                       |
 | parallel               | 20210822+ds-2                       |
@@ -369,7 +370,7 @@ Use the following command as a part of your job to start the service: 'sudo syst
 | shellcheck             | 0.8.0-2                             |
 | sphinxsearch           | 2.2.11-8                            |
 | sqlite3                | 3.37.2-2ubuntu0.3                   |
-| ssh                    | 1:8.9p1-3ubuntu0.11                 |
+| ssh                    | 1:8.9p1-3ubuntu0.13                 |
 | sshpass                | 1.09-1                              |
 | subversion             | 1.14.1-3ubuntu0.22.04.1             |
 | sudo                   | 1.9.9-1ubuntu2.4                    |
