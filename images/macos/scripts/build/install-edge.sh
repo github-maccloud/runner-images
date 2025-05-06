@@ -42,9 +42,9 @@ driver_path=$(find "$TEMP_EDGE_DRIVER_DIR" -type f -name "msedgedriver" | head -
 if [[ -n "$driver_path" ]]; then
     EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
     sudo mkdir -p "$EDGE_DRIVER_DIR"
-    sudo mv "$driver_path" "$EDGE_DRIVER_DIR/msedgedriver"
+    mv "$driver_path" "$EDGE_DRIVER_DIR/msedgedriver"
     sudo chmod +x "$EDGE_DRIVER_DIR/msedgedriver"
-    sudo ln -sf "$EDGE_DRIVER_DIR/msedgedriver" /usr/local/bin/msedgedriver
+    ln -sf "$EDGE_DRIVER_DIR/msedgedriver" /usr/local/bin/msedgedriver
 fi
 
 echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
