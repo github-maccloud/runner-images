@@ -4,14 +4,20 @@
         "x64": {
             "versions": [
                 {
-                    "link": "16.2",
-                    "version": "16.2+16C5032a",
-                    "sha256": "0e367d06eb7c334ea143bada5e4422f56688aabff571bedf0d2ad9434b7290de",
+                    "link": "16.3",
+                    "version": "16.3+16E140",
+                    "sha256": "c593177b73e45f31e1cf7ced131760d8aa8e1532f5bbf8ba11a4ded01da14fbb",
                     "install_runtimes": [
-                        { "iOS": "18.2" },
+                        { "iOS": "18.4" },
                         { "watchOS": "default" },
                         { "tvOS": "default" }
                     ]
+                },
+                {
+                    "link": "16.2",
+                    "version": "16.2+16C5032a",
+                    "sha256": "0e367d06eb7c334ea143bada5e4422f56688aabff571bedf0d2ad9434b7290de",
+                    "install_runtimes":"default"
                 },
                 {
                     "link": "16.1",
@@ -55,15 +61,21 @@
         "arm64":{
             "versions": [
                 {
+                    "link": "16.3",
+                    "version": "16.3+16E140",
+                    "sha256": "c593177b73e45f31e1cf7ced131760d8aa8e1532f5bbf8ba11a4ded01da14fbb",
+                    "install_runtimes": [
+                        { "iOS": "18.4" },
+                        { "watchOS": "default" },
+                        { "tvOS": "default" },
+                        { "visionOS": "2.4" }
+                    ]
+                },
+                {
                     "link": "16.2",
                     "version": "16.2+16C5032a",
                     "sha256": "0e367d06eb7c334ea143bada5e4422f56688aabff571bedf0d2ad9434b7290de",
-                    "install_runtimes": [
-                        { "iOS": "18.2" },
-                        { "watchOS": "default" },
-                        { "tvOS": "default" },
-                        { "visionOS": "2.2" }
-                    ]
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "16.1",
