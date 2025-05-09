@@ -4,7 +4,7 @@
         "x64": {
             "versions": [
                 {
-                    "link": "16.4_beta", 
+                    "link": "16.4_beta_1", 
                     "version": "16.4-Beta+16F1t",
                     "sha256": "2386a1667efb7022080fe0e42b91be1cdd7715202df82e81abacc6518385a029",
                     "symlinks": ["16.4"],
@@ -54,7 +54,7 @@
         "arm64":{
             "versions": [
                 {
-                    "link": "16.4_beta", 
+                    "link": "16.4_beta_1", 
                     "version": "16.4-Beta+16F1t",
                     "sha256": "2386a1667efb7022080fe0e42b91be1cdd7715202df82e81abacc6518385a029",
                     "symlinks": ["16.4"],
