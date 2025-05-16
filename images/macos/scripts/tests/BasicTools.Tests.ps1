@@ -148,13 +148,14 @@ Describe "ripgrep" {
     Set-Content -Path $testFile -Value "this is a testing line"
 
     It "ripgrep is installed" {
-        "rg --version" | Should -ReturnZeroExitCode
+        rg --version | Should -ReturnZeroExitCode
     }
 
     It "ripgrep finds a string in a file" {
-        "rg testing $testFile" | Should -ReturnZeroExitCode
+        rg testing $testFile | Should -ReturnZeroExitCode
     }
 }
+
 
 
 Describe "pkgconf" {
