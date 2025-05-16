@@ -400,7 +400,7 @@ function Get-XcbeautifyVersion {
     return $XcbeautifyVersion
 }
 function Get-RipgrepVersion {
-    $RipgrepVersion = Run-Command "ripgrep --version"
+    $RipgrepVersion = Run-Command "rg --version"
     return $RipgrepVersion
 }
 function Get-XcodesVersion {
