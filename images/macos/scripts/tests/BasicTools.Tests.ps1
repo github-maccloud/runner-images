@@ -143,6 +143,20 @@ Describe "yq" {
     }
 }
 
+Describe "ripgrep" {
+    $testFile = "/tmp/testfile.txt"
+    Set-Content -Path $testFile -Value "this is a testing line"
+
+    It "ripgrep is installed" {
+        "rg --version" | Should -ReturnZeroExitCode
+    }
+
+    It "ripgrep finds a string in a file" {
+        "rg testing $testFile" | Should -ReturnZeroExitCode
+    }
+}
+
+
 Describe "pkgconf" {
     It "pkgconf" {
         "pkgconf --version" | Should -ReturnZeroExitCode
