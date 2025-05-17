@@ -197,16 +197,46 @@ Describe "pkgconf" {
     }
 }
 
+# Describe "Ninja" {
+#     New-item -Path "/tmp/ninjaproject" -ItemType Directory -Force
+#     Set-Location '/tmp/ninjaproject'
+# @'
+# cmake_minimum_required(VERSION 3.10)
+# project(NinjaTest NONE)
+# '@ | Out-File -FilePath "./CMakeLists.txt"
+
+#     It "Make a simple ninja project" {
+#     "cmake -GNinja /tmp/ninjaproject" | Should -ReturnZeroExitCode
+#     }
+
+#     It "build.ninja file should exist" {
+#         $buildFilePath = Join-Path "/tmp/ninjaproject" "build.ninja"
+#         $buildFilePath | Should -Exist
+#     }
+
+#     It "Ninja" {
+#         "ninja --version" | Should -ReturnZeroExitCode
+#     }
+# }
+
 Describe "Ninja" {
-    New-item -Path "/tmp/ninjaproject" -ItemType Directory -Force
-    Set-Location '/tmp/ninjaproject'
-@'
+    # Clean up stale ninja project before starting
+    AfterAll {
+        Remove-Item -Path "/tmp/ninjaproject" -Recurse -Force -ErrorAction SilentlyContinue
+    }
+
+    BeforeAll {
+        Remove-Item -Path "/tmp/ninjaproject" -Recurse -Force -ErrorAction SilentlyContinue
+        New-Item -Path "/tmp/ninjaproject" -ItemType Directory -Force
+        Set-Location '/tmp/ninjaproject'
+        @'
 cmake_minimum_required(VERSION 3.10)
 project(NinjaTest NONE)
 '@ | Out-File -FilePath "./CMakeLists.txt"
+    }
 
     It "Make a simple ninja project" {
-    "cmake -GNinja /tmp/ninjaproject" | Should -ReturnZeroExitCode
+        "cmake -GNinja /tmp/ninjaproject" | Should -ReturnZeroExitCode
     }
 
     It "build.ninja file should exist" {
