@@ -143,23 +143,24 @@ Describe "yq" {
     }
 }
 
-Describe "ripgrep" {
-    $testFile = "/tmp/testfile.txt"
+# Describe "ripgrep" {
+#     $testFile = "/tmp/testfile.txt"
 
-    BeforeAll {
-        Set-Content -Path $testFile -Value "this is a testing line"
-    }
+#     BeforeAll {
+#         Set-Content -Path $testFile -Value "this is a testing line"
+#     }
 
-    It "ripgrep is installed" {
-        rg --version | Should -Not -BeNullOrEmpty
-        $? | Should -BeTrue
-    }
+#     It "ripgrep is installed" {
+#         rg --version | Should -Not -BeNullOrEmpty
+#         $? | Should -BeTrue
+#     }
 
-    It "ripgrep finds a string in a file" {
-        rg testing $testFile | Should -Not -BeNullOrEmpty
-        $? | Should -BeTrue
-    }
-}
+#     It "ripgrep finds a string in a file" {
+#         rg testing $testFile | Should -Not -BeNullOrEmpty
+#         $? | Should -BeTrue
+#     }
+# }
+
 # Describe "ripgrep" {
 #     $testFile = "/tmp/testfile.txt"
 
@@ -246,5 +247,27 @@ project(NinjaTest NONE)
 
     It "Ninja" {
         "ninja --version" | Should -ReturnZeroExitCode
+    }
+}
+
+Describe "ripgrep" {
+    $testFile = "/tmp/testfile.txt"
+
+    BeforeAll {
+        Set-Content -Path $testFile -Value "this is a testing line"
+    }
+
+    AfterAll {
+        Remove-Item -Path $testFile -Force -ErrorAction SilentlyContinue
+    }
+
+    It "ripgrep is installed" {
+        rg --version | Should -Not -BeNullOrEmpty
+        $? | Should -BeTrue
+    }
+
+    It "ripgrep finds a string in a file" {
+        rg testing $testFile | Should -Not -BeNullOrEmpty
+        $? | Should -BeTrue
     }
 }
