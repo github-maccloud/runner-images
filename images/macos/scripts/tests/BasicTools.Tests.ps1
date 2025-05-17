@@ -160,6 +160,33 @@ Describe "yq" {
 #         $? | Should -BeTrue
 #     }
 # }
+Describe "ripgrep" {
+    $testFile = "/tmp/testfile.txt"
+
+    BeforeAll {
+        Set-Content -Path $testFile -Value "this is a testing line`nripgrep is awesome"
+    }
+
+    AfterAll {
+        Remove-Item -Path $testFile -Force -ErrorAction SilentlyContinue
+    }
+
+    It "ripgrep is installed" {
+        rg --version | Should -Not -BeNullOrEmpty
+        $? | Should -BeTrue
+    }
+
+    It "ripgrep finds a string in a file" {
+        rg testing $testFile | Should -Not -BeNullOrEmpty
+        $? | Should -BeTrue
+    }
+
+    It "ripgrep returns nothing for missing string" {
+        $result = rg notfoundstring $testFile
+        $result | Should -BeNullOrEmpty
+        ($LASTEXITCODE -eq 1) | Should -BeTrue
+    }
+}
 
 
 
