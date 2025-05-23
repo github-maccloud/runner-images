@@ -98,6 +98,10 @@ $utilities.AddToolVersion("Unxip", $(Get-UnxipVersion))
 $utilities.AddToolVersion("yq", $(Get-YqVersion))
 $utilities.AddToolVersion("zstd", $(Get-ZstdVersion))
 $utilities.AddToolVersion("Ninja", $(Get-NinjaVersion))
+if ($os.IsVentura -or $os.IsSonoma -or $os.ISSequoia) {
+    $utilities.AddToolVersion("Vagrant", $(Get-VagrantVersion))
+    $utilities.AddToolVersion("VirtualBox", $(Get-VirtualBoxVersion))
+}
 
 # Tools
 $tools = $installedSoftware.AddHeader("Tools")

@@ -148,6 +148,7 @@
             "xcodes"
         ],
         "cask_packages": [
+            "virtualbox",
             "parallels"
         ]
     },

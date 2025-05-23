@@ -70,6 +70,12 @@ Describe "Bicep" {
     }
 }
 
+Describe "VirtualBox" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.ISSequoia) {
+    It "Check kext kernel modules" {
+        kextstat | Out-String | Should -Match "org.virtualbox.kext"
+    }
+}
+
 Describe "CodeQL Bundle" {
     It "Is installed" {
         $CodeQLVersionWildcard = Join-Path $Env:AGENT_TOOLSDIRECTORY -ChildPath "CodeQL" | Join-Path -ChildPath "*"
