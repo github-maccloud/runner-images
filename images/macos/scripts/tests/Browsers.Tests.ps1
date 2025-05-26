@@ -53,7 +53,7 @@ Describe "Edge" {
     }
 }
 
-Describe "Firefox" -Skip:($os.IsVenturaArm64 -or $os.IsSonomaArm64 -or $os.IsSequoiaArm64) {
+Describe "Firefox" {
     It "Firefox" {
         $firefoxLocation = "/Applications/Firefox.app/Contents/MacOS/firefox"
         $firefoxLocation | Should -Exist
