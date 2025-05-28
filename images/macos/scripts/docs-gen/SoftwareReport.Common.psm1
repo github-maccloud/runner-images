@@ -297,11 +297,6 @@ function Get-VirtualBoxVersion {
     return $virtualBox
 }
 
-function Get-VagrantVersion {
-    $vagrant = Run-Command "vagrant -v"
-    return ($vagrant -replace "^Vagrant").Trim()
-}
-
 function Get-ParallelVersion {
     $parallelVersion = Run-Command "parallel --version" | Select-String "GNU parallel" | Select-Object -First 1
     return ($parallelVersion -replace "^GNU parallel").Trim()
