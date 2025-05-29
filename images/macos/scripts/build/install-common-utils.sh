@@ -65,7 +65,7 @@ for package in $cask_packages; do
     if is_SonomaX64 || is_VenturaX64 || is_SequoiaX64 && [[ $package == "virtualbox" ]]; then
         # Do not update VirtualBox on macOS 12 due to the issue with VMs in gurumediation state which blocks Vagrant on macOS: https://github.com/actions/runner-images/issues/8730
         # macOS host: Dropped all kernel extensions. VirtualBox relies fully on the hypervisor and vmnet frameworks provided by Apple now.
-        vbcask_url="https://raw.githubusercontent.com/Homebrew/homebrew-cask/aa3c55951fc9d687acce43e5c0338f42c1ddff7b/Casks/virtualbox.rb"
+        vbcask_url="https://raw.githubusercontent.com/Homebrew/homebrew-cask/master/Casks/v/virtualbox.rb"
         vbcask_url=$(download_with_retry $vbcask_url)
         brew install --cask "$vbcask_url"
         rm "$vbcask_url"
