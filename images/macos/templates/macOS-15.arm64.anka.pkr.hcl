@@ -163,6 +163,15 @@ build {
   }
 
   provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
+    scripts         = [
+      "${path.root}/../scripts/build/install-xcode-clt.sh",
+      "${path.root}/../scripts/build/install-homebrew.sh",
+      "${path.root}/../scripts/build/install-rosetta.sh"
+    ]
+  }
+
+  provisioner "shell" {
     environment_vars = ["PASSWORD=${var.vm_password}", "USERNAME=${var.vm_username}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
     scripts          = [
