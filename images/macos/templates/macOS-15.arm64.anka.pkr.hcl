@@ -194,6 +194,12 @@ build {
   }
 
   provisioner "shell" {
+    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
+    expect_disconnect = true
+    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
+  }
+
+  provisioner "shell" {
     environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     pause_before     = "30s"
