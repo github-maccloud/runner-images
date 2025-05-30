@@ -163,15 +163,6 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    scripts         = [
-      "${path.root}/../scripts/build/install-xcode-clt.sh",
-      "${path.root}/../scripts/build/install-homebrew.sh",
-      "${path.root}/../scripts/build/install-rosetta.sh"
-    ]
-  }
-
-  provisioner "shell" {
     environment_vars = ["PASSWORD=${var.vm_password}", "USERNAME=${var.vm_username}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
     scripts          = [
@@ -191,80 +182,6 @@ build {
       "${path.root}/../scripts/build/configure-ssh.sh",
       "${path.root}/../scripts/build/configure-machine.sh"
     ]
-  }
-
-  provisioner "shell" {
-    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
-    expect_disconnect = true
-    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    pause_before     = "30s"
-    scripts          = [
-      "${path.root}/../scripts/build/configure-windows.sh",
-      "${path.root}/../scripts/build/install-powershell.sh",
-      "${path.root}/../scripts/build/install-dotnet.sh",
-      "${path.root}/../scripts/build/install-python.sh",
-      "${path.root}/../scripts/build/install-azcopy.sh",
-      "${path.root}/../scripts/build/install-openssl.sh",
-      "${path.root}/../scripts/build/install-ruby.sh",
-      "${path.root}/../scripts/build/install-rubygems.sh",
-      "${path.root}/../scripts/build/install-git.sh",
-      "${path.root}/../scripts/build/install-node.sh",
-      "${path.root}/../scripts/build/install-common-utils.sh"
-    ]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["XCODE_INSTALL_STORAGE_URL=${var.xcode_install_storage_url}", "XCODE_INSTALL_SAS=${var.xcode_install_sas}", "IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
-    script           = "${path.root}/../scripts/build/Install-Xcode.ps1"
-  }
-
-  provisioner "shell" {
-    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
-    expect_disconnect = true
-    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["API_PAT=${var.github_api_pat}", "IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    scripts          = [
-      "${path.root}/../scripts/build/install-actions-cache.sh",
-      "${path.root}/../scripts/build/install-runner-package.sh",
-      "${path.root}/../scripts/build/install-llvm.sh",
-      "${path.root}/../scripts/build/install-openjdk.sh",
-      "${path.root}/../scripts/build/install-aws-tools.sh",
-      "${path.root}/../scripts/build/install-rust.sh",
-      "${path.root}/../scripts/build/install-gcc.sh",
-      "${path.root}/../scripts/build/install-cocoapods.sh",
-      "${path.root}/../scripts/build/install-android-sdk.sh",
-      "${path.root}/../scripts/build/install-vcpkg.sh",
-      "${path.root}/../scripts/build/install-safari.sh",
-      "${path.root}/../scripts/build/install-chrome.sh",
-      "${path.root}/../scripts/build/install-firefox.sh",
-      "${path.root}/../scripts/build/install-bicep.sh",
-      "${path.root}/../scripts/build/install-codeql-bundle.sh"
-    ]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
-    scripts          = [
-      "${path.root}/../scripts/build/Install-Toolset.ps1",
-      "${path.root}/../scripts/build/Configure-Toolset.ps1"
-    ]
-  }
-
-  provisioner "shell" {
-    environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
-    execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
-    script          = "${path.root}/../scripts/build/Configure-Xcode-Simulators.ps1"
   }
 
   provisioner "shell" {
