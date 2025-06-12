@@ -21,4 +21,6 @@ rustup component add rustfmt clippy
 echo "Cleanup Cargo registry cached data..."
 rm -rf $CARGO_HOME/registry/*
 
+track_component_size "rust"
+
 invoke_tests "Rust"

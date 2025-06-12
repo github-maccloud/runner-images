@@ -15,5 +15,6 @@ brew link node@$defaultVersion --force --overwrite
 echo Installing yarn...
 yarn_installer_path=$(download_with_retry "https://yarnpkg.com/install.sh")
 bash $yarn_installer_path
+track_component_size "yarn"
 
 invoke_tests "Node" "Node.js"

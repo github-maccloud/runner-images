@@ -1,6 +1,50 @@
 Import-Module "$PSScriptRoot/Common.Helpers.psm1"
 Import-Module "$PSScriptRoot/Xcode.Helpers.psm1"
 
+function Get-FreeSpaceMB {
+    $line = diskutil info / | Select-String 'Container Free Space'
+    if ($line -match '\((\d+)\s+Bytes\)') {
+        $bytes = [double]$matches[1]
+        return [math]::Floor($bytes * 0.000001)
+    }
+    throw "Unable to parse free space from diskutil output: $line"
+}
+
+function Set-ComponentSize {
+    param (
+        [Parameter(Mandatory)]
+        [string]$Name
+    )
+
+    if (-not $env:APP_JSON_PATH -or -not $env:DISK_FREE_VAR_PATH) {
+        Write-Error "Environment variables APP_JSON_PATH or DISK_FREE_VAR_PATH not set."
+        return
+    }
+
+    if (-not (Test-Path $env:DISK_FREE_VAR_PATH)) {
+        Write-Error "$env:DISK_FREE_VAR_PATH not found."
+        return
+    }
+
+    $prevFree = Get-Content $env:DISK_FREE_VAR_PATH | ForEach-Object { $_.Trim() } | Select-Object -First 1
+    $currFree = Get-FreeSpaceMB
+    $delta = [int]$prevFree - [int]$currFree
+
+    # Read and update JSON
+    $jsonPath = $env:APP_JSON_PATH
+    $data = @{}
+    if (Test-Path $jsonPath) {
+        $data = Get-Content $jsonPath -Raw | ConvertFrom-Json
+        $data = $data | ConvertTo-Json | ConvertFrom-Json -AsHashtable
+    }
+    $data[$Name] = $delta
+
+    $data | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $jsonPath
+    Set-Content -Encoding UTF8 $env:DISK_FREE_VAR_PATH $currFree
+
+    Write-Host " [i] Tracked '$Name': $delta MB used"
+}
+
 function Install-XcodeVersion {
     param (
         [Parameter(Mandatory)]
@@ -193,6 +237,7 @@ function Install-AdditionalSimulatorRuntimes {
     if ($Runtimes -eq "default") {
         Write-Host "Installing all runtimes for Xcode $Version ..."
         Invoke-ValidateCommand "$xcodebuildPath -downloadAllPlatforms" | Out-Null
+        Set-ComponentSize -Name "Xcode $Version runtimes"
         return
     } elseif ($Runtimes -eq "none") {
         Write-Host "Skipping runtimes installation for Xcode $Version ..."
@@ -240,6 +285,7 @@ function Install-AdditionalSimulatorRuntimes {
                 "default" {
                     Write-Host "Installing default $platform runtime for Xcode $Version ..."
                     Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform" | Out-Null
+                    Set-ComponentSize -Name "Xcode $Version $platform runtime"
                     continue
                 }
                 default {
@@ -247,6 +293,7 @@ function Install-AdditionalSimulatorRuntimes {
                     if (($platformVersion -match "^\d{1,2}\.\d(\.\d)?$") -or ($platformVersion -match "^[a-zA-Z0-9]{6,8}$")) {
                         Write-Host "Installing $platform $platformVersion runtime for Xcode $Version ..."
                         Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform -buildVersion $platformVersion" | Out-Null
+                        Set-ComponentSize -Name "Xcode $Version $platform $platformVersion runtime"
                         continue
                     }
                     throw "$platformVersion is not a valid value for $platform version. Valid values are 'latest' or 'skip' or a semver from 0.0 to 99.9.(9)."

@@ -8,6 +8,7 @@ source ~/utils/utils.sh
 
 echo "Installing Firefox..."
 brew install --cask firefox
+track_component_size "firefox"
 
 echo "Installing Geckodriver..."
 brew_smart_install "geckodriver"

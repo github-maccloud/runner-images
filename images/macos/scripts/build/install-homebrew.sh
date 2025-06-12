@@ -29,6 +29,8 @@ brew tap homebrew/core
 echo "Disabling Homebrew analytics..."
 brew analytics off
 
+track_component_size "homebrew"
+
 # jq is required for further installation scripts
 echo "Installing jq..."
 brew_smart_install jq
