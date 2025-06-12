@@ -13,6 +13,7 @@ for package in $common_packages; do
         packer)
             # Packer has been deprecated in Homebrew. Use tap to install Packer.
             brew install hashicorp/tap/packer
+            track_component_size "packer"
             ;;
 
         kotlin)
@@ -22,6 +23,7 @@ for package in $common_packages; do
             kotlin_rb_link="https://raw.githubusercontent.com/Homebrew/homebrew-core/$kotlin_commit/Formula/k/kotlin.rb"
             kotlin_rb_path=$(download_with_retry "$kotlin_rb_link")
             brew install "$kotlin_rb_path"
+            track_component_size "kotlin"
             ;;
 
         cmake)
@@ -31,6 +33,7 @@ for package in $common_packages; do
             cmake_rb_link="https://raw.githubusercontent.com/Homebrew/homebrew-core/$cmake_commit/Formula/c/cmake.rb"
             cmake_rb_path=$(download_with_retry "$cmake_rb_link")
             brew install "$cmake_rb_path"
+            track_component_size "cmake"
             ;;
 
         tcl-tk@8)
@@ -56,6 +59,7 @@ for package in $cask_packages; do
         echo "Parallels installation is skipped for arm64 architecture"
     else
         brew install --cask $package
+        track_component_size "$package"
     fi
 done
 
@@ -121,6 +125,7 @@ fi
 
 # Install Azure DevOps extension for Azure Command Line Interface
 az extension add -n azure-devops
+track_component_size "azure-devops-cli-extension"
 
 # Invoke tests for all basic tools
 invoke_tests "BasicTools"

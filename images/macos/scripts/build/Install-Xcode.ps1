@@ -25,6 +25,8 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     Confirm-XcodeIntegrity -Version $_.link
 }
 
+Set-ComponentSize -Name "All Xcodes"
+
 $xcodeVersions | ForEach-Object {
     Approve-XcodeLicense -Version $_.link
 }
