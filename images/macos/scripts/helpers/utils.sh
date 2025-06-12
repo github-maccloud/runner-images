@@ -213,11 +213,18 @@ use_checksum_comparison() {
     fi
 }
 
+get_free_space_mb() {
+  local bytes
+  bytes=$(diskutil info / | grep 'Container Free Space' | sed -E 's/.*\(([0-9]+) Bytes\).*/\1/')
+  echo "scale=0; $bytes / 1000000" | bc
+}
+
 track_component_size() {
   local name="$1"
 
+  local prev_free curr_free delta
   prev_free=$(<"$DISK_FREE_VAR_PATH")
-  curr_free=$(df / | awk 'NR==2 {print int($4/1024)}')
+  curr_free=$(get_free_space_mb)
   delta=$((prev_free - curr_free))
 
   tmpfile=$(mktemp)
@@ -229,7 +236,7 @@ track_component_size() {
 }
 
 print_tracked_components() {
-  echo "   - [i] Components as stored:"
+  echo " [i] Components as stored:"
   cat "$APP_JSON_PATH"
   echo ""
 
