@@ -212,3 +212,27 @@ use_checksum_comparison() {
         echo "Checksum verification passed"
     fi
 }
+
+track_component_size() {
+  local name="$1"
+
+  prev_free=$(<"$DISK_FREE_VAR_PATH")
+  curr_free=$(df / | awk 'NR==2 {print int($4/1024)}')
+  delta=$((prev_free - curr_free))
+
+  tmpfile=$(mktemp)
+  jq --arg name "$name" --arg size "$delta" '. + {($name): ($size | tonumber)}' "$APP_JSON_PATH" > "$tmpfile" && mv "$tmpfile" "$APP_JSON_PATH"
+
+  echo "$curr_free" > "$DISK_FREE_VAR_PATH"
+
+  echo " [i] Tracked '$name': $delta MB used"
+}
+
+print_tracked_components() {
+  echo "   - [i] Components as stored:"
+  cat "$APP_JSON_PATH"
+  echo ""
+
+  echo "   - [i] Sorted by size (desc):"
+  jq -r 'to_entries | sort_by(.value) | reverse | .[] | "\(.key): \(.value) MB"' "$APP_JSON_PATH"
+}
