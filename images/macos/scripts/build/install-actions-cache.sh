@@ -17,4 +17,6 @@ echo "Downloading action-versions $download_url"
 archive_path=$(download_with_retry $download_url)
 tar -xzf $archive_path -C $ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE
 
+track_component_size "action-versions"
+
 invoke_tests "ActionArchiveCache"

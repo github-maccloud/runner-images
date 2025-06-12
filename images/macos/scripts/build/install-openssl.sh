@@ -28,4 +28,6 @@ if ! is_Arm64; then
   ln -sf $(brew --cellar openssl@1.1)/1.1* /usr/local/opt/openssl
 fi
 
+track_component_size "openssl"
+
 invoke_tests "OpenSSL"

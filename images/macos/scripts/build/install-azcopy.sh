@@ -19,5 +19,6 @@ extract_path=$(echo /tmp/azcopy/azcopy*)
 cp $extract_path/azcopy /usr/local/bin/azcopy
 chmod +x /usr/local/bin/azcopy
 
+track_component_size "azcopy"
 
 invoke_tests "Common" "AzCopy"

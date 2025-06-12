@@ -9,6 +9,7 @@ arch=$(get_arch)
 
 echo "Installing Google Chrome..."
 brew install --cask google-chrome
+track_component_size "google-chrome"
 
 # Parse Google Chrome version
 full_chrome_version=$("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version)
@@ -34,6 +35,7 @@ unzip -qq $chromedriver_archive_path -d /tmp/
 sudo mv /tmp/chromedriver-$chrome_platform $chromedriver_dir
 ln -s $chromedriver_bin /usr/local/bin/chromedriver
 echo "export CHROMEWEBDRIVER=$chromedriver_dir" >> ${HOME}/.bashrc
+track_component_size "chromedriver"
 
 # Download and unpack the latest release of Google Chrome for Testing
 chrome_for_testing_version=$(cat $chrome_versions_json | jq -r '.builds["'"$chrome_version"'"].version')
@@ -45,6 +47,7 @@ chrome_for_testing_app="Google Chrome for Testing.app"
 chrome_for_testing_archive_path=$(download_with_retry $chrome_for_testing_url)
 unzip -qq $chrome_for_testing_archive_path -d /tmp/
 mv "/tmp/chrome-$chrome_platform/$chrome_for_testing_app" "/Applications/$chrome_for_testing_app"
+track_component_size "google-chrome-for-testing"
 
 echo "Installing Selenium"
 brew_smart_install "selenium-server"

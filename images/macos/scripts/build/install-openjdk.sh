@@ -83,6 +83,7 @@ jdkVersionsToInstall=($(get_toolset_value ".java.${arch}.versions[]"))
 
 for jdkVersionToInstall in ${jdkVersionsToInstall[@]}; do
     installOpenJDK ${jdkVersionToInstall}
+    track_component_size "Java_Temurin-Hotspot_jdk/${jdkVersionToInstall}"
 
     if [[ ${jdkVersionToInstall} == ${defaultVersion} ]]
     then

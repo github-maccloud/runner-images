@@ -33,6 +33,7 @@ done
 
 for ARGS in ${args_list[@]}; do
     $install_script_path --version $ARGS -NoPath --arch $arch
+    track_component_size "dotnet-sdk-$ARGS"
 done
 
 # dotnet installer doesn't create symlink to executable in /user/local/bin

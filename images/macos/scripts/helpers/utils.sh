@@ -136,6 +136,8 @@ brew_smart_install() {
        echo "Failed: brew install $tool_name"
        exit 1;
     fi
+
+    track_component_size "$tool_name"
 }
 
 configure_system_tccdb () {
@@ -215,4 +217,35 @@ use_checksum_comparison() {
     else
         echo "Checksum verification passed"
     fi
+}
+
+get_free_space_mb() {
+  local bytes
+  bytes=$(diskutil info / | grep 'Container Free Space' | sed -E 's/.*\(([0-9]+) Bytes\).*/\1/')
+  echo "scale=0; $bytes / 1000000" | bc
+}
+
+track_component_size() {
+  local name="$1"
+
+  local prev_free curr_free delta
+  prev_free=$(<"$DISK_FREE_VAR_PATH")
+  curr_free=$(get_free_space_mb)
+  delta=$((prev_free - curr_free))
+
+  tmpfile=$(mktemp)
+  jq --arg name "$name" --arg size "$delta" '. + {($name): ($size | tonumber)}' "$APP_JSON_PATH" > "$tmpfile" && mv "$tmpfile" "$APP_JSON_PATH"
+
+  echo "$curr_free" > "$DISK_FREE_VAR_PATH"
+
+  echo " [i] Tracked '$name': $delta MB used"
+}
+
+print_tracked_components() {
+  echo " [i] Components as stored:"
+  cat "$APP_JSON_PATH"
+  echo ""
+
+  echo "   - [i] Sorted by size (desc):"
+  jq -r 'to_entries | sort_by(.value) | reverse | .[] | "\(.key): \(.value) MB"' "$APP_JSON_PATH"
 }

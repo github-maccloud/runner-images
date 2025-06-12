@@ -18,4 +18,6 @@ if [[ ! -d $AGENT_PATH ]]; then
     sudo chown $USER:admin $AGENT_PATH
 fi
 
+track_component_size "runner-package"
+
 sudo mv "$archive_path" "$AGENT_PATH/$archive_name"

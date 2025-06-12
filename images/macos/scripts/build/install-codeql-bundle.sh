@@ -45,4 +45,6 @@ touch "$codeql_toolcache_path/pinned-version"
 # Touch a file to indicate to the toolcache that setting up CodeQL is complete.
 touch "$codeql_toolcache_path.complete"
 
+track_component_size "codeql-bundle"
+
 invoke_tests "Common" "CodeQL Bundle"

@@ -70,19 +70,24 @@ unzip -q "$archive_path" -d "$ANDROID_HOME/cmdline-tools"
 # Command line tools need to be placed in $ANDROID_HOME/cmdline-tools/latest to function properly
 mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
 
+track_component_size "android-sdk-cmdline-tools"
+
 echo ANDROID_HOME is "$ANDROID_HOME"
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest:$ANDROID_HOME/cmdline-tools/latest/bin
 
 SDKMANAGER=$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager
-
+track_component_size "android-sdk"
 echo "Installing latest tools & platform tools..."
 echo y | $SDKMANAGER "tools" "platform-tools"
+
+track_component_size "android-sdk"
 
 echo "Installing latest ndk..."
 for ndk_version in "${android_ndk_major_versions[@]}"
 do
     ndk_full_version=$(get_full_ndk_version $ndk_version)
     echo y | $SDKMANAGER "ndk;$ndk_full_version"
+    track_component_size "android-ndk-$ndk_full_version"
 done
 
 ndkDefault=$(get_full_ndk_version $android_ndk_major_default)
@@ -108,18 +113,21 @@ for extra_name in "${android_extra_list[@]}"
 do
     echo "Installing extra $extra_name ..."
     echo y | $SDKMANAGER "extras;$extra_name"
+    track_component_size "android-sdk-extra-$extra_name"
 done
 
 for addon_name in "${android_addon_list[@]}"
 do
     echo "Installing add-on $addon_name ..."
     echo y | $SDKMANAGER "add-ons;$addon_name"
+    track_component_size "android-sdk-addon-$addon_name"
 done
 
 for tool_name in "${android_additional_tools[@]}"
 do
     echo "Installing additional tool $tool_name ..."
     echo y | $SDKMANAGER "$tool_name"
+    track_component_size "android-sdk-tool-$tool_name"
 done
 
 # Download SDK tools to preserve backward compatibility
@@ -127,6 +135,7 @@ sdk_tools_version=$(get_toolset_value '.android."sdk-tools"')
 if [ "$sdk_tools_version" != "null" ]; then
     sdk_tools_archive_path=$(download_with_retry "https://dl.google.com/android/repository/${sdk_tools_version}")
     unzip -o -qq "$sdk_tools_archive_path" -d "${ANDROID_SDK_ROOT}"
+    track_component_size "android-sdk-tools"
 fi
 
 invoke_tests "Android"

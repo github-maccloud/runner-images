@@ -8,6 +8,7 @@ source ~/utils/utils.sh
 
 echo "Installing Microsoft Edge..."
 brew install --cask microsoft-edge
+track_component_size "microsoft-edge"
 
 EDGE_INSTALLATION_PATH="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 edge_version=$("$EDGE_INSTALLATION_PATH" --version | cut -d' ' -f 3)
@@ -37,6 +38,7 @@ EDGE_DRIVER_DIR="/usr/local/share/edge_driver"
 mkdir -p $EDGE_DRIVER_DIR
 unzip -qq $edge_driver_archive_path -d $EDGE_DRIVER_DIR
 ln -s $EDGE_DRIVER_DIR/msedgedriver /usr/local/bin/msedgedriver
+track_component_size "msedgedriver"
 
 echo "export EDGEWEBDRIVER=${EDGE_DRIVER_DIR}" >> ${HOME}/.bashrc
 

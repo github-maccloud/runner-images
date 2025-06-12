@@ -13,6 +13,7 @@ for package in $common_packages; do
         packer)
             # Packer has been deprecated in Homebrew. Use tap to install Packer.
             brew install hashicorp/tap/packer
+            track_component_size "packer"
             ;;
 
         tcl-tk@8)
@@ -38,6 +39,7 @@ for package in $cask_packages; do
         echo "Parallels installation is skipped for arm64 architecture"
     else
         brew install --cask $package
+        track_component_size "$package"
     fi
 done
 
@@ -104,6 +106,7 @@ fi
 
 # Install Azure DevOps extension for Azure Command Line Interface
 az extension add -n azure-devops
+track_component_size "azure-devops-cli-extension"
 
 # Invoke tests for all basic tools
 invoke_tests "BasicTools"
