@@ -7,7 +7,11 @@
                     "link": "26_beta",
                     "version": "26.0.0-Beta+17A5241e",
                     "sha256": "664ad6ec7a3139e9c43b95620c73f8950a802c3d469bb47e6d89f3eab9541b1c",
-                    "install_runtimes": "none"
+                    "install_runtimes": [
+                        { "iOS": ["default"] },
+                        { "watchOS": ["default"] },
+                        { "tvOS": ["default"] }
+                    ]
                 },
                 {
                     "link": "16.4",
@@ -52,7 +56,12 @@
                     "link": "26_beta",
                     "version": "26.0.0-Beta+17A5241e",
                     "sha256": "664ad6ec7a3139e9c43b95620c73f8950a802c3d469bb47e6d89f3eab9541b1c",
-                    "install_runtimes": "none"
+                    "install_runtimes": [
+                        { "iOS": ["default"] },
+                        { "watchOS": ["default"] },
+                        { "tvOS": ["default"] },
+                        { "visionOS": ["default"] }
+                    ]
                 },
                 {
                     "link": "16.4",
