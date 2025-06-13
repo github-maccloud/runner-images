@@ -70,7 +70,7 @@ Describe "Bicep" {
     }
 }
 
-Describe "VirtualBox" -Skip:($os.IsVentura -or $os.IsSonoma -or $os.ISSequoia) {
+Describe "VirtualBox" -Skip:($os.IsVentura -or $os.IsVenturaArm64 -or $os.IsSonoma -or $os.IsSonomaArm64 -or $os.IsSequoia -or $os.IsSequoiaArm64) {
     It "Check kext kernel modules" {
         kextstat | Out-String | Should -Match "org.virtualbox.kext"
     }

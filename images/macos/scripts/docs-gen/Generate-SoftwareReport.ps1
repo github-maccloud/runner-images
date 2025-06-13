@@ -98,7 +98,7 @@ $utilities.AddToolVersion("Unxip", $(Get-UnxipVersion))
 $utilities.AddToolVersion("yq", $(Get-YqVersion))
 $utilities.AddToolVersion("zstd", $(Get-ZstdVersion))
 $utilities.AddToolVersion("Ninja", $(Get-NinjaVersion))
-if ($os.IsVentura -or $os.IsSonoma -or $os.ISSequoia) {
+if ($os.IsVentura -or $os.IsVenturaArm64 -or $os.IsSonoma -or $os.IsSonomaArm64 -or $os.IsSequoia -or $os.IsSequoiaArm64) {
     $utilities.AddToolVersion("VirtualBox", $(Get-VirtualBoxVersion))
 }
 

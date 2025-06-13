@@ -62,7 +62,7 @@ done
 cask_packages=$(get_toolset_value '.brew.cask_packages[]')
 for package in $cask_packages; do
     echo "Installing $package..."
-    if is_SonomaX64 || is_VenturaX64 || is_SequoiaX64 && [[ $package == "virtualbox" ]]; then
+    if  is_VenturaX64 || isVenturaArm64 || is_SonomaX64 || isSonomaArm64 || is_SequoiaX64 || is_SequoiaArm64 && [[ $package == "virtualbox" ]]; then
         # Do not update VirtualBox on macOS 12 due to the issue with VMs in gurumediation state which blocks Vagrant on macOS: https://github.com/actions/runner-images/issues/8730
         # macOS host: Dropped all kernel extensions. VirtualBox relies fully on the hypervisor and vmnet frameworks provided by Apple now.
         vbcask_url="https://raw.githubusercontent.com/Homebrew/homebrew-cask/master/Casks/v/virtualbox.rb"
