@@ -20,4 +20,6 @@ if [[ -n $gemsToInstall ]]; then
     done
 fi
 
+track_component_size "rubygems"
+
 invoke_tests "RubyGem"

@@ -22,6 +22,8 @@ done
 
 pkg_path=$(download_with_retry $download_url)
 
+track_component_size "powershell"
+
 # Work around the issue on macOS Big Sur 11.5 or higher for possible error message ("can't be opened because Apple cannot check it for malicious software") when installing the package
 sudo xattr -rd com.apple.quarantine $pkg_path
 
@@ -60,6 +62,8 @@ fi
 
 # A dummy call to initialize .IdentityService directory
 pwsh -command "& {Import-Module Az}"
+
+track_component_size "powershell modules"
 
 # powershell link was removed in powershell-6.0.0-beta9
 sudo ln -s /usr/local/bin/pwsh /usr/local/bin/powershell

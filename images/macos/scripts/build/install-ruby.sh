@@ -56,6 +56,7 @@ for toolset_version in ${TOOLSET_VERSIONS[@]}; do
         echo "Create complete file"
         touch $complete_file_path
     fi
+    track_component_size "ruby-$ruby_version"
 done
 
 invoke_tests "Ruby"

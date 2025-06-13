@@ -17,4 +17,6 @@ $VCPKG_INSTALLATION_ROOT/vcpkg integrate install
 sudo chmod -R 0777 $VCPKG_INSTALLATION_ROOT
 ln -sf $VCPKG_INSTALLATION_ROOT/vcpkg /usr/local/bin
 
+track_component_size "vcpkg"
+
 invoke_tests "Common" "vcpkg"

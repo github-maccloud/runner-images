@@ -132,6 +132,8 @@ brew_smart_install() {
        echo "Failed: brew install $tool_name"
        exit 1;
     fi
+
+    track_component_size "$tool_name"
 }
 
 configure_system_tccdb () {
