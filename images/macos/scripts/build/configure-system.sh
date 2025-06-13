@@ -104,3 +104,6 @@ sudo rm -rf /Users/$USER/Library/Caches/Homebrew/downloads/*
 
 # Uninstall expect used in configure-machine.sh
 brew uninstall expect
+
+echo "MARKER FOR ERIK"
+print_tracked_components

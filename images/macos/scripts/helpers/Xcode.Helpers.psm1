@@ -310,3 +310,45 @@ function Get-BrokenXcodeSimulatorsList {
         }
     )
 }
+
+function Get-FreeSpaceMB {
+    $line = diskutil info / | Select-String 'Container Free Space'
+    if ($line -match '\((\d+)\s+Bytes\)') {
+        return [math]::Floor($matches[1] / 1_000_000)
+    }
+    throw "Unable to parse free space from diskutil output"
+}
+
+function Track-ComponentSize {
+    param (
+        [Parameter(Mandatory)]
+        [string]$Name
+    )
+
+    if (-not $env:APP_JSON_PATH -or -not $env:DISK_FREE_VAR_PATH) {
+        Write-Error "Environment variables APP_JSON_PATH or DISK_FREE_VAR_PATH not set."
+        return
+    }
+
+    if (-not (Test-Path $env:DISK_FREE_VAR_PATH)) {
+        Write-Error "$env:DISK_FREE_VAR_PATH not found."
+        return
+    }
+
+    $prevFree = Get-Content $env:DISK_FREE_VAR_PATH | ForEach-Object { $_.Trim() } | Select-Object -First 1
+    $currFree = Get-FreeSpaceMB
+    $delta = [int]$prevFree - [int]$currFree
+
+    # Read and update JSON
+    $jsonPath = $env:APP_JSON_PATH
+    $data = @{}
+    if (Test-Path $jsonPath) {
+        $data = Get-Content $jsonPath -Raw | ConvertFrom-Json
+    }
+    $data[$Name] = $delta
+
+    $data | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $jsonPath
+    Set-Content -Encoding UTF8 $env:DISK_FREE_VAR_PATH $currFree
+
+    Write-Host " [i] Tracked '$Name': $delta MB used"
+}

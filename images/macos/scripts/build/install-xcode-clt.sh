@@ -49,3 +49,5 @@ while ! is_clt_installed; do
     echo "Wait $sleepInterval seconds before the next check for installed Command Line Tools"
     sleep $sleepInterval
 done
+
+track_component_size "xcode-clt"

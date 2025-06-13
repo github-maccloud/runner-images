@@ -23,6 +23,7 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
 
     Install-XcodeVersion -Version $_.version -LinkTo $_.link -Sha256Sum $_.sha256
     Confirm-XcodeIntegrity -Version $_.link
+    Track-ComponentSize -Name "Xcode $($_.version)"
 }
 
 $xcodeVersions | ForEach-Object {
