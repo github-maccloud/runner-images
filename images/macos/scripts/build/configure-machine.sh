@@ -103,13 +103,3 @@ if [[ ! -d "/usr/local/bin" ]];then
 fi
 chmod +x $HOME/utils/invoke-tests.sh
 sudo ln -s $HOME/utils/invoke-tests.sh /usr/local/bin/invoke_tests
-
-## Initialize environment for disk space tracking functions
-APP_JSON_PATH="$HOME/apps.json"
-DISK_FREE_VAR_PATH="/var/tmp/last_known_free_space_mb"
-echo "export APP_JSON_PATH=${APP_JSON_PATH}" | tee -a ~/.bashrc
-echo "export DISK_FREE_VAR_PATH=${DISK_FREE_VAR_PATH}" | tee -a ~/.bashrc
-echo "{}" > "$APP_JSON_PATH"
-current_free=$(get_free_space_mb)
-echo "$current_free" > "$DISK_FREE_VAR_PATH"
-echo "Initial free space: $current_free MB at $DISK_FREE_VAR_PATH"
