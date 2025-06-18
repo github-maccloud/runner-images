@@ -4,6 +4,8 @@
 ##  Desc:  Install Cocoapods
 ################################################################################
 
+source ~/utils/utils.sh
+
 # Setup the Cocoapods
 echo "Installing Cocoapods..."
 pod setup
