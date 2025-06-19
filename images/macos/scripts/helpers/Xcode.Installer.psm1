@@ -4,9 +4,10 @@ Import-Module "$PSScriptRoot/Xcode.Helpers.psm1"
 function Get-FreeSpaceMB {
     $line = diskutil info / | Select-String 'Container Free Space'
     if ($line -match '\((\d+)\s+Bytes\)') {
-        return [math]::Floor($matches[1] / 1_000_000)
+        $bytes = [double]$matches[1]
+        return [math]::Floor($bytes * 0.000001)
     }
-    throw "Unable to parse free space from diskutil output"
+    throw "Unable to parse free space from diskutil output: $line"
 }
 
 function Set-ComponentSize {
