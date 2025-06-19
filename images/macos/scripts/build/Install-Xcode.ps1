@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 
 Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
 Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1" -DisableNameChecking
+Import-Module "$env:HOME/image-generation/helpers/Xcode.Helpers" -DisableNameChecking
 
 $arch = Get-Architecture
 [Array]$xcodeVersions = (Get-ToolsetContent).xcode.$arch.versions
@@ -23,8 +24,9 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
 
     Install-XcodeVersion -Version $_.version -LinkTo $_.link -Sha256Sum $_.sha256
     Confirm-XcodeIntegrity -Version $_.link
-    Track-ComponentSize -Name "Xcode $($_.version)"
 }
+
+Set-ComponentSize -Name "All Xcodes"
 
 $xcodeVersions | ForEach-Object {
     Approve-XcodeLicense -Version $_.link

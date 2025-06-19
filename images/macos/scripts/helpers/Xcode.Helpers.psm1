@@ -319,7 +319,7 @@ function Get-FreeSpaceMB {
     throw "Unable to parse free space from diskutil output"
 }
 
-function Track-ComponentSize {
+function Set-ComponentSize {
     param (
         [Parameter(Mandatory)]
         [string]$Name

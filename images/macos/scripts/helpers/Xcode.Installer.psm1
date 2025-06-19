@@ -9,7 +9,7 @@ function Get-FreeSpaceMB {
     throw "Unable to parse free space from diskutil output"
 }
 
-function Track-ComponentSize {
+function Set-ComponentSize {
     param (
         [Parameter(Mandatory)]
         [string]$Name
@@ -235,7 +235,7 @@ function Install-AdditionalSimulatorRuntimes {
     if ($Runtimes -eq "default") {
         Write-Host "Installing all runtimes for Xcode $Version ..."
         Invoke-ValidateCommand "$xcodebuildPath -downloadAllPlatforms" | Out-Null
-        Track-ComponentSize -Name "Xcode $Version runtimes"
+        Set-ComponentSize -Name "Xcode $Version runtimes"
         return
     } elseif ($Runtimes -eq "none") {
         Write-Host "Skipping runtimes installation for Xcode $Version ..."
@@ -283,7 +283,7 @@ function Install-AdditionalSimulatorRuntimes {
                 "default" {
                     Write-Host "Installing default $platform runtime for Xcode $Version ..."
                     Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform" | Out-Null
-                    Track-ComponentSize -Name "Xcode $Version $platform runtime"
+                    Set-ComponentSize -Name "Xcode $Version $platform runtime"
                     continue
                 }
                 default {
@@ -291,7 +291,7 @@ function Install-AdditionalSimulatorRuntimes {
                     if (($platformVersion -match "^\d{1,2}\.\d(\.\d)?$") -or ($platformVersion -match "^[a-zA-Z0-9]{6,8}$")) {
                         Write-Host "Installing $platform $platformVersion runtime for Xcode $Version ..."
                         Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform -buildVersion $platformVersion" | Out-Null
-                        Track-ComponentSize -Name "Xcode $Version $platform $platformVersion runtime"
+                        Set-ComponentSize -Name "Xcode $Version $platform $platformVersion runtime"
                         continue
                     }
                     throw "$platformVersion is not a valid value for $platform version. Valid values are 'latest' or 'skip' or a semver from 0.0 to 99.9.(9)."
