@@ -35,6 +35,7 @@ function Set-ComponentSize {
     $data = @{}
     if (Test-Path $jsonPath) {
         $data = Get-Content $jsonPath -Raw | ConvertFrom-Json
+        $data = $data | ConvertTo-Json | ConvertFrom-Json -AsHashtable
     }
     $data[$Name] = $delta
 
