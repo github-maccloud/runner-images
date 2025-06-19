@@ -63,7 +63,7 @@ fi
 
 echo "Downloading android command line tools..."
 archive_path=$(download_with_retry "https://dl.google.com/android/repository/${cmdlineToolsVersion}")
-С
+
 echo "Uncompressing android command line tools..."
 mkdir -p "$ANDROID_HOME"
 unzip -q "$archive_path" -d "$ANDROID_HOME/cmdline-tools"

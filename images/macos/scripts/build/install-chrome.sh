@@ -10,6 +10,7 @@ arch=$(get_arch)
 echo "Installing Google Chrome..."
 brew install --cask google-chrome
 track_component_size "google-chrome"
+
 # Parse Google Chrome version
 full_chrome_version=$("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version)
 full_chrome_version=${full_chrome_version#Google Chrome }
