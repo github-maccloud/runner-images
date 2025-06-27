@@ -60,9 +60,9 @@ $xcodeVersions | ForEach-Object {
 diskutil info /
     
 Write-Host "Rebuilding Launch Services database ..."
-$xcodeVersions | ForEach-Object {
-    Initialize-XcodeLaunchServicesDb -Version $_.link
-}
+#$xcodeVersions | ForEach-Object {
+#    Initialize-XcodeLaunchServicesDb -Version $_.link
+#}
 
 diskutil info /
     
