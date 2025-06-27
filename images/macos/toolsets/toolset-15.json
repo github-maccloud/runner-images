@@ -50,13 +50,6 @@
         "arm64":{
             "versions": [
                 {
-                    "link": "26_beta_2",
-                    "version": "26.0.0-Beta.2+17A5241o",
-                    "symlinks": ["26.0"],
-                    "sha256": "c5b6f4ef8cf3f354082cce66ac29a89dc72b53e7079f8cef9ad4602eb51c1db1",
-                    "install_runtimes": "none"
-                },
-                {
                     "link": "16.4",
                     "version": "16.4.0+16F6",
                     "sha256": "2dbf65ba28fb85b34e72c14c529a42d5c3189ab0f11fb29fdebd5f4ee6c87900",
