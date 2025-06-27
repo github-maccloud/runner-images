@@ -9,6 +9,8 @@ Import-Module "~/image-generation/helpers/Xcode.Helpers.psm1"
 $arch = Get-Architecture
 $xcodeVersions = (Get-ToolsetContent).xcode.${arch}.versions
 
+diskutil info /
+
 # Switch to each Xcode version
 foreach ($xcodeVersion in $xcodeVersions.link) {
     write-host "Switching to Xcode $xcodeVersion"
@@ -66,3 +68,5 @@ foreach ($xcodeVersion in $xcodeVersions.link) {
         }
     }
 }
+
+diskutil info /
