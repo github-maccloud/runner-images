@@ -54,7 +54,7 @@
                     "version": "26.0.0-Beta.2+17A5241o",
                     "symlinks": ["26.0"],
                     "sha256": "c5b6f4ef8cf3f354082cce66ac29a89dc72b53e7079f8cef9ad4602eb51c1db1",
-                    "install_runtimes": "default"
+                    "install_runtimes": "none"
                 },
                 {
                     "link": "16.4",
