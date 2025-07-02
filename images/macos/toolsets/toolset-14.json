@@ -71,6 +71,13 @@
                     "sha256": "8ca961d55981f983d21b99a95a6b0ac04905b837f6e11346ee86d28f12afe720",
                     "install_runtimes": "default"
                 },
+               {
+                    "link": "16",
+                    "version": "16.0.0+16A242d",
+                    "sha256": "4a26c3d102a55c7222fb145e0ee1503249c9c26c6e02dc64d783c8810b37b1e3",
+                    "symlinks": ["16.0"],
+                    "install_runtimes": "default"
+                },
                 {
                     "link": "15.4",
                     "version": "15.4.0+15F31d",
@@ -81,26 +88,26 @@
                     "link": "15.3",
                     "version": "15.3.0+15E204a",
                     "sha256": "f13f6a2e2df432c3008e394640b8549a18c285acd7fd148d6c4bac8c3a5af234",
-                    "install_runtimes": "default"
+                    "install_runtimes": "none"
                 },
                 {
                     "link": "15.2",
                     "version": "15.2.0+15C500b",
                     "sha256": "04E93680C6DDBEC84666531BE412DE778AFC8EAC6AB2037F4C2BE7290818B59B",
-                    "install_runtimes": "default"
+                    "install_runtimes": "none"
                 },
                 {
                     "link": "15.1",
                     "version": "15.1.0+15C65",
                     "sha256": "857D8DB537BAC82BF99DE0E1D3895D214D4D02101C1340CEF3DAF6E821BA1D05",
-                    "install_runtimes": "default"
+                    "install_runtimes": "none"
                 },
                 {
                     "link": "15.0.1",
                     "version": "15.0.1+15A507",
                     "sha256": "5AC17AE6060CAFC3C7112C6DA0B153450BE21F1DE6632777FBA9FBC9D999C9E8",
                     "symlinks": ["15.0"],
-                    "install_runtimes": "default"
+                    "install_runtimes": "none"
                 }
             ]
         }
