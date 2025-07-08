@@ -15,6 +15,11 @@ $defaultXcode = (Get-ToolsetContent).xcode.default
 [Array]::Reverse($xcodeVersions)
 $threadCount = "5"
 
+$diskInfo = Get-PSDrive "/"
+$totalSpaceGB = [math]::Floor(($diskInfo.Used + $diskInfo.Free) / 1GB)
+$freeSpaceGB = [math]::Floor($diskInfo.Free / 1GB)
+Write-Host "  [i] Disk size: ${totalSpaceGB} GB; Free space: ${freeSpaceGB} GB"
+
 Write-Host "Installing Xcode versions..."
 $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     $ErrorActionPreference = "Stop"
@@ -26,6 +31,11 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
 }
 
 Set-ComponentSize -Name "All Xcodes"
+
+$diskInfo = Get-PSDrive "/"
+$totalSpaceGB = [math]::Floor(($diskInfo.Used + $diskInfo.Free) / 1GB)
+$freeSpaceGB = [math]::Floor($diskInfo.Free / 1GB)
+Write-Host "  [i] Disk size: ${totalSpaceGB} GB; Free space: ${freeSpaceGB} GB"
 
 $xcodeVersions | ForEach-Object {
     Approve-XcodeLicense -Version $_.link
@@ -39,6 +49,11 @@ $xcodeVersions | ForEach-Object {
 }
 
 Invoke-XcodeRunFirstLaunch -Version $defaultXcode
+
+$diskInfo = Get-PSDrive "/"
+$totalSpaceGB = [math]::Floor(($diskInfo.Used + $diskInfo.Free) / 1GB)
+$freeSpaceGB = [math]::Floor($diskInfo.Free / 1GB)
+Write-Host "  [i] Disk size: ${totalSpaceGB} GB; Free space: ${freeSpaceGB} GB"
 
 Write-Host "Configuring Xcode symlinks..."
 $xcodeVersions | ForEach-Object {
@@ -61,3 +76,8 @@ New-Item -Path "/Applications/Xcode.app" -ItemType SymbolicLink -Value (Get-Xcod
 
 Write-Host "Setting environment variables 'XCODE_<VERSION>_DEVELOPER_DIR'"
 Set-XcodeDeveloperDirEnvironmentVariables -XcodeList $xcodeVersions.link
+
+$diskInfo = Get-PSDrive "/"
+$totalSpaceGB = [math]::Floor(($diskInfo.Used + $diskInfo.Free) / 1GB)
+$freeSpaceGB = [math]::Floor($diskInfo.Free / 1GB)
+Write-Host "  [i] Disk size: ${totalSpaceGB} GB; Free space: ${freeSpaceGB} GB"
