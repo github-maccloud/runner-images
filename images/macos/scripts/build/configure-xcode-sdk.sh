@@ -2,24 +2,23 @@
 set -euo pipefail
 
 XCODE_PATH="/Applications/Xcode_16.app"
+XCODE_DEVELOPER_DIR="${XCODE_PATH}/Contents/Developer"
+XCODE_SDK_PATH="${XCODE_DEVELOPER_DIR}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 
-echo "🔧 Setting Xcode 16.0 as default with xcode-select..."
-sudo xcode-select -s "${XCODE_PATH}"
+echo "🔧 Switching to Xcode 16 at: ${XCODE_PATH}"
+sudo xcode-select -s "${XCODE_DEVELOPER_DIR}"
 
-DEVELOPER_DIR="${XCODE_PATH}/Contents/Developer"
-SDKROOT="${DEVELOPER_DIR}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+echo "🔧 Setting environment variables system-wide..."
+sudo mkdir -p /etc/profile.d
 
-echo "✅ DEVELOPER_DIR: $DEVELOPER_DIR"
-echo "✅ SDKROOT: $SDKROOT"
+sudo tee /etc/profile.d/xcode-sdk.sh > /dev/null <<EOF
+export DEVELOPER_DIR="${XCODE_DEVELOPER_DIR}"
+export SDKROOT="${XCODE_SDK_PATH}"
+EOF
 
-# Export for current shell
-export DEVELOPER_DIR="$DEVELOPER_DIR"
-export SDKROOT="$SDKROOT"
-
-# Export for all future GitHub Actions steps
-echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
-echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
-
-# Show effective paths
-echo "✅ cc: $(xcrun -f cc)"
-echo "✅ SDK Path via xcrun: $(xcrun --show-sdk-path)"
+echo "✅ DEVELOPER_DIR: ${XCODE_DEVELOPER_DIR}"
+echo "✅ SDKROOT:       ${XCODE_SDK_PATH}"
+echo "✅ cc path:       $(which cc)"
+echo "✅ SDK path:      $(xcrun --show-sdk-path)"
+echo "✅ xcode-select:  $(xcode-select -p)"
+echo "✅ Apple clang:   $(clang --version | head -n 1)"

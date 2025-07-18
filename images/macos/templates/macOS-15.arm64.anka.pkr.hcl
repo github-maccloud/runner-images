@@ -268,7 +268,7 @@ build {
   }
 
   provisioner "shell" {
-  execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
+  execute_command = "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
   script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   }
 
