@@ -1,14 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-echo " Setting Xcode as default with xcode-select..."
-sudo xcode-select -s /Applications/Xcode.app
+XCODE_PATH="/Applications/Xcode_16.app"
 
-DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
+echo "🔧 Setting Xcode 16.0 as default with xcode-select..."
+sudo xcode-select -s "${XCODE_PATH}"
+
+DEVELOPER_DIR="${XCODE_PATH}/Contents/Developer"
 SDKROOT="${DEVELOPER_DIR}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 
-echo " DEVELOPER_DIR: $DEVELOPER_DIR"
-echo " SDKROOT: $SDKROOT"
+echo "✅ DEVELOPER_DIR: $DEVELOPER_DIR"
+echo "✅ SDKROOT: $SDKROOT"
 
 # Export for current shell
 export DEVELOPER_DIR="$DEVELOPER_DIR"
@@ -19,5 +21,5 @@ echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
 echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
 
 # Show effective paths
-echo " cc: $(xcrun -f cc)"
-echo " SDK Path via xcrun: $(xcrun --show-sdk-path)"
+echo "✅ cc: $(xcrun -f cc)"
+echo "✅ SDK Path via xcrun: $(xcrun --show-sdk-path)"
