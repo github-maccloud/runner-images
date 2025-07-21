@@ -267,10 +267,28 @@ build {
     script          = "${path.root}/../scripts/build/Configure-Xcode-Simulators.ps1"
   }
 
+  # Set Xcode 16 as default and disable fallback to CLT
   provisioner "shell" {
-  execute_command = "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
-  script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+    inline = [
+      "echo '🔧 Setting Xcode 16 as default...'",
+
+      # Set default developer directory
+      "sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer",
+
+      # Prevent fallback to CLT SDK
+      "if [ -d /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk ]; then",
+      "  echo '🔁 Moving CLT SDK to backup to prevent fallback...';",
+      "  sudo mv /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk.bak;",
+      "fi",
+
+      # Confirm settings
+      "echo '✅ xcode-select:' $(xcode-select -p)",
+      "echo '✅ xcrun cc:' $(xcrun -f cc)",
+      "echo '✅ SDK path:' $(xcrun --show-sdk-path)",
+      "echo '✅ clang version:' $(clang --version | head -n1)"
+    ]
   }
+
 
   provisioner "shell" {
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
@@ -286,6 +304,19 @@ build {
     direction   = "download"
     source      = "${local.image_folder}/output/"
   }
+
+  provisioner "shell" {
+    inline = [
+      "echo '🧪 Final SDK and toolchain verification...'",
+
+      "echo '✅ xcode-select path     :' $(xcode-select -p)",
+      "echo '✅ xcrun cc path         :' $(xcrun -f cc)",
+      "echo '✅ SDK path (xcrun)      :' $(xcrun --show-sdk-path)",
+      "echo '✅ Clang version         :' $(clang --version | head -n1)",
+      "echo '✅ DEVELOPER_DIR env var :' ${DEVELOPER_DIR:-'(not set)'}"
+    ]
+  }
+
 
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
