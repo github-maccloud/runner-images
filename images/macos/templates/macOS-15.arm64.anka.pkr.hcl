@@ -275,10 +275,10 @@ build {
   #   script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   # }
 
-  provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} {{ .Path }}"
-    script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
-  }
+  # provisioner "shell" {
+  #   execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} {{ .Path }}"
+  #   script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+  # }
 
 
   provisioner "shell" {
@@ -316,4 +316,21 @@ build {
       "${path.root}/../scripts/build/configure-system.sh"
     ]
   }
+
+  provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} {{ .Path }}"
+    script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo '🧪 Final SDK and toolchain verification...'",
+      "echo '✅ xcode-select path     :' $(xcode-select -p)",
+      "echo '✅ xcrun cc path         :' $(xcrun -f cc)",
+      "echo '✅ SDK path (xcrun)      :' $(xcrun --show-sdk-path)",
+      "echo '✅ Clang version         :' $(clang --version | head -n1)",
+      "echo '✅ DEVELOPER_DIR env var :' $DEVELOPER_DIR"
+    ]
+  }
+
 }
