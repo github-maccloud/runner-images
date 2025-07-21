@@ -267,13 +267,19 @@ build {
     script          = "${path.root}/../scripts/build/Configure-Xcode-Simulators.ps1"
   }
 
-  # ▶️ Switch to Xcode 16 SDK permanently
+  # # ▶️ Switch to Xcode 16 SDK permanently
+  # provisioner "shell" {
+  #   execute_command = <<-EOC
+  #     bash -l -c "chmod +x '{{ .Path }}' && sudo '{{ .Path }}'"
+  #   EOC
+  #   script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+  # }
+
   provisioner "shell" {
-    execute_command = <<-EOC
-      bash -l -c "chmod +x '{{ .Path }}' && sudo '{{ .Path }}'"
-    EOC
-    script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+    execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} {{ .Path }}"
+    script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   }
+
 
   provisioner "shell" {
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
