@@ -308,14 +308,14 @@ build {
   provisioner "shell" {
     inline = [
       "echo '🧪 Final SDK and toolchain verification...'",
-
       "echo '✅ xcode-select path     :' $(xcode-select -p)",
       "echo '✅ xcrun cc path         :' $(xcrun -f cc)",
       "echo '✅ SDK path (xcrun)      :' $(xcrun --show-sdk-path)",
       "echo '✅ Clang version         :' $(clang --version | head -n1)",
-      "echo '✅ DEVELOPER_DIR env var :' ${DEVELOPER_DIR:-'(not set)'}"
+      "echo '✅ DEVELOPER_DIR env var :' $DEVELOPER_DIR"
     ]
   }
+
 
 
   provisioner "shell" {
