@@ -267,28 +267,13 @@ build {
     script          = "${path.root}/../scripts/build/Configure-Xcode-Simulators.ps1"
   }
 
-  # Set Xcode 16 as default and disable fallback to CLT
+  # ▶️ Switch to Xcode 16 SDK permanently
   provisioner "shell" {
-    inline = [
-      "echo '🔧 Setting Xcode 16 as default...'",
-
-      # Set default developer directory
-      "sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer",
-
-      # Prevent fallback to CLT SDK
-      "if [ -d /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk ]; then",
-      "  echo '🔁 Moving CLT SDK to backup to prevent fallback...';",
-      "  sudo mv /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk.bak;",
-      "fi",
-
-      # Confirm settings
-      "echo '✅ xcode-select:' $(xcode-select -p)",
-      "echo '✅ xcrun cc:' $(xcrun -f cc)",
-      "echo '✅ SDK path:' $(xcrun --show-sdk-path)",
-      "echo '✅ clang version:' $(clang --version | head -n1)"
-    ]
+    execute_command = <<-EOC
+      bash -l -c "chmod +x '{{ .Path }}' && sudo '{{ .Path }}'"
+    EOC
+    script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   }
-
 
   provisioner "shell" {
     environment_vars = ["IMAGE_FOLDER=${local.image_folder}"]
