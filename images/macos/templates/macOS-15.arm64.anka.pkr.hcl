@@ -323,11 +323,18 @@ build {
   # }
 
   provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} {{ .Path }}"
-    script          = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
+    execute_command = <<-EOC
+      chmod +x '{{ .Path }}' && \
+      sudo bash -l -c '{{ .Path }}'
+    EOC
+    script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   }
 
-
+  provisioner "shell" {
+    inline = [
+      "bash -l -c 'echo \"🔍 Final SDK path: $(xcrun --show-sdk-path)\"; echo \"$DEVELOPER_DIR\"'",
+    ]
+  }
 
   provisioner "shell" {
     inline = [
