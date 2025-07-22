@@ -1,22 +1,15 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash -e -o pipefail
 
-XCODE_DIR="/Applications/Xcode_16.app/Contents/Developer"
-SDKPATH="$XCODE_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+echo "🔧 Forcing xcode-select to point to Xcode..."
 
-sudo xcode-select -s "$XCODE_DIR"
+DEFAULT_XCODE_VERSION=$(jq -r '.xcode.default' /Users/runner/image-generation/toolset.json)
+XCODE_PATH="/Applications/Xcode_${DEFAULT_XCODE_VERSION}.app/Contents/Developer"
 
-sudo mkdir -p /etc/profile.d
-sudo tee /etc/profile.d/xcode-sdk.sh >/dev/null <<EOF
-export DEVELOPER_DIR="$XCODE_DIR"
-export SDKROOT="$SDKPATH"
-EOF
+if [[ ! -d "$XCODE_PATH" ]]; then
+    echo "❌ Xcode path $XCODE_PATH does not exist."
+    exit 1
+fi
 
-sudo chmod +x /etc/profile.d/xcode-sdk.sh
+sudo xcode-select -s "$XCODE_PATH"
 
-# Immediate effect for this script
-export DEVELOPER_DIR="$XCODE_DIR"
-export SDKROOT="$SDKPATH"
-
-echo "✅ xcode-select → $(xcode-select -p)"
-echo "✅ xcrun sdk     → $(xcrun --show-sdk-path)"
+echo "✅ xcode-select now points to: $(xcode-select -p)"
