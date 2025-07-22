@@ -323,10 +323,7 @@ build {
   # }
 
   provisioner "shell" {
-    execute_command = <<-EOC
-      chmod +x '{{ .Path }}' && \
-      sudo bash -l -c '{{ .Path }}'
-    EOC
+    execute_command = "chmod +x {{ .Path }} && sudo {{ .Vars }} bash -l -c {{ .Path }}"
     script = "${path.root}/../scripts/build/configure-xcode-sdk.sh"
   }
 
