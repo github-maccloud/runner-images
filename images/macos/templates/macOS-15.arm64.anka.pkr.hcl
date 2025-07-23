@@ -345,11 +345,11 @@ build {
   #   ]
   # }
 
-  provisioner "shell" {
-    inline = [
-      "bash -l -c 'echo \"🔍 Final SDK path: \\$(xcrun --show-sdk-path)\"; echo \"\\$DEVELOPER_DIR\"'"
-    ]
-  }
+  # provisioner "shell" {
+  #   inline = [
+  #     "bash -l -c 'echo \"🔍 Final SDK path: \\$(xcrun --show-sdk-path)\"; echo \"\\$DEVELOPER_DIR\"'"
+  #   ]
+  # }
 
   provisioner "shell" {
     inline = [
