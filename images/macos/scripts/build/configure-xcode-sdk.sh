@@ -1,46 +1,34 @@
-#!/bin/bash -e -o pipefail
-################################################################################
-##  File:  configure-xcode-sdk.sh
-##  Desc:  Set the default Xcode SDK path (instead of Command Line Tools)
-##         by updating xcode-select and globally exporting DEVELOPER_DIR
-################################################################################
+#!/bin/bash
+set -euo pipefail
 
-echo "🔧 Configuring Xcode SDK..."
+XCODE_PATH="/Applications/Xcode_16.app"
+DEVELOPER_DIR="$XCODE_PATH/Contents/Developer"
+SDKROOT="$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 
-TOOLSET_FILE="/Users/runner/image-generation/toolset.json"
-if [[ ! -f "$TOOLSET_FILE" ]]; then
-    echo "❌ toolset.json not found at $TOOLSET_FILE"
-    exit 1
+echo "🔧 Setting Xcode 16.0 as default with xcode-select..."
+sudo xcode-select -s "$DEVELOPER_DIR"
+
+echo "✅ DEVELOPER_DIR: $DEVELOPER_DIR"
+echo "✅ SDKROOT: $SDKROOT"
+
+# Export for current session
+export DEVELOPER_DIR="$DEVELOPER_DIR"
+export SDKROOT="$SDKROOT"
+
+# Persist for future login shells
+sudo mkdir -p /etc/profile.d
+sudo tee /etc/profile.d/xcode-sdk.sh >/dev/null <<EOF
+export DEVELOPER_DIR="$DEVELOPER_DIR"
+export SDKROOT="$SDKROOT"
+EOF
+
+# GitHub Actions support (only works there)
+if [ -n "${GITHUB_ENV:-}" ]; then
+  echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
+  echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
 fi
 
-DEFAULT_XCODE_VERSION=$(jq -r '.xcode.default' "$TOOLSET_FILE")
-XCODE_PATH="/Applications/Xcode_${DEFAULT_XCODE_VERSION}.app/Contents/Developer"
-
-if [[ ! -d "$XCODE_PATH" ]]; then
-    echo "❌ Xcode path $XCODE_PATH does not exist."
-    exit 1
-fi
-
-echo "🔄 Setting xcode-select to: $XCODE_PATH"
-sudo xcode-select -s "$XCODE_PATH"
-
-CURRENT_SELECT=$(xcode-select -p)
-if [[ "$CURRENT_SELECT" != "$XCODE_PATH" ]]; then
-    echo "❌ xcode-select did not update correctly. Expected: $XCODE_PATH, Got: $CURRENT_SELECT"
-    exit 1
-fi
-
-echo "✅ xcode-select now points to: $CURRENT_SELECT"
-
-# Persist DEVELOPER_DIR globally for login shells
-PROFILE_SCRIPT="/etc/profile.d/developer_dir.sh"
-echo "🌍 Writing DEVELOPER_DIR to $PROFILE_SCRIPT"
-echo "export DEVELOPER_DIR=\"$XCODE_PATH\"" | sudo tee "$PROFILE_SCRIPT" > /dev/null
-sudo chmod +x "$PROFILE_SCRIPT"
-
-# Debug output
-echo "🧪 Verifying SDK configuration..."
-echo "✅ xcrun path             : $(xcrun -f cc)"
-echo "✅ SDK path               : $(xcrun --show-sdk-path)"
-echo "✅ Clang version          : $(clang --version | head -n1)"
-echo "✅ DEVELOPER_DIR exported : $DEVELOPER_DIR"
+# Confirm
+echo "✅ cc: $(xcrun -f cc)"
+echo "✅ clang: $(which clang)"
+echo "✅ SDK Path via xcrun: $(xcrun --show-sdk-path)"
