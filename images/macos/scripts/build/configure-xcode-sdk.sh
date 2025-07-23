@@ -1,34 +1,35 @@
 #!/bin/bash
 set -euo pipefail
 
-XCODE_PATH="/Applications/Xcode_16.app"
-DEVELOPER_DIR="$XCODE_PATH/Contents/Developer"
-SDKROOT="$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+XCODE_VERSION="16"
+XCODE_PATH="/Applications/Xcode_${XCODE_VERSION}.app"
+DEVELOPER_DIR="${XCODE_PATH}/Contents/Developer"
+SDKROOT="${DEVELOPER_DIR}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 
-echo "🔧 Setting Xcode 16.0 as default with xcode-select..."
+echo "🔧 Setting Xcode $XCODE_VERSION as default using xcode-select..."
 sudo xcode-select -s "$DEVELOPER_DIR"
+
+# Export for current shell
+export DEVELOPER_DIR="$DEVELOPER_DIR"
+export SDKROOT="$SDKROOT"
 
 echo "✅ DEVELOPER_DIR: $DEVELOPER_DIR"
 echo "✅ SDKROOT: $SDKROOT"
 
-# Export for current session
-export DEVELOPER_DIR="$DEVELOPER_DIR"
-export SDKROOT="$SDKROOT"
-
-# Persist for future login shells
+# Persist environment vars for login shells
 sudo mkdir -p /etc/profile.d
 sudo tee /etc/profile.d/xcode-sdk.sh >/dev/null <<EOF
 export DEVELOPER_DIR="$DEVELOPER_DIR"
 export SDKROOT="$SDKROOT"
 EOF
 
-# GitHub Actions support (only works there)
-if [ -n "${GITHUB_ENV:-}" ]; then
-  echo "DEVELOPER_DIR=$DEVELOPER_DIR" >> "$GITHUB_ENV"
-  echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
-fi
+# Force it to be sourced even in non-login shells (like GitHub Actions)
+echo "💾 Ensuring all future shells source Xcode SDK vars..."
+echo "source /etc/profile.d/xcode-sdk.sh" | sudo tee -a /etc/bashrc >/dev/null
 
-# Confirm
-echo "✅ cc: $(xcrun -f cc)"
-echo "✅ clang: $(which clang)"
-echo "✅ SDK Path via xcrun: $(xcrun --show-sdk-path)"
+# Final verification
+echo "🧪 Final validation:"
+echo "✅ xcode-select path     : $(xcode-select -p)"
+echo "✅ xcrun cc path         : $(xcrun -f cc)"
+echo "✅ SDK path via xcrun    : $(xcrun --show-sdk-path)"
+echo "✅ Clang version         : $(clang --version | head -n1)"
