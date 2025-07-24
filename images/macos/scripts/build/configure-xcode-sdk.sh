@@ -1,7 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# Xcode version to set as default
 XCODE_VERSION="16"
 XCODE_PATH="/Applications/Xcode_${XCODE_VERSION}.app"
 DEVELOPER_DIR="${XCODE_PATH}/Contents/Developer"
@@ -17,7 +16,7 @@ export SDKROOT="$SDKROOT"
 echo "✅ DEVELOPER_DIR: $DEVELOPER_DIR"
 echo "✅ SDKROOT: $SDKROOT"
 
-# Create profile.d script to persist across login shells
+# Persist to profile.d (login shells)
 echo "💾 Writing to /etc/profile.d/xcode-sdk.sh..."
 sudo mkdir -p /etc/profile.d
 sudo tee /etc/profile.d/xcode-sdk.sh >/dev/null <<EOF
@@ -25,11 +24,18 @@ export DEVELOPER_DIR="$DEVELOPER_DIR"
 export SDKROOT="$SDKROOT"
 EOF
 
-# ✅ Source the profile.d script in shell RCs for GitHub Actions runtime
-echo "🔁 Ensuring all shells source xcode-sdk.sh..."
+# Source it in bash/zsh rc files
+echo "🔁 Appending source to shell RCs..."
 echo "source /etc/profile.d/xcode-sdk.sh" | sudo tee -a /etc/bashrc /etc/zshrc >/dev/null
 
-# 🔍 Validation in current shell
+# 🔐 Persist to /etc/zshenv (for GitHub Actions, non-login shells)
+echo "🔐 Writing to /etc/zshenv..."
+sudo tee -a /etc/zshenv >/dev/null <<EOF
+export DEVELOPER_DIR="$DEVELOPER_DIR"
+export SDKROOT="$SDKROOT"
+EOF
+
+# 🧪 Current shell validation
 echo "🧪 Validating in current shell:"
 echo "✅ xcode-select path     : $(xcode-select -p)"
 echo "✅ xcrun cc path         : $(xcrun -f cc)"
@@ -37,6 +43,10 @@ echo "✅ SDK path via xcrun    : $(xcrun --show-sdk-path)"
 echo "✅ Clang version         : $(clang --version | head -n1)"
 echo "✅ Current SDKROOT       : $SDKROOT"
 
-# 🧪 Validate in a new login shell (simulate GitHub Actions behavior)
-echo "🧪 Verifying in a fresh login shell:"
-bash -l -c 'echo "🧪 [Login Shell] SDKROOT=$SDKROOT"; echo "🧪 [Login Shell] SDK via xcrun: $(xcrun --show-sdk-path)"'
+# 🧪 Validate in login shell
+echo "🧪 Validating in login shell:"
+bash -l -c 'echo "✅ [Login Shell] SDKROOT=$SDKROOT"; echo "✅ [Login Shell] xcrun: $(xcrun --show-sdk-path)"'
+
+# 🧪 Validate in non-login shell
+echo "🧪 Validating in non-login shell:"
+zsh -c 'echo "✅ [Non-login zsh] SDKROOT=$SDKROOT"; echo "✅ [Non-login zsh] xcrun: $(xcrun --show-sdk-path)"'
