@@ -106,7 +106,7 @@ sudo rm -rf /Users/$USER/Library/Caches/Homebrew/downloads/*
 brew uninstall expect
 
 # Switch back to default Xcode
-defaultXcode=$(Get-ToolsetContent | jq -r '.xcode.default')
+defaultXcode=$(jq -r '.xcode.default' toolset.json)
 sudo xcode-select -s "$defaultXcode"
 
 # Verify that it switched back
