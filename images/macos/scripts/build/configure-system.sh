@@ -105,9 +105,8 @@ sudo rm -rf /Users/$USER/Library/Caches/Homebrew/downloads/*
 # Uninstall expect used in configure-machine.sh
 brew uninstall expect
 
-# List of toolset versions you want to support
 for version in 13 14 15; do
-    toolsetFile="toolset-${version}.json"
+    toolsetFile="images/macos/toolsets/toolset-${version}.json"
     if [[ -f $toolsetFile ]]; then
         # Switch to default Xcode for the current toolset version
         defaultXcode=$(jq -r '.xcode.default' "$toolsetFile")
