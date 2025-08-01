@@ -105,14 +105,22 @@ sudo rm -rf /Users/$USER/Library/Caches/Homebrew/downloads/*
 # Uninstall expect used in configure-machine.sh
 brew uninstall expect
 
-# Switch back to default Xcode
-defaultXcode=$(jq -r '.xcode.default' toolset.json)
-sudo xcode-select -s "$defaultXcode"
+# List of toolset versions you want to support
+for version in 13 14 15; do
+    toolsetFile="toolset-${version}.json"
+    if [[ -f $toolsetFile ]]; then
+        # Switch to default Xcode for the current toolset version
+        defaultXcode=$(jq -r '.xcode.default' "$toolsetFile")
+        sudo xcode-select -s "$defaultXcode"
 
-# Verify that it switched back
-currentXcode=$(xcode-select -p)
-if [[ "$currentXcode" == "$defaultXcode" ]]; then
-    echo "Xcode successfully switched back to default: $currentXcode"
-else
-    echo "Xcode did NOT switch back correctly. Current path: $currentXcode, Expected: $defaultXcode"
-fi
+        # Verify the switch
+        currentXcode=$(xcode-select -p)
+        if [[ "$currentXcode" == "$defaultXcode" ]]; then
+            echo "Xcode successfully switched back to default for toolset-$version: $currentXcode"
+        else
+            echo "Xcode did NOT switch back correctly for toolset-$version. Current path: $currentXcode, Expected: $defaultXcode"
+        fi
+    else
+        echo "$toolsetFile not found. Skipping version $version."
+    fi
+done
