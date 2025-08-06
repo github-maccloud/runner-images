@@ -4,8 +4,8 @@
         "x64": {
             "versions": [
                 {
-                    "link": "26_beta_5_Apple_silicon",
-                    "version": "26.0.0-Beta+17A5295f",
+                    "link": "26_beta_5",
+                    "version": "26_beta_5_Apple_silicon",
                     "symlinks": ["26.0"],
                     "sha256": "dfd291b4a3e423e9d44b3368198ede2a7e4d625434a91f7e5094395de061f30e",
                     "install_runtimes": "default"
@@ -50,8 +50,8 @@
         "arm64":{
             "versions": [
                 {
-                    "link": "26_beta_5_Apple_silicon",
-                    "version": "26.0.0-Beta+17A5295f",
+                    "link": "26_beta_5",
+                    "version": "26_beta_5_Apple_silicon",
                     "symlinks": ["26.0"],
                     "sha256": "dfd291b4a3e423e9d44b3368198ede2a7e4d625434a91f7e5094395de061f30e",
                     "install_runtimes": "none"
