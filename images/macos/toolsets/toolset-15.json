@@ -7,7 +7,7 @@
                     "link": "26_beta_5",
                     "version": "26.0.0-Beta.5+17A5295f",
                     "symlinks": ["26.0"],
-                    "sha256": "dfd291b4a3e423e9d44b3368198ede2a7e4d625434a91f7e5094395de061f30e",
+                    "sha256": "ce36bf40a43c41a0d3a828eed5d8d058d35449260d3af646ab3024d5f208fde0",
                     "install_runtimes": "default"
                 },
                 {
@@ -53,7 +53,7 @@
                     "link": "26_beta_5",
                     "version": "26.0.0-Beta.5+17A5295f",
                     "symlinks": ["26.0"],
-                    "sha256": "dfd291b4a3e423e9d44b3368198ede2a7e4d625434a91f7e5094395de061f30e",
+                    "sha256": "ce36bf40a43c41a0d3a828eed5d8d058d35449260d3af646ab3024d5f208fde0",
                     "install_runtimes": "none"
                 },
                 {
