@@ -75,7 +75,7 @@
                 },
                 {
                     "link": "16.1",
-                    "filename": "16.2",
+                    "filename": "16.1",
                     "version": "16.1+16B40",
                     "sha256": "8ca961d55981f983d21b99a95a6b0ac04905b837f6e11346ee86d28f12afe720",
                     "install_runtimes": "default"
