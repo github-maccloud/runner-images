@@ -10,9 +10,9 @@
                     "symlinks": ["26.0"],
                     "sha256": "ce36bf40a43c41a0d3a828eed5d8d058d35449260d3af646ab3024d5f208fde0",
                     "install_runtimes": [
-                        { "iOS": ["26.0"] },
-                        { "watchOS": ["26.0"] },
-                        { "tvOS": ["26.0"] }
+                        { "iOS": ["23A5308g"] },
+                        { "watchOS": ["23R5328g"] },
+                        { "tvOS": ["23J5327g"] }
                     ] 
                 },
                 {
