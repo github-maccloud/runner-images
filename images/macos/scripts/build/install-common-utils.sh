@@ -31,8 +31,8 @@ for package in $common_packages; do
             cmake_rb_path="$cmake_formula_dir/cmake.rb"
             
             echo "Downloading cmake.rb from $cmake_rb_link"
-            curl -fsSL "$cmake_rb_link" -o "$cmake_rb_path"
-            
+            download_with_retry "$cmake_rb_link" "$cmake_rb_path"
+
             echo "Installing cmake 3.31.6 from custom tap..."
             brew install "$tap_name/cmake"
             ;;
@@ -83,6 +83,7 @@ if is_SonomaX64 || is_VenturaX64 || is_SequoiaX64; then
             if is_SonomaX64; then
                 osascript $HOME/utils/confirm-identified-developers-macos14.scpt $USER_PASSWORD
             fi
+
             if is_SequoiaX64; then
                 osascript $HOME/utils/confirm-identified-developers-macos15.scpt $USER_PASSWORD
             fi
