@@ -49,7 +49,7 @@ systemValuesArray=(
 )
 for values in "${systemValuesArray[@]}"; do
     if ! is_Ventura; then
-        # TCC access table in Sonoma has extra 4 columns: pid, pid_version, boot_uuid, last_reminded
+        # TCC access table in Sonoma and later has extra 4 columns: pid, pid_version, boot_uuid, last_reminded
         configure_system_tccdb "$values,NULL,NULL,'UNUSED',${values##*,}"
     else
         configure_system_tccdb "$values"
@@ -99,7 +99,7 @@ userValuesArray=(
 )
 for values in "${userValuesArray[@]}"; do
     if ! is_Ventura; then
-        # TCC access table in Sonoma has extra 4 columns: pid, pid_version, boot_uuid, last_reminded
+        # TCC access table in Sonoma and later has extra 4 columns: pid, pid_version, boot_uuid, last_reminded
         configure_user_tccdb "$values,NULL,NULL,'UNUSED',${values##*,}"
     else
         configure_user_tccdb "$values"
