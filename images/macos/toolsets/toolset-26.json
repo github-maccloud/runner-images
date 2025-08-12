@@ -185,9 +185,6 @@
     "llvm": {
         "version": "20"
     },
-    "php": {
-        "version": "8.4"
-    },
     "pwsh": {
         "version": "7.4"
     }
