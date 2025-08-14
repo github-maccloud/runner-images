@@ -41,7 +41,7 @@ Describe "Selenium server" {
     }
 }
 
-Describe "Edge" -Skip:($os.IsArm64) {
+Describe "Edge" {
     It "Microsoft Edge" {
         $edgeLocation = "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
         $edgeLocation | Should -Exist
