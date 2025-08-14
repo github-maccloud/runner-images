@@ -56,7 +56,7 @@ Describe "Perl" {
     }
 }
 
-Describe "Tcl/Tk" -Skip:((-not $os.IsVenturaX64) -or (-not $os.IsSonomaX64)) {
+Describe "Tcl/Tk" -Skip:(-not ($os.IsVenturaX64 -or $os.IsSonomaX64)) {
     It "libtcl" {
         Test-Path "/usr/local/lib/libtcl8.6.dylib" | Should -BeTrue
         Test-Path "/usr/local/lib/libtk8.6.dylib" | Should -BeTrue
