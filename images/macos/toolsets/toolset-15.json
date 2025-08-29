@@ -9,11 +9,7 @@
                     "version": "26.0.0-Beta.6+17A5305f",
                     "symlinks": ["26.0"],
                     "sha256": "969b8dfe04c366a1900db6052aae7e711f3ecd34b1cfd08f51b5f98c031c2abd",
-                    "install_runtimes": [
-                        { "iOS": ["26.0"] },
-                        { "watchOS": ["26.0"] },
-                        { "tvOS": ["26.0"] }
-                    ]
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "16.4",
@@ -65,12 +61,7 @@
                     "version": "26.0.0-Beta.6+17A5305f",
                     "symlinks": ["26.0"],
                     "sha256": "969b8dfe04c366a1900db6052aae7e711f3ecd34b1cfd08f51b5f98c031c2abd",
-                    "install_runtimes": [
-                        { "iOS": ["26.0"] },
-                        { "watchOS": ["26.0"] },
-                        { "tvOS": ["26.0"] },
-                        { "visionOS": ["26.0"] }
-                    ]
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "16.4",
