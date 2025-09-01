@@ -122,3 +122,21 @@ Describe "Xcode simulators" {
         Switch-Xcode -Version $defaultXcode
     }
 }
+
+Describe "Xcode SDK versions" {
+    $sdks = @("macosx", "iphoneos", "iphonesimulator")
+    foreach ($sdk in $sdks) {
+        Context "$sdk" {
+            It "SDK version is reported correctly" {
+                $sdkVersionBefore = xcrun --sdk $sdk --show-sdk-version
+                sudo xcode-select -s /Library/Developer/CommandLineTools
+                $sdkVersionAfter = xcrun --sdk $sdk --show-sdk-version
+                Write-Host "SDK $sdk version before: $sdkVersionBefore"
+                Write-Host "SDK $sdk version after: $sdkVersionAfter"
+            }
+        }
+    }
+    AfterEach {
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    }
+}
