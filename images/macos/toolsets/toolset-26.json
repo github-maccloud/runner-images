@@ -1,6 +1,6 @@
 {
     "xcode": {
-        "default": "26_beta_6",
+        "default": "26_beta_7",
         "arm64":{
             "versions": [
                 {
