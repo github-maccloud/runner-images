@@ -9,7 +9,7 @@
                     "version": "26_Release_Candidate+17A321",
                     "symlinks": ["26.0"],
                     "sha256": "d56b62964b21c25901e5e48db22ff40862ff490fd3f955704ecd53ca9076db4e",
-                    "install_runtimes": "none"
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "16.4",
@@ -61,7 +61,7 @@
                     "version": "26_Release_Candidate+17A321",
                     "symlinks": ["26.0"],
                     "sha256": "d56b62964b21c25901e5e48db22ff40862ff490fd3f955704ecd53ca9076db4e",
-                    "install_runtimes": "none"
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "16.4",
