@@ -4,7 +4,7 @@
         "x64": {
             "versions": [
                  {
-                    "link": "26.1",
+                    "link": "26.1_beta_1",
                     "filename": "26.1_beta_Universal",
                     "version": "26.1+17B5025f",
                     "symlinks": ["26.1"],
@@ -64,7 +64,7 @@
         "arm64":{
             "versions": [
                  {
-                    "link": "26.1",
+                    "link": "26.1_beta_1",
                     "filename": "26.1_beta_Universal",
                     "version": "26.1+17B5025f",
                     "symlinks": ["26.1"],
