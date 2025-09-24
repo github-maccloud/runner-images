@@ -5,7 +5,7 @@
             "versions": [
                  {
                     "link": "26.1",
-                    "filename": "Xcode_26.1_beta_Universal",
+                    "filename": "26.1_beta_Universal",
                     "version": "26.1+17B5025f",
                     "symlinks": ["26.1"],
                     "sha256": "432f6cb936ec9547e1075e5a969309e6e0497199810bcb79e10423fa5408891c",
@@ -65,7 +65,7 @@
             "versions": [
                  {
                     "link": "26.1",
-                    "filename": "Xcode_26.1_beta_Universal",
+                    "filename": "26.1_beta_Universal",
                     "version": "26.1+17B5025f",
                     "symlinks": ["26.1"],
                     "sha256": "432f6cb936ec9547e1075e5a969309e6e0497199810bcb79e10423fa5408891c",
