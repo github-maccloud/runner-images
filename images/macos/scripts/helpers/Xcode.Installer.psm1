@@ -114,7 +114,7 @@ function Install-XcodeAdditionalComponents {
     Write-Host "Installing additional MetalToolchain component for Xcode $Version..."
     $xcodeRootPath = Get-XcodeRootPath -Version $Version
     $xcodeBuildPath = Get-XcodeToolPath -XcodeRootPath $xcodeRootPath -ToolName "xcodebuild"
-    Invoke-ValidateCommand "$xcodeBuildPath -downloadComponent MetalToolchain" | Out-Null
+    # Invoke-ValidateCommand "$xcodeBuildPath -downloadComponent MetalToolchain" | Out-Null
 }
 
 function Invoke-XcodeRunFirstLaunch {
