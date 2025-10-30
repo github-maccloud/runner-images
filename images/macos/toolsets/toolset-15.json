@@ -187,7 +187,6 @@
             "gmp",
             "yq",
             "unxip",
-            "xcbeautify",
             "xcodes"
         ],
         "cask_packages": [
