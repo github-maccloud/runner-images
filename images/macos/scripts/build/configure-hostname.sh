@@ -4,6 +4,15 @@
 ##  Desc:  Change the hostname at startup to prevent duplicates
 ##         Hostname and Computername should contain .local in name to avoid name resolution issues
 ################################################################################
+# DEBUG: view iana timezone version
+echo "/usr/share"
+
+echo "/usr/share/zoneinfo/+VERSION"
+cat /usr/share/zoneinfo/+VERSION
+echo "/usr/share/zoneinfo"
+ls -la /usr/share/zoneinfo
+echo "/var/db/timezone"
+ls -la /var/db/timezone
 
 tee -a /usr/local/bin/change_hostname.sh > /dev/null <<\EOF
 #!/bin/bash -e -o pipefail

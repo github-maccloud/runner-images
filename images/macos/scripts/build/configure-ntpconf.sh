@@ -3,6 +3,15 @@
 ##  File:  configure-ntpconf.sh
 ##  Desc:  Configure NTP servers and set the timezone to UTC
 ################################################################################
+# DEBUG: view iana timezone version
+echo "/usr/share"
+
+echo "/usr/share/zoneinfo/+VERSION"
+cat /usr/share/zoneinfo/+VERSION
+echo "/usr/share/zoneinfo"
+ls -la /usr/share/zoneinfo
+echo "/var/db/timezone"
+ls -la /var/db/timezone
 
 echo Additional NTP servers adding into /etc/ntp.conf file...
 cat > /etc/ntp.conf << EOF

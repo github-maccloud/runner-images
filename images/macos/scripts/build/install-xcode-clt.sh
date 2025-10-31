@@ -34,15 +34,13 @@ install_clt() {
 
 # DEBUG: view iana timezone version
 echo "/usr/share"
-ls -la /usr/share
+
 echo "/usr/share/zoneinfo/+VERSION"
 cat /usr/share/zoneinfo/+VERSION
 echo "/usr/share/zoneinfo"
 ls -la /usr/share/zoneinfo
 echo "/var/db/timezone"
 ls -la /var/db/timezone
-echo "/var/db/timezone/tz"
-ls -la /var/db/timezone/tz
 
 echo "Installing Command Line Tools..."
 install_clt

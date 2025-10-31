@@ -32,6 +32,15 @@ defaults write com.apple.VoiceOver4/default SCREnableAppleScript -bool YES
 # Rotate the certificate before expiration to ensure your apps are installed and signed with an active certificate.
 # Confirm that the correct intermediate certificate is installed by verifying the expiration date is set to 2030.
 # sudo security delete-certificate -Z FF6797793A3CD798DC5B2ABEF56F73EDC9F83A64 /Library/Keychains/System.keychain
+# DEBUG: view iana timezone version
+echo "/usr/share"
+
+echo "/usr/share/zoneinfo/+VERSION"
+cat /usr/share/zoneinfo/+VERSION
+echo "/usr/share/zoneinfo"
+ls -la /usr/share/zoneinfo
+echo "/var/db/timezone"
+ls -la /var/db/timezone
 
 swiftc -suppress-warnings "${HOME}/image-generation/add-certificate.swift"
 

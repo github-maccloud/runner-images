@@ -5,6 +5,15 @@
 ##  Maintainer: @timsutton
 ##              script was taken from https://github.com/timsutton/osx-vm-templates/blob/master/scripts/autologin.sh
 ################################################################################
+# DEBUG: view iana timezone version
+echo "/usr/share"
+
+echo "/usr/share/zoneinfo/+VERSION"
+cat /usr/share/zoneinfo/+VERSION
+echo "/usr/share/zoneinfo"
+ls -la /usr/share/zoneinfo
+echo "/var/db/timezone"
+ls -la /var/db/timezone
 
 echo "Enabling automatic GUI login for the '$USERNAME' user.."
 python3 $HOME/bootstrap/kcpassword.py "$PASSWORD"

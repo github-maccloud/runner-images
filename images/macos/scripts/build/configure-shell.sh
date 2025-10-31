@@ -3,6 +3,15 @@
 ##  File:  configure-shell.sh
 ##  Desc:  Configure shell to use bash
 ################################################################################
+# DEBUG: view iana timezone version
+echo "/usr/share"
+
+echo "/usr/share/zoneinfo/+VERSION"
+cat /usr/share/zoneinfo/+VERSION
+echo "/usr/share/zoneinfo"
+ls -la /usr/share/zoneinfo
+echo "/var/db/timezone"
+ls -la /var/db/timezone
 
 source ~/utils/utils.sh
 arch=$(get_arch)
