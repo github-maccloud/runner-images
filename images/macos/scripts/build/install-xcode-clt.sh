@@ -33,6 +33,8 @@ install_clt() {
 }
 
 # DEBUG: view iana timezone version
+echo "/usr/share"
+ls -la /usr/share
 echo "/usr/share/zoneinfo/+VERSION"
 cat /usr/share/zoneinfo/+VERSION
 echo "/usr/share/zoneinfo"
