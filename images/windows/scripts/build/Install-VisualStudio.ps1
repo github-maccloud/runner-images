@@ -69,4 +69,10 @@ if (-not (Test-IsWin19)) {
         -ExpectedSubject $(Get-MicrosoftPublisher)
 }
 
+# Configure Visual Studio feedback settings
+$base = "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Feedback"
+New-Item -Path $base -Force | Out-Null
+New-ItemProperty -Path $base -Name "SurveysDisabled" -PropertyType DWord -Value 1 -Force | Out-Null
+New-ItemProperty -Path $base -Name "ProductFeedbackDisabled" -PropertyType DWord -Value 1 -Force | Out-Null
+
 Invoke-PesterTests -TestFile "VisualStudio"
