@@ -256,6 +256,9 @@
     "llvm": {
         "version": "20"
     },
+    "php": {
+        "version": "8.5"
+    },
     "pwsh": {
         "version": "7.4"
     }
