@@ -234,6 +234,7 @@ build {
     scripts          = [
       "${path.root}/../scripts/build/install-actions-cache.sh",
       "${path.root}/../scripts/build/install-llvm.sh",
+      "${path.root}/../scripts/build/install-swiftlint.sh",
       "${path.root}/../scripts/build/install-openjdk.sh",
       "${path.root}/../scripts/build/install-php.sh",
       "${path.root}/../scripts/build/install-aws-tools.sh",
