@@ -172,7 +172,7 @@ $android.AddTable($androidTable)
 $androidEnv = $android.AddHeader("Environment variables")
 $androidEnv.AddTable($(Build-AndroidEnvironmentTable))
 
-if ($os.IsSonoma -or $os.IsSequoia) {
+if ($os.IsSonoma -or $os.IsSequoia -or $os.IsTahoe) {
     $miscellaneous = $installedSoftware.AddHeader("Miscellaneous")
     $miscellaneous.AddToolVersion("Tcl/Tk", $(Get-TclTkVersion))
 }
