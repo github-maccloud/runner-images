@@ -48,7 +48,7 @@ fi
 
 # Execute AppleScript to change security preferences for macOS12, macOS13, macOS14 and macOS15
 # System Preferences -> Security & Privacy -> General -> Unlock -> Allow -> Not now
-if is_SonomaX64 || is_SequoiaX64; then
+if is_SonomaX64 || is_SequoiaX64 || is_TahoeX64; then
     for retry in {4..0}; do
         echo "Executing AppleScript to change security preferences. Retries left: $retry"
         {
