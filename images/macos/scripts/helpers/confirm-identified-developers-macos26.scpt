@@ -124,13 +124,13 @@ on run argv
                     set entireUI to entire contents of window 1
                     repeat with el in entireUI
                         try
-                            set elClass to class of el as text
+                            set elDesc to description of el
                             set elName to ""
                             try
                                 set elName to name of el as text
                             end try
                             if elName is not "" then
-                                log elClass & ": " & elName
+                                log elDesc & ": " & elName
                             end if
                         end try
                     end repeat
