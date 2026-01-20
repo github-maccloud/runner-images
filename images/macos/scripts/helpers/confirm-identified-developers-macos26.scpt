@@ -3,27 +3,75 @@ on run argv
     set developerName to "Parallels International GmbH"
     set allowTitle to "Allow"
 
-    -- Open System Settings -> Privacy & Security
-    do shell script "open 'x-apple.systempreferences:com.apple.preference.security'"
+    -- Try multiple methods to open Privacy & Security
+    log "=== Opening System Settings ==="
+    
+    -- Method 1: Direct app launch and navigate
+    tell application "System Settings"
+        activate
+    end tell
     delay 2
+
+    -- Method 2: Try URL scheme as backup
+    try
+        do shell script "open 'x-apple.systempreferences:com.apple.preference.security'"
+    end try
+    delay 1
+    
+    -- Method 3: Alternative URL scheme for macOS 26
+    try
+        do shell script "open 'x-apple.systempreferences:com.apple.settings.PrivacySecurity.General'"
+    end try
+    delay 1
 
     tell application "System Settings"
         reopen
         activate
     end tell
-    delay 2
+    delay 3
 
     tell application "System Events"
+        -- Debug: Check what processes are visible
+        log "=== Visible processes ==="
+        set visibleProcs to (name of every application process whose visible is true)
+        log visibleProcs as text
+        
+        -- Ensure System Settings is running
+        if not (exists process "System Settings") then
+            log "ERROR: System Settings process does not exist!"
+            -- Try launching via System Events
+            tell application "System Settings" to launch
+            delay 3
+        end if
+        
         tell process "System Settings"
-            repeat until exists window 1
-                delay 0.2
-            end repeat
-
             set frontmost to true
+            delay 1
+            
+            -- Wait for window with longer timeout
+            set windowFound to false
+            repeat with waitAttempt from 1 to 30
+                if exists window 1 then
+                    set windowFound to true
+                    exit repeat
+                end if
+                log "Waiting for window... attempt " & waitAttempt
+                delay 0.5
+            end repeat
+            
+            if not windowFound then
+                error "System Settings window never appeared"
+            end if
+
             try
                 perform action "AXRaise" of window 1
             end try
             delay 1
+            
+            -- Log window title for debugging
+            try
+                log "Window title: " & (name of window 1 as text)
+            end try
 
             -- Debug: Log all buttons in the window
             log "=== DEBUG: Searching for Allow button ==="
