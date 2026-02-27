@@ -15,7 +15,6 @@
                     "link": "26.3",
                     "filename": "Xcode_26.3_Universal",
                     "version": "26.3+17C529",
-                    "symlinks": ["26.3"],
                     "sha256": "cf87232e0419785170edcfa070b750f28808ec00b489ab540c08b7d197c79ae4",
                     "install_runtimes": "default"
                 },
@@ -58,7 +57,6 @@
                     "link": "26.3",
                     "filename": "Xcode_26.3_Universal",
                     "version": "26.3+17C529",
-                    "symlinks": ["26.3"],
                     "sha256": "cf87232e0419785170edcfa070b750f28808ec00b489ab540c08b7d197c79ae4",
                     "install_runtimes": "default"
                 },
