@@ -9,7 +9,7 @@
                     "version": "26.4+17E5170d",
                     "symlinks": ["26.4"],
                     "sha256": "962d6bf68816f0328a6cc632153110943be4b2f59b6e0ce05ce6c07ce3edad95",
-                    "install_runtimes": "none"
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "26.3_Release_Candidate_2",
@@ -52,7 +52,7 @@
                     "version": "26.4+17E5170d",
                     "symlinks": ["26.4"],
                     "sha256": "962d6bf68816f0328a6cc632153110943be4b2f59b6e0ce05ce6c07ce3edad95",
-                    "install_runtimes": "none"
+                    "install_runtimes": "default"
                 },
                 {
                     "link": "26.3_Release_Candidate_2",
