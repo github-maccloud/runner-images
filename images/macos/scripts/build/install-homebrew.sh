@@ -8,6 +8,9 @@ source ~/utils/utils.sh
 
 arch=$(get_arch)
 
+echo "[DEBUG] which clang:   $(which clang)"
+echo "[DEBUG] which clang++: $(which clang++)"
+
 echo "Installing Homebrew..."
 homebrew_installer_path=$(download_with_retry "https://raw.githubusercontent.com/Homebrew/install/master/install.sh")
 /bin/bash $homebrew_installer_path
@@ -38,3 +41,6 @@ brew_smart_install curl
 
 echo "Installing wget..."
 brew_smart_install "wget"
+
+echo "[DEBUG] which clang after install:   $(which clang)"
+echo "[DEBUG] which clang++ after install: $(which clang++)"
