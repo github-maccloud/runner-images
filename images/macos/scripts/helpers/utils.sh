@@ -99,6 +99,8 @@ brew_smart_install() {
         dir_name=$tool_name
     fi
 
+    echo "[DEBUG] dir_name is $dir_name"
+
     echo "Downloading $tool_name..."
 
     # get deps & cache em
