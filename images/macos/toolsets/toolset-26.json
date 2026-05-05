@@ -180,7 +180,9 @@
             "xcbeautify",
             "xcodes"
         ],
-        "cask_packages": []
+        "cask_packages": [
+            "parallels"
+        ]
     },
     "gcc": {
         "versions": [
