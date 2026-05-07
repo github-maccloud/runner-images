@@ -76,7 +76,7 @@ if is_SonomaX64 || is_SequoiaX64; then
 fi
 
 # Validate "Parallels International GmbH" kext
-if is_SonomaX64 || is_SequoiaX64; then
+if is_SonomaX64 || is_SequoiaX64 || is_TahoeX64; then
 
     echo "Closing System Settings window if it is still opened"
     killall "System Settings" || true
