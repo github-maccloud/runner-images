@@ -63,6 +63,10 @@ if is_SonomaX64 || is_SequoiaX64 || is_TahoeX64; then
                 osascript $HOME/utils/confirm-identified-developers-macos15.scpt $USER_PASSWORD
             fi
 
+            if is_TahoeX64; then
+                osascript $HOME/utils/confirm-identified-developers-macos26.scpt $USER_PASSWORD
+            fi
+
         } && break
 
         if [[ $retry -eq 0 ]]; then
