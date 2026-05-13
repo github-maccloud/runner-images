@@ -157,6 +157,7 @@ build {
     inline          = [
       "mv ${local.image_folder}/docs-gen ${local.image_folder}/software-report",
       "mkdir ~/utils",
+      "mv ${local.image_folder}/helpers/confirm-identified-developers-macos26.scpt ~/utils",
       "mv ${local.image_folder}/helpers/invoke-tests.sh ~/utils",
       "mv ${local.image_folder}/helpers/utils.sh ~/utils"
     ]
