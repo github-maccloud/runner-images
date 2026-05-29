@@ -64,7 +64,87 @@ if is_SonomaX64 || is_SequoiaX64 || is_TahoeX64; then
             fi
 
             if is_TahoeX64; then
-                osascript $HOME/utils/confirm-identified-developers-macos26.scpt $USER_PASSWORD
+                echo "Enumerating visible windows via AppleScript..."
+                windows=$(osascript <<'EOF'
+                set output to ""
+                tell application "System Events"
+                    set procs to (every process whose visible is true)
+                    repeat with p in procs
+                    set procName to name of p
+                    try
+                        set wins to every window of p
+                        repeat with w in wins
+                        set winName to name of w
+                        if winName is missing value then set winName to "(untitled)"
+                        set output to output & procName & " :: " & winName & linefeed
+                        end repeat
+                    end try
+                    end repeat
+                end tell
+                return output
+EOF
+                )
+                if [ -z "$windows" ]; then
+                    echo "No open windows detected"
+                else
+                    echo "Open windows:"
+                    echo "$windows"
+                fi
+
+                echo "Trying to start System Settings window"
+                testwindow=$(osascript <<'EOF'
+                    tell application "System Settings"
+                    activate
+                    delay 60
+                    end tell
+EOF
+                )
+
+                echo "Searching for visible System Settings window"
+                windows=$(osascript <<'EOF'
+                set output to ""
+                tell application "System Events"
+                    set procs to (every process whose visible is true)
+                    repeat with p in procs
+                    set procName to name of p
+                    try
+                        set wins to every window of p
+                        repeat with w in wins
+                        set winName to name of w
+                        if winName is missing value then set winName to "(untitled)"
+                        set output to output & procName & " :: " & winName & linefeed
+                        end repeat
+                    end try
+                    end repeat
+                end tell
+                return output
+EOF
+                )
+                if [ -z "$windows" ]; then
+                    echo "No open windows detected"
+                else
+                    echo "Open windows:"
+                    echo "$windows"
+                fi
+
+                echo "Trying to detect System Settings window contents"
+                testwindow=$(osascript <<'EOF'
+                    set output to ""
+
+                    tell application "System Events" 
+                    set output to entire contents of front window of process "System Settings"
+                    end tell
+
+                    return output
+EOF
+                )
+                
+                if [ -z "$testwindow" ]; then
+                    echo "No output detected"
+                else
+                    echo "Detected output:"
+                    echo "$testwindow"
+                fi
             fi
 
         } && break
