@@ -94,7 +94,7 @@ EOF
                 echo "Trying to start System Settings window"
                 testwindow=$(osascript <<'EOF'
                     tell application "System Settings"
-                    activate
+                        activate
                     end tell
 EOF
                 )
