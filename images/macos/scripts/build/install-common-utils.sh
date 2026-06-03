@@ -91,6 +91,9 @@ EOF
                     echo "$windows"
                 fi
 
+                echo "Killing System Settings if it is opened"
+                killall "System Settings" || true
+
                 echo "Trying to start System Settings window - MK2"
                 testwindow=$(osascript <<'EOF'
                     tell application "System Settings"
