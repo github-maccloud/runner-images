@@ -87,7 +87,7 @@ EOF
                 if [ -z "$windows" ]; then
                     echo "No open windows detected"
                 else
-                    echo "Open windows:"
+                    echo "Open windows detected:"
                     echo "$windows"
                 fi
 
@@ -95,10 +95,12 @@ EOF
                 testwindow=$(osascript <<'EOF'
                     tell application "System Settings"
                     activate
-                    delay 60
                     end tell
 EOF
                 )
+
+                echo "Delay to open window"
+                sleep 15
 
                 echo "Searching for visible System Settings window"
                 windows=$(osascript <<'EOF'
@@ -123,7 +125,7 @@ EOF
                 if [ -z "$windows" ]; then
                     echo "No open windows detected"
                 else
-                    echo "Open windows:"
+                    echo "Open windows detected:"
                     echo "$windows"
                 fi
 
