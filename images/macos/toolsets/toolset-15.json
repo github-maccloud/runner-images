@@ -191,6 +191,7 @@
     "ruby": {
         "default": "3.3",
         "rubygems": [
+            "multi_json",
             "cocoapods",
             "bundler",
             "fastlane"
