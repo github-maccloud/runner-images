@@ -105,3 +105,5 @@ az extension add -n azure-devops
 
 # Invoke tests for all basic tools
 invoke_tests "BasicTools"
+
+echo "Tests passed, end of install-common-utils.sh script"
