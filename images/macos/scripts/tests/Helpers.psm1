@@ -143,4 +143,6 @@ function Invoke-PesterTests {
         $results
         throw "Test run has failed"
     }
+
+    Write-Host "Last exit code: $($LASTEXITCODE)"
 }
