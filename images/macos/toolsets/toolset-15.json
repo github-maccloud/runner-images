@@ -376,11 +376,6 @@
         "version": "8.5"
     },
     "pwsh": {
-        "version": "7.4.16",
-        "pinnedDetails": {
-            "reason": "Testing error 123 fix",
-            "link": "https://github.com/github/hosted-runners-images/actions/runs/27751232048/job/82104680511",
-            "review-at": "2026-09-01"
-        }
+        "version": "7.4"
     }
 }

@@ -16,6 +16,12 @@ pwshVersions=$(jq -r '.LTSReleaseTag[]' $metadata_json_path)
 for version in ${pwshVersions[@]}; do
     if [[ "$version" =~ "$pwshVersionToolset" ]]; then
         download_url=$(resolve_github_release_asset_url "PowerShell/PowerShell" "contains(\"osx-$arch.pkg\")" "$version" "$API_PAT")
+
+        echo "Resolved url: $download_url for PowerShell version: $version and architecture: $arch"
+
+        download_url=$(resolve_github_release_asset_url "PowerShell/PowerShell" "contains(\"osx-$arch.pkg\")" "7.4.16" "$API_PAT")
+
+        echo "Second resolved url: $download_url for PowerShell version: $version and architecture: $arch"
         break
     fi
 done
