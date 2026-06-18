@@ -106,6 +106,6 @@ az extension add -n azure-devops
 # Invoke tests for all basic tools
 invoke_tests "BasicTools"
 
-pwsh -Command "Write-Host 'Last exit code: $($LASTEXITCODE)'"
+pwsh -Command "Write-Host 'Last exit code in install-common-utils.sh: $($LASTEXITCODE)'"
 
 echo "Tests passed, end of install-common-utils.sh script"
