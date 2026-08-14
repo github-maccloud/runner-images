@@ -35,7 +35,8 @@ $xcodeVersions | ForEach-Object {
     Write-Host "Configuring Xcode $($_.link) ..."
     Invoke-XcodeRunFirstLaunch -Version $_.link
     Install-XcodeAdditionalSimulatorRuntimes -Version $_.link -Arch $arch -Runtimes $_.install_runtimes
-    if ($_.link -match '^(\d+)\.(\d+)(?:\.(\d+))?$' -and [int]$matches[1] -ge 26) {
+    # Temporary workaround for beta XCode 27 Beta versions
+    if (($_.link -match '^(\d+)\.(\d+)(?:\.(\d+))?$' -and [int]$matches[1] -ge 26) -or ([int]$matches[1] -eq 27)) {
         Install-XcodeAdditionalComponents -Version $_.link
         Update-DyldCache -Version $_.link
     }
