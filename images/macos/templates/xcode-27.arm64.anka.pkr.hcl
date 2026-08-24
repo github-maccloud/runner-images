@@ -81,7 +81,7 @@ variable "ram_size" {
 
 variable "image_os" {
   type    = string
-  default = "macos26"
+  default = "macos27"
 }
 
 source "veertu-anka-vm-clone" "template" {
