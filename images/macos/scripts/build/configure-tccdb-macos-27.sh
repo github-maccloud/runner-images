@@ -16,8 +16,8 @@ case "$macosMajor" in
 esac
 
 resolve_user_tccdb() {
-    local base dbPath
-    local -a databases=()
+    local base dbPath openPath
+    local -a databases=() activeDatabases=()
 
     if [[ "$macosMajor" -lt 27 ]]; then
         dbPath="$HOME/Library/Application Support/com.apple.TCC/TCC.db"
@@ -43,9 +43,25 @@ resolve_user_tccdb() {
                 dbPath="${databases[0]}"
                 ;;
             *)
-                echo "Found multiple ProtectedSystem TCC databases:" >&2
-                printf '  %s\n' "${databases[@]}" >&2
-                return 1
+                while IFS= read -r openPath; do
+                    for dbPath in "${databases[@]}"; do
+                        if [[ "$openPath" == "$dbPath" ]]; then
+                            activeDatabases+=("$dbPath")
+                        fi
+                    done
+                done < <(
+                    sudo lsof -c tccd -Fn |
+                        sed -n 's/^n//p' |
+                        grep '/ProtectedSystem/.*/com\.apple\.TCC/TCC\.db$' |
+                        sort -u
+                )
+
+                if [[ "${#activeDatabases[@]}" -ne 1 ]]; then
+                    echo "Unable to identify one active ProtectedSystem TCC database:" >&2
+                    printf '  %s\n' "${databases[@]}" >&2
+                    return 1
+                fi
+                dbPath="${activeDatabases[0]}"
                 ;;
         esac
 
