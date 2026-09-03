@@ -16,44 +16,43 @@ case "$macosMajor" in
 esac
 
 resolve_user_tccdb() {
-    local userID openFiles line candidate dbPath=""
+    local base dbPath
+    local -a databases=()
 
     if [[ "$macosMajor" -lt 27 ]]; then
         dbPath="$HOME/Library/Application Support/com.apple.TCC/TCC.db"
     else
-        userID="$(id -u)"
-        if ! openFiles="$(sudo lsof -a -u "$userID" -c tccd -Fn)"; then
-            echo "Unable to inspect the user TCC daemon for UID $userID" >&2
-            return 1
-        fi
+        base="/private/var/containers/Data/ProtectedSystem"
+        while IFS= read -r dbPath; do
+            databases+=("$dbPath")
+        done < <(
+            sudo find "$base" \
+                -mindepth 6 \
+                -maxdepth 6 \
+                -type f \
+                -path "*/Data/Library/Application Support/com.apple.TCC/TCC.db" \
+                -print
+        )
 
-        while IFS= read -r line; do
-            case "$line" in
-                n/private/var/containers/Data/ProtectedSystem/*/Data/Library/Application\ Support/com.apple.TCC/TCC.db)
-                    candidate="${line#n}"
-                    if [[ -n "$dbPath" && "$dbPath" != "$candidate" ]]; then
-                        echo "Found multiple active user TCC databases for UID $userID" >&2
-                        return 1
-                    fi
-                    dbPath="$candidate"
-                    ;;
-            esac
-        done <<< "$openFiles"
-
-        if [[ -z "$dbPath" ]]; then
-            echo "Unable to find the active user TCC database for UID $userID" >&2
-            return 1
-        fi
+        case "${#databases[@]}" in
+            0)
+                echo "Unable to find a ProtectedSystem TCC database" >&2
+                return 1
+                ;;
+            1)
+                dbPath="${databases[0]}"
+                ;;
+            *)
+                echo "Found multiple ProtectedSystem TCC databases:" >&2
+                printf '  %s\n' "${databases[@]}" >&2
+                return 1
+                ;;
+        esac
 
     fi
 
     if ! sudo test -f "$dbPath"; then
         echo "User TCC database does not exist: $dbPath" >&2
-        return 1
-    fi
-
-    if [[ "$macosMajor" -ge 27 && "$(sudo stat -f %u "$dbPath")" != "$(id -u)" ]]; then
-        echo "Unexpected owner for user TCC database: $dbPath" >&2
         return 1
     fi
 
@@ -87,11 +86,7 @@ configure_tccdb() {
         ) VALUES($values);
     "
 
-    if [[ "$dbPath" == "$HOME/"* ]]; then
-        sqlite3 "$dbPath" "$sqlQuery"
-    else
-        sudo sqlite3 "$dbPath" "$sqlQuery"
-    fi
+    sudo sqlite3 "$dbPath" "$sqlQuery"
 }
 
 systemTCCDB="/Library/Application Support/com.apple.TCC/TCC.db"
