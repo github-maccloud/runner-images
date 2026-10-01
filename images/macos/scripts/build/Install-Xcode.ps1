@@ -16,6 +16,8 @@ $defaultXcode = (Get-ToolsetContent).xcode.default
 [Array]::Reverse($xcodeVersions)
 $threadCount = "5"
 
+Write-Host "MallocStackLogging: $env:MallocStackLogging"
+
 Write-Host "Installing Xcode versions..."
 $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     $ErrorActionPreference = "Stop"
