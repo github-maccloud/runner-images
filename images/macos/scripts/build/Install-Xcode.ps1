@@ -16,11 +16,13 @@ $defaultXcode = (Get-ToolsetContent).xcode.default
 [Array]::Reverse($xcodeVersions)
 $threadCount = "5"
 
-$env:MallocStackLogging = "1"
-Write-Host "MallocStackLogging: $env:MallocStackLogging"
+
 
 Write-Host "Installing Xcode versions..."
 $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
+    $env:MallocStackLogging = "1"
+    Write-Host "MallocStackLogging: $env:MallocStackLogging"
+
     $ErrorActionPreference = "Stop"
     Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
     Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1" -DisableNameChecking
