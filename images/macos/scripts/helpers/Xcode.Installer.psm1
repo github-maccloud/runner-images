@@ -84,6 +84,18 @@ function Confirm-XcodeIntegrity {
     if (Test-XcodeStableRelease -XcodeRootPath $XcodeRootPath) {
         Write-Host "Validating Xcode integrity for '$XcodeRootPath'..."
         Invoke-ValidateCommand "spctl --assess --raw $XcodeRootPath"
+
+        Write-Host "[DEBUG] Validating Xcode integrity via sudo"
+        Invoke-ValidateCommand "sudo spctl --assess --raw $XcodeRootPath"
+
+        Write-Host "[DEBUG] Validating Xcode integrity with env variable"
+        $env:MallocStackLogging = "1"
+        Invoke-ValidateCommand "spctl --assess --raw $XcodeRootPath"
+
+        Write-Host "[DEBUG] MallocStackLogging: $env:MallocStackLogging"
+        Write-Host "[DEBUG] Validating Xcode integrity with env variable and sudo"
+        $env:MallocStackLogging = "1"
+        Invoke-ValidateCommand "sudo spctl --assess --raw $XcodeRootPath"
     }
 }
 
