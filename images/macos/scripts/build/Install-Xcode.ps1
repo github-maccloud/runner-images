@@ -16,6 +16,7 @@ $defaultXcode = (Get-ToolsetContent).xcode.default
 [Array]::Reverse($xcodeVersions)
 $threadCount = "5"
 
+$env:MallocStackLogging = "1"
 Write-Host "MallocStackLogging: $env:MallocStackLogging"
 
 Write-Host "Installing Xcode versions..."
