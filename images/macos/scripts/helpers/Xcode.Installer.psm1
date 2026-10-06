@@ -128,6 +128,24 @@ function Invoke-XcodeRunFirstLaunch {
     Invoke-ValidateCommand "sudo $xcodeRootPath -runFirstLaunch"
 }
 
+function Wait-SimulatorRuntimeCache {
+    $deadline = (Get-Date -AsUTC).AddMinutes(10)
+    while ($true) {
+        $processes = ps -axo comm
+        if ($LASTEXITCODE -ne 0) {
+            throw "Unable to check simulator runtime cache preparation."
+        }
+        if (-not ($processes | Select-String -SimpleMatch "/Contents/Resources/update_dyld_sim_shared_cache")) {
+            return
+        }
+        if ((Get-Date -AsUTC) -ge $deadline) {
+            throw "Simulator runtime cache preparation exceeded ten minutes."
+        }
+        Write-Host "Waiting for simulator runtime cache preparation..."
+        Start-Sleep -Seconds 15
+    }
+}
+
 function Install-XcodeAdditionalSimulatorRuntimes {
     param (
         [Parameter(Mandatory)]
@@ -157,6 +175,7 @@ function Install-XcodeAdditionalSimulatorRuntimes {
     if ($Runtimes -eq "default") {
         Write-Host "Installing all runtimes for Xcode $Version ..."
         Invoke-ValidateCommand "$xcodebuildPath -downloadAllPlatforms $archSuffix" | Out-Null
+        Wait-SimulatorRuntimeCache
         return
     } elseif ($Runtimes -eq "none") {
         Write-Host "Skipping runtimes installation for Xcode $Version ..."
@@ -204,6 +223,7 @@ function Install-XcodeAdditionalSimulatorRuntimes {
                 "default" {
                     Write-Host "Installing default $platform runtime for Xcode $Version ..."
                     Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform $archSuffix" | Out-Null
+                    Wait-SimulatorRuntimeCache
                     continue
                 }
                 default {
@@ -211,6 +231,7 @@ function Install-XcodeAdditionalSimulatorRuntimes {
                     if (($platformVersion -match "^\d{1,2}\.\d(\.\d)?$") -or ($platformVersion -match "^[a-zA-Z0-9]{6,8}$")) {
                         Write-Host "Installing $platform $platformVersion runtime for Xcode $Version ..."
                         Invoke-ValidateCommand "$xcodebuildPath -downloadPlatform $platform -buildVersion $platformVersion $archSuffix" | Out-Null
+                        Wait-SimulatorRuntimeCache
                         continue
                     }
                     throw "$platformVersion is not a valid value for $platform version. Valid values are 'default', or 'skip', or a semver from 0.0 to 99.9.(9), or a build number."
