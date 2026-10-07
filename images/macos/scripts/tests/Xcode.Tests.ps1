@@ -107,6 +107,14 @@ Describe "Xcode simulators" {
     $xcodeVersions.link | Where-Object { Test-XcodeStableRelease -Version $_ } | ForEach-Object {
         Context "$_" {
             $testCase = @{ XcodeVersion = $_ }
+            It "Can query available simulator runtimes" -TestCases $testCase {
+                $simctlPath = Get-XcodeToolPath -Version $XcodeVersion -ToolName "simctl"
+                $result = Get-CommandResult "$simctlPath list runtimes --json" -Multiline
+                $result.ExitCode | Should -Be 0
+                $runtimes = ($result.Output -join "`n" | ConvertFrom-Json).runtimes
+                @($runtimes | Where-Object { $_.isAvailable }).Count | Should -BeGreaterThan 0
+            }
+
             It "No duplicates in devices" -TestCases $testCase {
                 Switch-Xcode -Version $XcodeVersion
                 [array]$devicesList = @(Get-XcodeDevicesList | Where-Object { $_ })

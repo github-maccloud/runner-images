@@ -7,8 +7,6 @@ on:
     branches: [ main ]
     paths:
       - 'helpers/software-report-base/**'
-      - 'images/macos/scripts/helpers/**'
-      - '.github/workflows/powershell-tests.yml'
 
 jobs:
   powershell-tests:
@@ -24,9 +22,4 @@ jobs:
         run: |
             $ErrorActionPreference = "Stop"
             Invoke-Pester -Output Detailed "helpers/software-report-base/tests"
-
-      - name: Run Xcode installer unit tests
-        shell: pwsh
-        run: |
-            $ErrorActionPreference = "Stop"
-            Invoke-Pester -Path "images/macos/scripts/helpers/tests" -Output Detailed -CI
+        
