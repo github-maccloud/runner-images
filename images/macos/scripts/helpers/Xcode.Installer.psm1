@@ -71,6 +71,11 @@ function Expand-XcodeXipArchive {
     }
 
     Write-Host "Moving '$DownloadDirectory/Xcode.app' to '$TargetPath'"
+
+    Write-Host "MallocStackLogging before move edit: $env:MallocStackLogging"
+    $env:MallocStackLogging = "1"
+    Write-Host "MallocStackLogging after move edit: $env:MallocStackLogging"
+
     Move-Item -Path "$DownloadDirectory/Xcode.app" -Destination $TargetPath
 }
 
