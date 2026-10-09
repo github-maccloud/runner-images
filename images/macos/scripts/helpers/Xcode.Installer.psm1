@@ -129,7 +129,8 @@ function Invoke-XcodeRunFirstLaunch {
 }
 
 function Wait-SimulatorRuntimeCache {
-    $deadline = (Get-Date -AsUTC).AddMinutes(10)
+    $waitTimeMinutes = 30
+    $deadline = (Get-Date -AsUTC).AddMinutes($waitTimeMinutes)
     while ($true) {
         $processes = ps -axo comm
         if ($LASTEXITCODE -ne 0) {
@@ -139,7 +140,7 @@ function Wait-SimulatorRuntimeCache {
             return
         }
         if ((Get-Date -AsUTC) -ge $deadline) {
-            throw "Simulator runtime cache preparation exceeded ten minutes."
+            throw "Simulator runtime cache preparation exceeded $waitTimeMinutes minutes."
         }
         Write-Host "Waiting for simulator runtime cache preparation..."
         Start-Sleep -Seconds 15
