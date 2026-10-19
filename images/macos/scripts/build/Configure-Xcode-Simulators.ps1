@@ -9,6 +9,7 @@ Import-Module "~/image-generation/helpers/Xcode.Helpers.psm1"
 $arch = Get-Architecture
 $xcodeVersions = (Get-ToolsetContent).xcode.${arch}.versions
 $defaultXcode = (Get-ToolsetContent).xcode.default
+$os = Get-OSVersion
 
 # Switch to each Xcode version
 foreach ($xcodeVersion in $xcodeVersions.link) {
@@ -71,3 +72,16 @@ foreach ($xcodeVersion in $xcodeVersions.link) {
 # Restore default Xcode
 Write-Host "Restoring default Xcode to $defaultXcode"
 Switch-Xcode -Version $defaultXcode
+
+# https://github.com/actions/runner-images/issues/14946
+if ($os.IsGoldenGateArm64) {
+    Write-Host "Deleting simulator runtime images marked as unusable..."
+    & xcrun simctl runtime delete --unusable
+    $exitCode = $LASTEXITCODE
+
+    if ($exitCode -ne 0) {
+        throw "Failed to delete unusable simulator runtime images (exit code: $exitCode)."
+    }
+
+    Write-Host "Unusable simulator runtime cleanup completed."
+}
