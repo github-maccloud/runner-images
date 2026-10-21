@@ -199,6 +199,18 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = ["XCODE_INSTALL_STORAGE_URL=${var.xcode_install_storage_url}", "XCODE_INSTALL_SAS=${var.xcode_install_sas}", "IMAGE_FOLDER=${local.image_folder}"]
+    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
+    script           = "${path.root}/../scripts/build/Install-Xcode.ps1"
+  }
+
+  provisioner "shell" {
+    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
+    expect_disconnect = true
+    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
+  }
+
+  provisioner "shell" {
     environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
     pause_before     = "30s"
@@ -225,17 +237,6 @@ build {
     ]
   }
 
-  provisioner "shell" {
-    environment_vars = ["XCODE_INSTALL_STORAGE_URL=${var.xcode_install_storage_url}", "XCODE_INSTALL_SAS=${var.xcode_install_sas}", "IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
-    script           = "${path.root}/../scripts/build/Install-Xcode.ps1"
-  }
-
-  provisioner "shell" {
-    execute_command   = "source $HOME/.bash_profile; sudo {{ .Vars }} {{ .Path }}"
-    expect_disconnect = true
-    inline            = ["echo 'Reboot VM'", "shutdown -r now"]
-  }
 
   provisioner "shell" {
     environment_vars = ["API_PAT=${var.github_api_pat}", "IMAGE_FOLDER=${local.image_folder}"]
