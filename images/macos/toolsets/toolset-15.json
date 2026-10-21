@@ -211,7 +211,6 @@
     ],
     "brew": {
         "common_packages": [
-            "ant",
             "aria2",
             "azure-cli",
             "bazelisk",
