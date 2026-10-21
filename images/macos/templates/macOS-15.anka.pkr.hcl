@@ -199,6 +199,24 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
+    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
+    pause_before     = "30s"
+    scripts          = [
+      "${path.root}/../scripts/build/configure-windows.sh",
+      "${path.root}/../scripts/build/install-powershell.sh",
+      "${path.root}/../scripts/build/install-dotnet.sh",
+      "${path.root}/../scripts/build/install-python.sh",
+      "${path.root}/../scripts/build/install-azcopy.sh",
+      "${path.root}/../scripts/build/install-openssl.sh",
+      "${path.root}/../scripts/build/install-ruby.sh",
+      "${path.root}/../scripts/build/install-rubygems.sh",
+      "${path.root}/../scripts/build/install-git.sh",
+      "${path.root}/../scripts/build/install-node.sh"
+    ]
+  }
+
+  provisioner "shell" {
     environment_vars = ["XCODE_INSTALL_STORAGE_URL=${var.xcode_install_storage_url}", "XCODE_INSTALL_SAS=${var.xcode_install_sas}", "IMAGE_FOLDER=${local.image_folder}"]
     execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
     script           = "${path.root}/../scripts/build/Install-Xcode.ps1"
@@ -218,25 +236,6 @@ build {
       "${path.root}/../scripts/build/install-common-utils.sh"
     ]
   }
-
-  provisioner "shell" {
-    environment_vars = ["API_PAT=${var.github_api_pat}", "USER_PASSWORD=${var.vm_password}", "IMAGE_FOLDER=${local.image_folder}"]
-    execute_command  = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
-    pause_before     = "30s"
-    scripts          = [
-      "${path.root}/../scripts/build/configure-windows.sh",
-      "${path.root}/../scripts/build/install-powershell.sh",
-      "${path.root}/../scripts/build/install-dotnet.sh",
-      "${path.root}/../scripts/build/install-python.sh",
-      "${path.root}/../scripts/build/install-azcopy.sh",
-      "${path.root}/../scripts/build/install-openssl.sh",
-      "${path.root}/../scripts/build/install-ruby.sh",
-      "${path.root}/../scripts/build/install-rubygems.sh",
-      "${path.root}/../scripts/build/install-git.sh",
-      "${path.root}/../scripts/build/install-node.sh"
-    ]
-  }
-
 
   provisioner "shell" {
     environment_vars = ["API_PAT=${var.github_api_pat}", "IMAGE_FOLDER=${local.image_folder}"]
