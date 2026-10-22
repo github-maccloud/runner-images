@@ -144,6 +144,7 @@
     ],
     "brew": {
         "common_packages": [
+            "ant",
             "aria2",
             "azure-cli",
             "bazelisk",
@@ -153,7 +154,6 @@
             "gnupg",
             "gnu-tar",
             "kotlin",
-            "libpq",
             "libsodium",
             "p7zip",
             "packer",
