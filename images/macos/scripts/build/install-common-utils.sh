@@ -74,6 +74,18 @@ for package in $common_packages; do
                 brew_smart_install "$package"
             fi
             ;;
+        
+        libpq)
+            if ! is_Arm64; then
+                echo "[DEBUG] Workaround for libpq issue on Intel"
+                export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+                export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+                export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+                brew_smart_install "$package"
+            else
+                brew_smart_install "$package"
+            fi
+            ;;
 
         # Default behaviour for all other packages
         *)

@@ -144,6 +144,7 @@
     ],
     "brew": {
         "common_packages": [
+            "libpq",
             "ant",
             "aria2",
             "azure-cli",
