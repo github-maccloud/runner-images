@@ -82,13 +82,16 @@ for package in $common_packages; do
                 export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
                 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 
-                echo "[DEBUG] Pre-installing krb5 dependency for libpq"
+                echo "[DEBUG] Pre-installing dependencies for libpq"
                 COMMIT=4bf9dca5bfa519b9c8f6cd9d17f3f118ceb5daab
                 FILE_NAME="k/krb5.rb"
                 FORMULA_NAME="krb5"
                 brew_install_pinned_formula "$FORMULA_NAME" "$FILE_NAME" "$COMMIT"
 
-                brew_smart_install "$package"
+                brew_smart_install "docbook"
+                brew_smart_install "docbook-xsl"
+
+                brew install --ignore-dependencies "$package"
             else
                 brew_smart_install "$package"
             fi
