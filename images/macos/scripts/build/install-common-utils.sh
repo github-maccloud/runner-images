@@ -90,6 +90,7 @@ for package in $common_packages; do
 
                 brew_smart_install "docbook"
                 brew_smart_install "docbook-xsl"
+                brew_smart_install "icu4c"
 
                 brew install --ignore-dependencies "$package"
             else
