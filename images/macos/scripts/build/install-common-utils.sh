@@ -77,11 +77,6 @@ for package in $common_packages; do
         
         libpq)
             if ! is_Arm64; then
-                echo "[DEBUG] Workaround for libpq issue on Intel"
-                export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-                export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
-                export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
-
                 echo "[DEBUG] Pre-installing dependencies for libpq"
                 COMMIT=4bf9dca5bfa519b9c8f6cd9d17f3f118ceb5daab
                 FILE_NAME="k/krb5.rb"
