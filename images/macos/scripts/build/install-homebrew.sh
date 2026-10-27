@@ -37,19 +37,19 @@ brew_smart_install jq
 
 echo "Installing curl..."
 if ! is_Arm64; then
-    brew_smart_install ca-certificates
+    # brew_smart_install ca-certificates
 
     # For the Intel images curl dependency openssl@3 stopped to work, using pinned commit
     COMMIT=ac0bc95fef0e5aed25b3662f6271020410cfbc3d
     FILE_NAME="o/openssl@3.rb"
     FORMULA_NAME="openssl@3"
-    brew_install_pinned_formula "$FORMULA_NAME" "$FILE_NAME" "$COMMIT"
+    brew_install_pinned_formula "$FORMULA_NAME" "$FILE_NAME" "$COMMIT" 1
 
     # Pinning curl to bypass dropping Intel support
     COMMIT_CURL=bce3d09048e3cb6e0a9e75a49f79ec33e321f328
     FILE_NAME_CURL="c/curl.rb"
     FORMULA_NAME_CURL="curl"
-    brew_install_pinned_formula "$FORMULA_NAME_CURL" "$FILE_NAME_CURL" "$COMMIT_CURL"
+    brew_install_pinned_formula "$FORMULA_NAME_CURL" "$FILE_NAME_CURL" "$COMMIT_CURL" 1
 else
     brew_smart_install curl
 fi
