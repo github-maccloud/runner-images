@@ -88,11 +88,7 @@ for package in $common_packages; do
                 FORMULA_NAME="krb5"
                 brew_install_pinned_formula "$FORMULA_NAME" "$FILE_NAME" "$COMMIT"
 
-                brew_smart_install "docbook"
-                brew_smart_install "docbook-xsl"
-                brew_smart_install "icu4c"
-
-                brew install --ignore-dependencies "$package"
+                brew_smart_install "$package" 1
             else
                 brew_smart_install "$package"
             fi
