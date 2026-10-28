@@ -9,4 +9,7 @@ Describe "Git" {
     It "git lfs is installed" {
         "git lfs version" | Should -ReturnZeroExitCode
     }
+    It "git credential helper is disabled" {
+        (Get-CommandResult "git config --get credential.helper").Output | Should -BeNullOrEmpty
+    }
 }

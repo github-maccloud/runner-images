@@ -44,4 +44,12 @@ git config --global advice.detachedHead false
 git config --global advice.amWorkDir false
 git config --global advice.rmHints false
 
+# Homebrew and Xcode git enable the osxkeychain credential helper in their system config, so credentials
+# embedded in remote URLs are saved to the login keychain. Reading them later (e.g. xcodebuild resolving
+# Swift packages) shows a Keychain prompt that nobody can answer on a runner and the job hangs.
+# An empty value resets the list of credential helpers.
+# https://github.com/actions/runner-images/issues/13175
+echo "Disable the git credential helper..."
+git config --global credential.helper ""
+
 invoke_tests "Git"
